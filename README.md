@@ -12,10 +12,8 @@ see: http://brew.sh/
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-(if that hangs check your proxy settings)
 
-
-### Get MAC_SALT
+### Get mac-salt
 
 ```
 mkdir -p ~/dev

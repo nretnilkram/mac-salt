@@ -1,4 +1,4 @@
 #!/bin/bash
 
-
-sudo  -H -E salt-call --local --file-root=$HOME/dev/not_boxen/salt --pillar-root=$HOME/dev/not_boxen/pillar  $@
+MACSALT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+sudo  -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar  $@
