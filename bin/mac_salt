@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+sudo  -H -E salt-call --local --file-root=$HOME/dev/not_boxen/salt --pillar-root=$HOME/dev/not_boxen/pillar  $@
