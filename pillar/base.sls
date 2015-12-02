@@ -9,7 +9,9 @@ dns_masq_domains:
 brew_pkgs:
   - git
   - htop-osx
-  - node
   - wget
   - openssl
   - bash-completion
+
+node_pkgs:
+  - npm-check-updates

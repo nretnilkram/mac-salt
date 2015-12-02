@@ -4,3 +4,4 @@ include:
   - service.networking
   - service.dns
   - tools.vagrant
+  - tools.node
