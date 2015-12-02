@@ -1,14 +1,17 @@
 dns_masq_domains:
-  - cnr
   - dev
+  - cnsr
   - hubots-lair
   - compend.me
   - dev.cpdm.oraclecorp.com
-  - hc-beta.oraclecorp.com
   - saml.cpdm.oraclecorp.com
+  - test
+  - hubots-lair.cpdm.oraclecorp.com
 
 brew_pkgs:
   - git
   - htop-osx
   - node
   - wget
+  - openssl
+  - bash-completion

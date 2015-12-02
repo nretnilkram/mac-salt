@@ -45,6 +45,14 @@ dnsmasq_log_dir:
     - group: staff
     - mode : 755
 
+hosts_dnsmasq:
+  file.managed:
+    - name : /etc/hosts.dnsmasq
+    - source: salt://files/etc/hosts.dnsmasq
+    - user : root
+    - group: admin
+    - mode : 644
+
 dnsmasq_setup_service:
   cmd.run:
     - name: launchctl unload -w /Library/LaunchDaemons/dev.dnsmasq.plist; launchctl load -w /Library/LaunchDaemons/dev.dnsmasq.plist
