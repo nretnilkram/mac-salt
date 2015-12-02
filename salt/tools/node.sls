@@ -6,5 +6,7 @@ node:
 {{n}}:
   npm.installed: 
     - user: {{grains['user']}}
+    - require:
+      - pkg: node
 
 {% endfor %}
