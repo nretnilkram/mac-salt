@@ -7,8 +7,8 @@ which brew > /dev/null
 
 if  [ $? -ne 0 ]
 	then
-		echo "Install Homebrew first";
-		echo "http://brew.sh";
+		echo "Install Homebrew first"
+		echo "http://brew.sh"
 		exit 1
 fi
 
@@ -18,15 +18,19 @@ HOMEDIR=$HOME
 # Figure out where homebrew is installed
 HOMEBREWDIR="/usr/local"
 if [[ -e /opt/boxen/homebrew ]]; then
-	HOMEBREWDIR="/opt/boxen/homebrew";
+	HOMEBREWDIR="/opt/boxen/homebrew"
 fi
 
-echo "Using homebrew at $HOMEBREWDIR";
+echo "Username is $USERNAME"
+echo "Homedir is $HOMEDIR"
+echo "Using homebrew at $HOMEBREWDIR"
 echo ""
 echo "We (may) need your password to set up some stuff in /etc"
 cd /
 sudo sh -c "echo file_client: local > /etc/salt/minion"
-sudo sh -c 'echo "user: $USERNAME\nhomedir: $HOMEDIR\nhomebrew_home:\n$HOMEBREWDIR" > /etc/salt/grains'
+sudo sh -c "echo user: $USERNAME > /etc/salt/grains"
+sudo sh -c "echo homedir: $HOMEDIR >> /etc/salt/grains"
+sudo sh -c "echo homebrew_home: $HOMEBREWDIR >> /etc/salt/grains"
 
 #
 # Check for salt
@@ -58,7 +62,7 @@ if [ $HAS_SALT -ne 0 ]; then
 		echo ""
 		echo ""
 		echo "[Error]"
-		echo "Broken swig version detected ($SWIG_VERSION). Seek help installing salt";
+		echo "Broken swig version detected ($SWIG_VERSION). Seek help installing salt"
 		echo ""
 		echo "run 'brew edit saltstack'"
 		echo "change the dependency on 'swig' to 'swig304'"
@@ -74,5 +78,5 @@ echo "installation complete"
 echo ""
 echo "You may now run:"
 echo ""
-DIR=$(pwd -L)
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 echo "$DIR/bin/mac_salt state.highstate"

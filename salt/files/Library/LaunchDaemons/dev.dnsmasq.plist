@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-  <dict>
-    <key>Label</key>
-    <string>dev.dnsmasq</string>
+	<dict>
+		<key>Label</key>
+		<string>dev.dnsmasq</string>
 
-    <key>Not_Boxen</key>
-    <dict>
-      <key>Description</key>
-      <string>Redirects *.dev DNS requests to localhost.</string>
-    </dict>
+		<key>Not_Boxen</key>
+		<dict>
+			<key>Description</key>
+			<string>Redirects *.dev DNS requests to localhost.</string>
+		</dict>
 
-    <key>ProgramArguments</key>
-    <array>
-      <string>{{grains.get("homebrew_home","/usr/local")}}/sbin/dnsmasq</string>
-      <string>--conf-file=/etc/dnsmasq.conf</string>
-      <string>--keep-in-foreground</string>
-    </array>
+		<key>ProgramArguments</key>
+		<array>
+			<string>{{grains.get("homebrew_home","/usr/local")}}/sbin/dnsmasq</string>
+			<string>--conf-file=/etc/dnsmasq.conf</string>
+			<string>--keep-in-foreground</string>
+		</array>
 
-    <key>RunAtLoad</key>
-    <true />
+		<key>RunAtLoad</key>
+		<true />
 
-    <key>KeepAlive</key>
-    <dict>
-      <key>NetworkState</key>
-      <true/>
-    </dict>
+		<key>KeepAlive</key>
+		<dict>
+			<key>NetworkState</key>
+			<true/>
+		</dict>
 
-    <key>WorkingDirectory</key>
-    <string>/tmp</string>
+		<key>WorkingDirectory</key>
+		<string>/tmp</string>
 
-    <key>StandardErrorPath</key>
-    <string>/var/log/dnsmasq/console.log</string>
+		<key>StandardErrorPath</key>
+		<string>/var/log/dnsmasq/console.log</string>
 
-    <key>StandardOutPath</key>
-    <string>/var/log/dnsmasq/console.log</string>
-  </dict>
+		<key>StandardOutPath</key>
+		<string>/var/log/dnsmasq/console.log</string>
+	</dict>
 </plist>
