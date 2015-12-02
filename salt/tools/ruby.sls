@@ -1,6 +1,3 @@
-include:
-  - os.osx
-
 rbenv:
   pkg.installed
 

@@ -1,4 +1,5 @@
 include:
-  - service.cpdm.networking
+  - os.osx
+  - service.networking
   - service.dns
   - tools.vagrant

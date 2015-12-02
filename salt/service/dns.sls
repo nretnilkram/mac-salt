@@ -1,8 +1,5 @@
-
-
 dnsmasq:
   pkg.installed
-
 
 resolver_dir:
   file.directory:

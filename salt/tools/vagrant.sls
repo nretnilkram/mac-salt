@@ -18,3 +18,6 @@ vagrant_install:
     - unless : stat /usr/bin/vagrant
     - require:
       - cmd: mount_vagrant_volume
+
+vagrant-completion:
+  pkg.installed
