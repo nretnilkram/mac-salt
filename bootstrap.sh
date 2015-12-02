@@ -21,11 +21,8 @@ if [[ -e /opt/boxen/homebrew ]]; then
 	HOMEBREWDIR="/opt/boxen/homebrew"
 fi
 
-echo "Username is $USERNAME"
-echo "Homedir is $HOMEDIR"
 echo "Using homebrew at $HOMEBREWDIR"
 echo ""
-echo "We (may) need your password to set up some stuff in /etc"
 cd /
 sudo sh -c "echo file_client: local > /etc/salt/minion"
 sudo sh -c "echo user: $USERNAME > /etc/salt/grains"
@@ -51,7 +48,6 @@ fi
 
 if [ $HAS_SALT -ne 0 ]; then
 	echo ""
-	echo ""
 	echo "Installing Salt"
 
 	#
@@ -59,7 +55,6 @@ if [ $HAS_SALT -ne 0 ]; then
 	#
 	SWIG_VERSION=`brew info swig  | grep swig\: | cut -d " " -f 3`
 	if [ $SWIG_VERSION == "3.0.5" ]; then
-		echo ""
 		echo ""
 		echo "[Error]"
 		echo "Broken swig version detected ($SWIG_VERSION). Seek help installing salt"
