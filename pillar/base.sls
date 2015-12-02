@@ -15,3 +15,4 @@ brew_pkgs:
 
 node_pkgs:
   - npm-check-updates
+  - coffee-script
