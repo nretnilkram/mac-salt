@@ -1,5 +1,3 @@
-
-
 # MAC SALT
 
 # Installation
