@@ -1,6 +1,6 @@
 # MAC SALT
 
-# Installation
+## Installation
 
 
 ### Install Homebrew
@@ -22,7 +22,7 @@ git clone git@github.com:nretnilkram/mac_salt.git ~/dev/mac-salt
 ```
 
 
-# Running mac-salt
+## Running mac-salt
 
 I'll clean this up as I add some better profile support
 
