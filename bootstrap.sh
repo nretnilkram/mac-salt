@@ -21,6 +21,10 @@ if [[ -e /opt/boxen/homebrew ]]; then
 	HOMEBREWDIR="/opt/boxen/homebrew"
 fi
 
+if [ ! -d "/etc/salt" ]; then
+        sudo mkdir /etc/salt
+fi
+
 echo "Using homebrew at $HOMEBREWDIR"
 echo ""
 cd /
