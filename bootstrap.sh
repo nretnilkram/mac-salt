@@ -26,8 +26,7 @@ if [ ! -d "/etc/salt" ]; then
 fi
 
 echo "Using homebrew at $HOMEBREWDIR"
-echo ""
-cd /
+
 sudo sh -c "echo file_client: local > /etc/salt/minion"
 sudo sh -c "echo user: $USERNAME > /etc/salt/grains"
 sudo sh -c "echo homedir: $HOMEDIR >> /etc/salt/grains"
