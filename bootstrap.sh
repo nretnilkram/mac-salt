@@ -27,6 +27,7 @@ fi
 
 echo "Using homebrew at $HOMEBREWDIR"
 
+sudo sh -c "echo $USERNAME-cpdm > /etc/salt/minion_id"
 sudo sh -c "echo file_client: local > /etc/salt/minion"
 sudo sh -c "echo user: $USERNAME > /etc/salt/grains"
 sudo sh -c "echo homedir: $HOMEDIR >> /etc/salt/grains"
