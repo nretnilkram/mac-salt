@@ -1,5 +1,6 @@
 dns_masq_domains:
   - dev
+  - foo.bar.com
   - cnsr.com
   - compend.me
   - dev.cpdm.oraclecorp.com
