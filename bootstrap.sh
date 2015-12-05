@@ -25,6 +25,10 @@ if [ ! -d "/etc/salt" ]; then
         sudo mkdir /etc/salt
 fi
 
+if [ ! -d "/var/log/salt" ]; then
+        sudo mkdir /var/log/salt
+fi
+
 echo "Using homebrew at $HOMEBREWDIR"
 
 sudo sh -c "echo $USERNAME-cpdm > /etc/salt/minion_id"
