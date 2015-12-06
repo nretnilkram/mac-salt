@@ -33,5 +33,4 @@ I'll clean this up as I add some better profile support
 
 
 #### Trouble Shooting
-- If ruby fails due to readline extension make sure you have the correct os version. 
-- - May need to uninstall and reinstall if upgraded from previous version of osx.
+- If ruby fails due to readline extension make sure you have the correct os version. May need to uninstall and reinstall if upgraded from previous version of osx.
