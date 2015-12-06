@@ -14,10 +14,7 @@ mount_vagrant_volume:
 
 vagrant_install:
   cmd.run:
-    - name: installer -verboseR -pkg /Volumes/Vagrant/Vagrant.pkg -target /
+    - name: installer -verbose -pkg /Volumes/Vagrant/Vagrant.pkg -target /
     - unless : stat /usr/bin/vagrant
     - require:
       - cmd: mount_vagrant_volume
-
-vagrant-completion:
-  pkg.installed
