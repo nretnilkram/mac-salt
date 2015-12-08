@@ -7,7 +7,6 @@
 
 see: http://brew.sh/
 
-
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
@@ -18,16 +17,29 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 ```
 mkdir -p ~/dev
 git clone git@github.com:nretnilkram/mac_salt.git ~/dev/mac-salt
-~/dev/mac-salt/bootstrap.sh
+cd ~/dev/mac-salt
+./bootstrap.sh
 ```
 
 
 ## Running mac-salt
 
-I'll clean this up as I add some better profile support
+### Run the Full Suite
 
 ```
-~/dev/mac_salt/bin/mac_salt state.highstate
+bin/mac_salt state.highstate
+```
+
+
+### Run Single SLS
+
+```
+bin/mac_salt state.sls tools.ruby
+```
+or
+
+```
+bin/mac_salt state.sls services.dns
 ```
 
 

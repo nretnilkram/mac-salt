@@ -1,3 +1,3 @@
 include:
-  - service.networking
-  - service.dns
+  - services.networking
+  - services.dns

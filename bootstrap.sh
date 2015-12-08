@@ -22,11 +22,11 @@ if [[ -e /opt/boxen/homebrew ]]; then
 fi
 
 if [ ! -d "/etc/salt" ]; then
-        sudo mkdir /etc/salt
+	sudo mkdir /etc/salt
 fi
 
 if [ ! -d "/var/log/salt" ]; then
-        sudo mkdir /var/log/salt
+	sudo mkdir /var/log/salt
 fi
 
 echo "Using homebrew at $HOMEBREWDIR"
