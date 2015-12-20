@@ -13,6 +13,7 @@ brew_pkgs:
   - wget
   - openssl
   - bash-completion
+  - heroku-toolbelt
 
 node_pkgs:
   - npm-check-updates
