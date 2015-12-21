@@ -61,10 +61,11 @@ NC="\e[m"               # Color Reset
 
 #   Change Prompt
 #   ------------------------------------------------------------
-export GIT_PS1_SHOWSTASHSTATE=true
+# export GIT_PS1_SHOWSTASHSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GIT_PS1_SHOWDIRTYSTATE=true
-export GIT_PS1_SHOWUPSTREAM="auto"
+# export GIT_PS1_SHOWUPSTREAM="auto"
+export GIT_PS1_STATESEPARATOR=' '
 export PS1="${Green}--------------------------------------------------------\n${White}| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n|${Red}\$(__git_ps1) ${White}=> "
 # export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 export PS2="| => "
