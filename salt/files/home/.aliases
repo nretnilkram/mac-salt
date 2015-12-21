@@ -1,4 +1,4 @@
-alias mac_salt="{{grains['mac_salt_home']}}/mac-salt/bin/mac_salt"
+alias mac_salt="{{grains['mac_salt_home']}}/bin/mac_salt"
 
 # Directory shortcuts
 alias b="cd $HOME/dev/blog/application/trunk"

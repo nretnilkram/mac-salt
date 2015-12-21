@@ -5,6 +5,7 @@ bash_aliases:
     - user : {{grains['user']}}
     - group: staff
     - mode : 644
+    - template : jinja
 
 bash_profile:
   file.managed:
