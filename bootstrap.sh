@@ -29,6 +29,8 @@ if [ ! -d "/var/log/salt" ]; then
 	sudo mkdir /var/log/salt
 fi
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 echo "Using homebrew at $HOMEBREWDIR"
 
 sudo sh -c "echo $USERNAME-cpdm > /etc/salt/minion_id"
@@ -36,6 +38,7 @@ sudo sh -c "echo file_client: local > /etc/salt/minion"
 sudo sh -c "echo user: $USERNAME > /etc/salt/grains"
 sudo sh -c "echo homedir: $HOMEDIR >> /etc/salt/grains"
 sudo sh -c "echo homebrew_home: $HOMEBREWDIR >> /etc/salt/grains"
+sudo sh -c "echo mac_salt_home: $DIR >> /etc/salt/grains"
 
 #
 # Check for salt
@@ -81,5 +84,4 @@ echo "installation complete"
 echo ""
 echo "You may now run:"
 echo ""
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 echo "$DIR/bin/mac_salt state.highstate"

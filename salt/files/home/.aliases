@@ -1,2 +1,25 @@
-alias mac_salt="$HOME/mac-salt/bin/mac_salt"
-alias sand="cd ~/Dropbox/Sandbox"
+alias mac_salt="{{grains['mac_salt_home']}}/mac-salt/bin/mac_salt"
+
+# Directory shortcuts
+alias b="cd $HOME/dev/blog/application/trunk"
+alias p="cd $HOME/dev/padrino_api"
+alias s="cd $HOME/dev/shared"
+alias sys="cd $HOME/dev/systems"
+alias c="cd $HOME/dev/content_router"
+alias sand="cd $HOME/Dropbox/Sandbox"
+
+# csshX shortcuts
+alias csshx="csshX"
+alias csshx1="csshX -screen 1"
+alias csshx2="csshX -screen 2"
+alias csshx3="csshX -screen 3"
+
+# Tar shortcuts
+alias tarup="tar -cvzf"
+alias untar="tar -xvf"
+
+# Helpful Shortcuts
+alias pjt='python -mjson.tool'
+alias deploy_dev_to_test="ssh jenkins 'salt -N deploy cpdm.deploy blog=latest padrino_api=latest assets=latest channel=dev'"
+alias deploy_stage_to_test="ssh jenkins 'salt -N deploy cpdm.deploy blog=latest padrino_api=latest assets=latest channel=stage'"
+alias check_test_version="ssh jenkins 'salt -N deploy cpdm.versions'"
