@@ -61,14 +61,17 @@ NC="\e[m"               # Color Reset
 
 #   Change Prompt
 #   ------------------------------------------------------------
-export PS1="${Green}--------------------------------------------------------\n${White}| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n| => "
+export GIT_PS1_SHOWSTASHSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+export GIT_PS1_SHOWDIRTYSTATE=true
+export PS1="${Green}--------------------------------------------------------\n${White}| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n|${Red}\$(__git_ps1 ' (%s)') ${White}=> "
+# export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 export PS2="| => "
 
 #   Set Paths
 #   ------------------------------------------------------------
 export PATH="$PATH:/usr/local/bin/"
 export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 #   Set Default Editor (change 'vim' to the editor of your choice)
 #   ------------------------------------------------------------
