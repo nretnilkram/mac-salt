@@ -1,2 +1,2 @@
 alias mac_salt="$HOME/mac-salt/bin/mac_salt"
-alias sand='cd ~/Dropbox/Sandbox'
+alias sand="cd ~/Dropbox/Sandbox"
