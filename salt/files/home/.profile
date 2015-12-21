@@ -250,7 +250,7 @@ alias ttop="top -R -F -s 10 -o rsize"
 #   7.  NETWORKING
 #   ---------------------------
 
-alias myip='curl ip.appspot.com'                    # myip:         Public facing IP Address
+alias myip='curl ip.appspot.com ; echo'                    # myip:         Public facing IP Address
 alias netCons='lsof -i'                             # netCons:      Show all open TCP/IP sockets
 alias flushDNS='dscacheutil -flushcache'            # flushDNS:     Flush out the DNS Cache
 alias lsock='sudo /usr/sbin/lsof -i -P'             # lsock:        Display open sockets
@@ -264,14 +264,14 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
 #   ii:  display useful host related informaton
 #   -------------------------------------------------------------------
 ii() {
-    echo -e "\nYou are logged on ${Red}$HOST"
-    echo -e "\nAdditionnal information:$NC " ; uname -a
+    echo -e "\n${Red}You are logged on: $NC " ; hostname
+    echo -e "\n${Red}Additionnal information:$NC " ; uname -a
     echo -e "\n${Red}Users logged on:$NC " ; w -h
     echo -e "\n${Red}Current date :$NC " ; date
     echo -e "\n${Red}Machine stats :$NC " ; uptime
     echo -e "\n${Red}Current network location :$NC " ; scselect
     echo -e "\n${Red}Public facing IP Address :$NC " ; myip
-    #echo -e "\n${Red}DNS Configuration:$NC " ; scutil --dns
+    echo -e "\n${Red}DNS Configuration:$NC " ; scutil --dns
     echo
 }
 
