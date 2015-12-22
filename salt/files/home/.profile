@@ -13,6 +13,7 @@
 #  8.   System Operations & Information
 #  9.   Web Development
 #  10.  Reminders & Notes
+#  11.  Useful Functions
 #
 #  ---------------------------------------------------------------------------
 
@@ -243,7 +244,8 @@ alias ttop="top -R -F -s 10 -o rsize"
 
 #   my_ps: List processes owned by my user:
 #   ------------------------------------------------------------
-    my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
+my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
+
 
 
 #   ---------------------------
@@ -276,6 +278,7 @@ ii() {
 }
 
 
+
 #   ---------------------------------------
 #   8.  SYSTEMS OPERATIONS & INFORMATION
 #   ---------------------------------------
@@ -300,6 +303,8 @@ alias cleanupLS="/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 #   -----------------------------------------------------------------------------------
 alias screensaverDesktop='/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine -background'
 
+
+
 #   ---------------------------------------
 #   9.  WEB DEVELOPMENT
 #   ---------------------------------------
@@ -314,6 +319,7 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grab
 #   httpDebug:  Download a web page and show info on what took time
 #   -------------------------------------------------------------------
 httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
+
 
 
 #   ---------------------------------------
@@ -347,11 +353,12 @@ httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect
 #   then use: ~/Dev/Perl/randBytes 1048576 > 10MB.dat
 
 
+
 #   ---------------------------------------
 #   11.  USEFUL FUNCTIONS
 #   ---------------------------------------
 
-#   ngit:  Push to git using nretnilkram ssh key
+#   sshgit:  Push to git using an ssh key
 #   -------------------------------------------------------------------
 sshgit() {
     if [ $# -eq 0 ]; then
