@@ -361,10 +361,10 @@ sshgit() {
         "
         exit 1
     fi
-     
+
     # remove temporary file on exit
     trap 'rm -f /tmp/.git_ssh.$$' 0
-     
+
     if [ "$1" = "-i" ]; then
         ssh-add $2
         SSH_KEY=$2; shift; shift
@@ -372,10 +372,10 @@ sshgit() {
         chmod +x /tmp/.git_ssh.$$
         export GIT_SSH=/tmp/.git_ssh.$$
     fi
-     
+
     # in case the git command is repeated
     [ "$1" = "git" ] && shift
-     
+
     # Run the git command
     git "$@"
 }
