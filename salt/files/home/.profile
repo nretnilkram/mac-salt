@@ -351,16 +351,37 @@ httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect
 #   11.  USEFUL FUNCTIONS
 #   ---------------------------------------
 
-gitn(){
+#   ngit:  Push to git using nretnilkram ssh key
+#   -------------------------------------------------------------------
+sshgit() {
+    if [ $# -eq 0 ]; then
+        echo "Git wrapper script that can specify an ssh-key file
+    Usage:
+        sshgit -i ssh-key-file git-command
+        "
+        exit 1
+    fi
+     
+    # remove temporary file on exit
     trap 'rm -f /tmp/.git_ssh.$$' 0
-    SSH_KEY="~/.ssh/id_nretnilkram_rsa"
-    echo "ssh -i $SSH_KEY \$@" > /tmp/.git_ssh.$$
-    chmod +x /tmp/.git_ssh.$$
-    export GIT_SSH=/tmp/.git_ssh.$$
+     
+    if [ "$1" = "-i" ]; then
+        ssh-add $2
+        SSH_KEY=$2; shift; shift
+        echo "ssh -i $SSH_KEY \$@" > /tmp/.git_ssh.$$
+        chmod +x /tmp/.git_ssh.$$
+        export GIT_SSH=/tmp/.git_ssh.$$
+    fi
+     
+    # in case the git command is repeated
     [ "$1" = "git" ] && shift
+     
+    # Run the git command
     git "$@"
 }
 
+#   update:  Update brew packages and gems
+#   -------------------------------------------------------------------
 update() {
     local brew="brew update; brew upgrade;"
     local gem="gem update;"
