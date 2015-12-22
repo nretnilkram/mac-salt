@@ -345,3 +345,24 @@ httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect
 #   e.g.: hdiutil create -size 10m 10MB.dmg
 #   the above create files that are almost all zeros - if random bytes are desired
 #   then use: ~/Dev/Perl/randBytes 1048576 > 10MB.dat
+
+
+#   ---------------------------------------
+#   11.  USEFUL FUNCTIONS
+#   ---------------------------------------
+
+gitn(){
+    trap 'rm -f /tmp/.git_ssh.$$' 0
+    SSH_KEY="~/.ssh/id_nretnilkram_rsa"
+    echo "ssh -i $SSH_KEY \$@" > /tmp/.git_ssh.$$
+    chmod +x /tmp/.git_ssh.$$
+    export GIT_SSH=/tmp/.git_ssh.$$
+    [ "$1" = "git" ] && shift
+    git "$@"
+}
+
+update() {
+    local brew="brew update; brew upgrade;"
+    local gem="gem update;"
+    sh -c $brew; sudo sh -c $gem
+}
