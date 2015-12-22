@@ -391,6 +391,6 @@ Usage:
 #   -------------------------------------------------------------------
 update() {
     brew update
-    brew upgrade
+    brew upgrade --all
     sudo gem update
 }
