@@ -390,7 +390,7 @@ Usage:
 #   update:  Update brew packages and gems
 #   -------------------------------------------------------------------
 update() {
-    local brew="brew update; brew upgrade;"
-    local gem="gem update;"
-    sh -c $brew; sudo sh -c $gem
+    brew update
+    brew upgrade
+    sudo gem update
 }
