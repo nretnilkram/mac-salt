@@ -362,11 +362,11 @@ httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect
 #   -------------------------------------------------------------------
 sshgit() {
     if [ $# -eq 0 ]; then
-        echo "Git wrapper script that can specify an ssh-key file
-    Usage:
-        sshgit -i ssh-key-file git-command
+        echo "Git wrapper script that allows you to specify an ssh-key file
+Usage:
+    sshgit -i ssh-key-file git-command
         "
-        exit 1
+        return 1
     fi
 
     # remove temporary file on exit
