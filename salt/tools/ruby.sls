@@ -15,7 +15,7 @@ ruby-build:
 
 current-ruby:
   rbenv.installed:
-    - name: 2.2.3
+    - name: {{ pillar.get("ruby_version") }}
     - default: True
     - user: {{grains['user']}}
     - require:
@@ -24,3 +24,12 @@ current-ruby:
       - pkg: libyaml
       - pkg: libffi
       - pkg: readline
+
+{% for n in pillar.get("gems") %}
+
+{{n}}_gem_install:
+  gem.installed:
+    - name: {{n}}
+    - ruby: {{ pillar.get("ruby_version") }}
+
+{% endfor %}

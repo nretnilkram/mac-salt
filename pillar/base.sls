@@ -1,3 +1,11 @@
+brew_pkgs:
+  - git
+  - htop-osx
+  - wget
+  - openssl
+  - bash-completion
+  - heroku-toolbelt
+
 dns_masq_domains:
   - dev
   - foo.bar.com
@@ -7,14 +15,11 @@ dns_masq_domains:
   - saml.cpdm.oraclecorp.com
   - hubots-lair.com
 
-brew_pkgs:
-  - git
-  - htop-osx
-  - wget
-  - openssl
-  - bash-completion
-  - heroku-toolbelt
+gems:
+  - bundler
 
 node_pkgs:
   - npm-check-updates
   - coffee-script
+
+ruby_version: 2.2.3
