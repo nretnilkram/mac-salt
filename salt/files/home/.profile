@@ -252,7 +252,7 @@ my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
 #   7.  NETWORKING
 #   ---------------------------
 
-alias myip='curl ip.appspot.com ; echo'                    # myip:         Public facing IP Address
+alias myip='curl ip.appspot.com ; echo'             # myip:         Public facing IP Address
 alias netCons='lsof -i'                             # netCons:      Show all open TCP/IP sockets
 alias flushDNS='dscacheutil -flushcache'            # flushDNS:     Flush out the DNS Cache
 alias lsock='sudo /usr/sbin/lsof -i -P'             # lsock:        Display open sockets
