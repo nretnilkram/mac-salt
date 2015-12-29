@@ -390,9 +390,9 @@ Usage:
 #   update:  Update brew packages and gems
 #   -------------------------------------------------------------------
 update() {
-    sudo echo "Brew Updates..."
-    brew update
-    brew upgrade --all
-    echo "Gem Updates..."
+    sudo echo "Brew Updates..." && \
+    brew update && \
+    brew upgrade --all && \
+    echo "Gem Updates..." && \
     sudo gem update
 }
