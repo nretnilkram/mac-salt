@@ -5,7 +5,7 @@ log = logging.getLogger(__name__)
 
 def test():
   ''' Module Exitence Test '''
-  log.info("Test Exists")
+  log.info("do.test exists")
   return True
 
 def update():
@@ -14,7 +14,7 @@ def update():
   current_directory = os.getcwd()
   log.info(current_directory)
   log.info( __salt__['git.pull'](current_directory) )
-  return "Salt Config Updated"
+  log.info( "Salt Config Updated" )
 
 __outputter__ = {
   'update': 'txt'
