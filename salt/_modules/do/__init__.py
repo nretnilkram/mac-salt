@@ -6,14 +6,16 @@ log = logging.getLogger(__name__)
 def test():
   ''' Module Exitence Test '''
   log.info("Test Exists")
+  return True
 
 def update():
-  ''' Update local Salt Code '''
+  ''' Update local Salt Config '''
   log.info("Updating Salt Config")
   current_directory = os.getcwd()
   log.info(current_directory)
-  return __salt__['cmd.run']("cd " + current_directory + " && git pull")
+  log.info( __salt__['git.pull'](current_directory) )
+  return "Salt Config Updated"
 
 __outputter__ = {
-  'udpate': 'txt'
+  'update': 'txt'
   }
