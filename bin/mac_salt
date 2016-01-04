@@ -1,4 +1,9 @@
 #!/bin/bash
 
 MACSALT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-sudo -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@
+if [ $@ = "update" ]; then
+	cd $MACSALT/..
+	git pull
+else
+	sudo -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@
+fi

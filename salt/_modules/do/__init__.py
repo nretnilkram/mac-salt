@@ -11,9 +11,7 @@ def test():
 def update():
   ''' Update local Salt Config '''
   log.info("Updating Salt Config")
-  current_directory = os.getcwd()
-  log.info(current_directory)
-  log.info( __salt__['git.pull'](current_directory) )
+  log.info( __salt__['git.pull'](__grains__['mac_salt_home']) )
   log.info( "Salt Config Updated" )
 
 __outputter__ = {
