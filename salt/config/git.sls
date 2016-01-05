@@ -33,6 +33,13 @@ git_status_alias:
     - value : status
     - user : {{grains['user']}}
 
+git_upll_alias:
+  git.config_set:
+    - global : True
+    - name : alias.upll
+    - value : pull
+    - user : {{grains['user']}}
+
 git_autosetuprebase:
   git.config_set:
     - global : True
