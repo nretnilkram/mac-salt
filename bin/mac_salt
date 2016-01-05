@@ -1,7 +1,8 @@
 #!/bin/bash
 
 MACSALT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-if [ $@ = "update" ]; then
+ARGCOUNT=`wc -w <<< $@`
+if [ $ARGCOUNT -lt 2 ] && [ $@ = "update" ]; then
 	cd $MACSALT/..
 	git pull
 else
