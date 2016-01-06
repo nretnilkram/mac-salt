@@ -66,8 +66,11 @@ if [ -f ~/.aliases ]; then
 	source ~/.aliases
 fi
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if [[ -d "$HOME/.rbenv" ]] ; then
+	export PATH="$HOME/.rbenv/bin:$PATH"
+	eval "$(rbenv init -)";
+	export RBENV_ROOT=$(rbenv root)
+fi
 ```
 
 
