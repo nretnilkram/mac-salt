@@ -1,6 +1,9 @@
-alias mac_salt="{{grains['mac_salt_home']}}/bin/mac_salt"
-alias mac-salt="{{grains['mac_salt_home']}}/bin/mac_salt"
-alias salt-local="{{grains['mac_salt_home']}}/bin/mac_salt"
+MACSALTPATH="{{grains['mac_salt_home']}}/bin/mac_salt"
+alias mac_salt=$MACSALTPATH
+alias mac-salt=$MACSALTPATH
+alias macsalt=$MACSALTPATH
+alias ms=$MACSALTPATH
+alias salt-local=$MACSALTPATH
 
 # Directory shortcuts
 alias b="cd $HOME/dev/blog/application/trunk"
@@ -23,6 +26,3 @@ alias untar="tar -xvf"
 
 # Helpful Shortcuts
 alias pjt='python -mjson.tool'
-alias deploy_dev_to_test="ssh jenkins 'salt -N deploy cpdm.deploy blog=latest padrino_api=latest assets=latest channel=dev'"
-alias deploy_stage_to_test="ssh jenkins 'salt -N deploy cpdm.deploy blog=latest padrino_api=latest assets=latest channel=stage'"
-alias check_test_version="ssh jenkins 'salt -N deploy cpdm.versions'"

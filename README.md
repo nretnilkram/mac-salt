@@ -75,10 +75,10 @@ fi
 
 
 ### Aliased commands for running the MAC SALT stack (all added in .aliases):
-mac_salt, mac-salt, salt-local, or bin/mac_salt (from the mac-salt directory)
+mac_salt, mac-salt, macsalt, ms, salt-local, or bin/mac_salt (from the mac-salt directory)
 
 ```
-mac_salt state.highstate
+ms state.highstate
 ```
 or
 ```
@@ -89,7 +89,7 @@ salt-local state.sls config.git
 ### Update MAC SALT
 
 ```
-mac-salt update
+ms update
 ```
 or with the additional module
 ```
