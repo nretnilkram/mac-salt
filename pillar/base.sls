@@ -2,7 +2,6 @@ brew_pkgs:
   - git
   - htop-osx
   - wget
-  - openssl
   - bash-completion
   - heroku-toolbelt
 

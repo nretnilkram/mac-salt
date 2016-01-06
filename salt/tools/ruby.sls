@@ -7,11 +7,28 @@ libffi:
 readline:
   pkg.installed
 
+openssl:
+  pkg.installed
+
 rbenv:
   pkg.installed
 
 ruby-build:
   pkg.installed
+
+rbenv-default-gems:
+  pkg.installed
+
+default-gems:
+  file.managed:
+    - name : {{grains['homedir']}}/.rbenv/default-gems
+    - source: salt://files/home/rbenv/default-gems
+    - user : {{grains['user']}}
+    - group: staff
+    - mode : 644
+    - require:
+      - pkg: rbenv
+      - pkg: rbenv-default-gems
 
 current-ruby:
   rbenv.installed:
