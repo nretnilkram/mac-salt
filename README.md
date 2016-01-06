@@ -63,6 +63,9 @@ fi
 if [ -f ~/.profile ]; then
 	source ~/.profile
 fi
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 ```
 
 
