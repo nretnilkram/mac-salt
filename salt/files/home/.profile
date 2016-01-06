@@ -91,6 +91,24 @@ export BLOCKSIZE=1k
 #   export CLICOLOR=1
 #   export LSCOLORS=ExFxBxDxCxegedabagacad
 
+#   Bash History Setup
+HISTSIZE=10000
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignorespace:ignoredups
+
+history() {
+  _bash_history_sync
+  builtin history "$@"
+}
+
+_bash_history_sync() {
+  builtin history -a              #1
+  export HISTFILESIZE=$HISTSIZE   #2
+  builtin history -c              #3
+  builtin history -r              #4
+}
+
+export PROMPT_COMMAND=_bash_history_sync
 
 
 #   -----------------------------
