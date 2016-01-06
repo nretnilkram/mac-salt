@@ -52,7 +52,7 @@ On_Purple='\033[45m'      # Purple
 On_Cyan='\033[46m'        # Cyan
 On_White='\033[47m'       # White
 
-NC="\033[m"               # Color Reset
+NC='\033[m'               # Color Reset
 
 
 
@@ -67,9 +67,12 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GIT_PS1_SHOWDIRTYSTATE=true
 # export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_STATESEPARATOR=' '
-export PS1="\n${Green}--------------------------------------------------------\n${White}| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n|${Yellow}\$(__git_ps1 "[%s]") ${White}=> "
-# export PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
-export PS2="| => "
+export PS1="\n${Green}--------------------------------------------------------\n${White}| \d \t \n| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n|${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}"
+# export PS1="\n${Green}--------------------------------------------------------\n${White}| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n|${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}"
+# export PS1="\n${Red}\u${White}@${Cyan}\h ${Purple}\w\n${Yellow}\$(__git_ps1 "[%s]")${White}=> ${NC}"
+# export PS1="\n${Red}\u${White}@${Cyan}\h ${Purple}\W ${Yellow}\$(__git_ps1 "[%s]")${White}=> ${NC}"
+export PS2="| => ${NC}"
+# export PS2="=> ${NC}"
 
 #   Set Paths
 #   ------------------------------------------------------------
