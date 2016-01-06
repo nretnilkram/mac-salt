@@ -1,0 +1,12 @@
+###
+#
+# This file contains a list of gems that will be install whenever a new ruby version is installed with rbenv
+# ex:
+#
+# bundler
+# bcat ~>0.6
+# rails --pre
+#
+###
+
+bundler
