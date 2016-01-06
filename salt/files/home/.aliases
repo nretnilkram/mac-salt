@@ -8,6 +8,7 @@ alias p="cd $HOME/dev/padrino_api"
 alias s="cd $HOME/dev/shared"
 alias sys="cd $HOME/dev/systems"
 alias c="cd $HOME/dev/content_router"
+alias i="cd $HOME/dev/image_manager"
 alias sand="cd $HOME/Dropbox/Sandbox"
 
 # csshX shortcuts
