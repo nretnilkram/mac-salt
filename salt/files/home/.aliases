@@ -1,4 +1,5 @@
 alias mac_salt="{{grains['mac_salt_home']}}/bin/mac_salt"
+alias mac-salt="{{grains['mac_salt_home']}}/bin/mac_salt"
 alias salt-local="{{grains['mac_salt_home']}}/bin/mac_salt"
 
 # Directory shortcuts

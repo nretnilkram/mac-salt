@@ -1,23 +1,10 @@
-libyaml:
-  pkg.installed
+{% for n in pillar.get("ruby_pkgs") %}
 
-libffi:
-  pkg.installed
+{{n}}_brew_install:
+  pkg.installed:
+    - name: {{n}}
 
-readline:
-  pkg.installed
-
-openssl:
-  pkg.installed
-
-rbenv:
-  pkg.installed
-
-ruby-build:
-  pkg.installed
-
-rbenv-default-gems:
-  pkg.installed
+{% endfor %}
 
 default-gems:
   file.managed:

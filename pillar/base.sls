@@ -14,6 +14,15 @@ dns_masq_domains:
   - saml.cpdm.oraclecorp.com
   - hubots-lair.com
 
+ruby_pkgs:
+  - libyaml
+  - libffi
+  - readline
+  - openssl
+  - rbenv
+  - ruby-build
+  - rbenv-default-gems
+
 gems:
   - bundler
 
