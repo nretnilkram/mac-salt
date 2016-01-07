@@ -47,29 +47,11 @@ bin/mac_salt state.sls services.dns
 
 ### Update Bash Profile
 
-MAC SALT will add the files to your home directory, but you will need to tell your bash_profile to source the files. Aliases in .aliases file will override any of the same in .profile.
+MAC SALT will add the files to your home directory, but you will need to tell your bash_profile to source .mac_salt, which sources all the others.
 
 ```
-if [ -f ~/.git-completion.bash ]; then
-	source ~/.git-completion.bash
-fi
-
-if [ -f ~/.git-prompt.sh ]; then
-	source ~/.git-prompt.sh
-fi
-
-if [ -f ~/.profile ]; then
-	source ~/.profile
-fi
-
-if [ -f ~/.aliases ]; then
-	source ~/.aliases
-fi
-
-if [[ -d "$HOME/.rbenv" ]] ; then
-	export PATH="$HOME/.rbenv/bin:$PATH"
-	eval "$(rbenv init -)";
-	export RBENV_ROOT=$(rbenv root)
+if [ -f ~/.mac_salt ]; then
+	source ~/.mac_salt
 fi
 ```
 

@@ -38,3 +38,21 @@ bash_git_prompt:
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
+
+bash_functions:
+  file.managed:
+    - name: {{grains['homedir']}}/.functions
+    - source: salt://files/home/.functions
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+    - template: jinja
+
+bash_mac_salt:
+  file.managed:
+    - name: {{grains['homedir']}}/.mac_salt
+    - source: salt://files/home/.mac_salt
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+    - template: jinja
