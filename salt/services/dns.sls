@@ -4,9 +4,9 @@ dnsmasq:
 resolver_dir:
   file.directory:
     - name: /etc/resolver
-    - user : root
+    - user: root
     - group: admin
-    - mode : 644
+    - mode: 644
     - require:
       - pkg: dnsmasq
 
@@ -17,41 +17,41 @@ resolver_dir:
     - name: /etc/resolver/{{n}}
     - source: salt://files/etc/resolver/resolver.template
     - require:
-      - file : resolver_dir
+      - file: resolver_dir
 
 {% endfor %}
 
 dns_masq_conf:
   file.managed:
-    - name : /etc/dnsmasq.conf
+    - name: /etc/dnsmasq.conf
     - source: salt://files/etc/dnsmasq.conf
-    - user : root
+    - user: root
     - group: admin
-    - mode : 644
+    - mode: 644
 
 dev_dnsmasq_plist:
   file.managed:
-    - name : /Library/LaunchDaemons/dev.dnsmasq.plist
+    - name: /Library/LaunchDaemons/dev.dnsmasq.plist
     - source: salt://files/Library/LaunchDaemons/dev.dnsmasq.plist
-    - user : root
+    - user: root
     - template: jinja
     - group: admin
-    - mode : 644
+    - mode: 644
 
 dnsmasq_log_dir:
   file.directory:
     - name: /var/log/dnsmasq/
-    - user : nobody
+    - user: nobody
     - group: staff
-    - mode : 755
+    - mode: 755
 
 hosts_dnsmasq:
   file.managed:
-    - name : /etc/hosts.dnsmasq
+    - name: /etc/hosts.dnsmasq
     - source: salt://files/etc/hosts.dnsmasq
-    - user : root
+    - user: root
     - group: admin
-    - mode : 644
+    - mode: 644
 
 dnsmasq_setup_service:
   cmd.run:

@@ -4,7 +4,6 @@ brew_pkgs:
   - wget
   - bash-completion
   - heroku-toolbelt
-  - mysql
 
 dns_masq_domains:
   - dev

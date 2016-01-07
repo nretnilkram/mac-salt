@@ -8,11 +8,11 @@
 
 default-gems:
   file.managed:
-    - name : {{grains['homedir']}}/.rbenv/default-gems
+    - name: {{grains['homedir']}}/.rbenv/default-gems
     - source: salt://files/home/rbenv/default-gems
-    - user : {{grains['user']}}
+    - user: {{grains['user']}}
     - group: staff
-    - mode : 644
+    - mode: 644
     - require:
       - pkg: rbenv
       - pkg: rbenv-default-gems
