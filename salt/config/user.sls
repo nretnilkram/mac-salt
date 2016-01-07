@@ -1,3 +1,10 @@
+/usr/local:
+  file.directory:
+    - user : {{grains['user']}}
+    - group: admin
+    - mode: 755
+    - makedirs: False
+
 bash_aliases:
   file.managed:
     - name: {{grains['homedir']}}/.aliases

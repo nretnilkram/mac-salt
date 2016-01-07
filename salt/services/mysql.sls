@@ -11,7 +11,7 @@ mysql_plist:
     - require: 
       - pkg: mysql
 
-msyql_setup_service:
+mysql_setup_service:
   cmd.run:
     - name: launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.mysql.plist; launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.mysql.plist
     - user: root
