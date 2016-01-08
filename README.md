@@ -83,4 +83,7 @@ mac-salt do.update
 
 #### Trouble Shooting
 - If ruby fails due to readline extension make sure you have the correct os version. May need to uninstall and reinstall if upgraded from previous version of osx.
+- If you have issues with mysql there could be permission issues with the working dir. I have not found a perfect solution for all environments, but these have worked on some.  Try one at a time.
+- - sudo chown -R _mysql /usr/local/var/mysql
+- - sudo chmod -R o+rwx /usr/local/var/mysql
 
