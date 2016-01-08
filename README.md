@@ -1,5 +1,7 @@
 # MAC SALT
 
+Sets up and configures tools and services such as bash, mysql, node, dnsmasq, ruby, vagrant, and git.
+
 ## Installation
 
 
