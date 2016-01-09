@@ -1,3 +1,15 @@
+remove_mac_salt_file:
+  file.absent:
+    - name: {{grains['homedir']}}/.mac_salt
+
+create_mac_salt_dir:
+  file.directory:
+    - name: {{grains['homedir']}}/.mac_salt
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 755
+    - makedirs: True
+
 /usr/local:
   file.directory:
     - user : {{grains['user']}}
@@ -7,8 +19,8 @@
 
 bash_aliases:
   file.managed:
-    - name: {{grains['homedir']}}/.aliases
-    - source: salt://files/home/.aliases
+    - name: {{grains['homedir']}}/.mac_salt/.aliases
+    - source: salt://files/home/.mac_salt/.aliases
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
@@ -16,8 +28,8 @@ bash_aliases:
 
 bash_profile:
   file.managed:
-    - name: {{grains['homedir']}}/.profile
-    - source: salt://files/home/.profile
+    - name: {{grains['homedir']}}/.mac_salt/.profile
+    - source: salt://files/home/.mac_salt/.profile
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
@@ -32,33 +44,33 @@ bash_bash_sessions_disable:
 
 bash_git_completion:
   file.managed:
-    - name: {{grains['homedir']}}/.git-completion.bash
-    - source: salt://files/home/.git-completion.bash
+    - name: {{grains['homedir']}}/.mac_salt/.git-completion.bash
+    - source: salt://files/home/.mac_salt/.git-completion.bash
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
 
 bash_git_prompt:
   file.managed:
-    - name: {{grains['homedir']}}/.git-prompt.sh
-    - source: salt://files/home/.git-prompt.sh
+    - name: {{grains['homedir']}}/.mac_salt/.git-prompt.sh
+    - source: salt://files/home/.mac_salt/.git-prompt.sh
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
 
 bash_functions:
   file.managed:
-    - name: {{grains['homedir']}}/.functions
-    - source: salt://files/home/.functions
+    - name: {{grains['homedir']}}/.mac_salt/.functions
+    - source: salt://files/home/.mac_salt/.functions
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
     - template: jinja
 
-bash_mac_salt:
+bash_config:
   file.managed:
-    - name: {{grains['homedir']}}/.mac_salt
-    - source: salt://files/home/.mac_salt
+    - name: {{grains['homedir']}}/.mac_salt/.bash_config
+    - source: salt://files/home/.mac_salt/.bash_config
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
