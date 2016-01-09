@@ -1,10 +1,23 @@
 #!/bin/bash
 
 MACSALT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-ARGCOUNT=`wc -w <<< $@`
-if [ $ARGCOUNT -lt 2 ] && [ $@ = "update" ]; then
-	cd $MACSALT/..
-	git pull
-else
-	sudo -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@
-fi
+
+case $@ in
+	bootstrap)
+		$MACSALT/../bootstrap.sh
+		;;
+	help)
+		echo "Add the following to .bash_profile or .bashrc to source the MAC SALT bash configuration: "
+		echo ""
+		echo "if [ -f ~/.mac_salt/.bash_config ]; then"
+		echo "	source ~/.mac_salt/.bash_config"
+		echo "fi"
+		;;
+	update)
+		cd $MACSALT/..
+		git pull
+		;;
+	*)
+		$MACSALT/../bootstrap.sh silent
+		sudo -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@
+esac

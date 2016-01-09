@@ -31,7 +31,15 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-echo "Using homebrew at $HOMEBREWDIR"
+MACSALTFILEEXISTS=true
+
+if [ -d "$HOMEDIR/.mac_salt" ]; then
+	MACSALTFILEEXISTS=false
+fi
+
+if [[ $@ != "silent" ]]; then
+	echo "Using homebrew at $HOMEBREWDIR"
+fi
 
 sudo sh -c "echo $USERNAME-cpdm > /etc/salt/minion_id"
 sudo sh -c "echo file_client: local > /etc/salt/minion"
@@ -39,6 +47,7 @@ sudo sh -c "echo user: $USERNAME > /etc/salt/grains"
 sudo sh -c "echo homedir: $HOMEDIR >> /etc/salt/grains"
 sudo sh -c "echo homebrew_home: $HOMEBREWDIR >> /etc/salt/grains"
 sudo sh -c "echo mac_salt_home: $DIR >> /etc/salt/grains"
+sudo sh -c "echo mac_salt_file_exists: $MACSALTFILEEXISTS >> /etc/salt/grains"
 
 #
 # Check for salt
@@ -47,7 +56,7 @@ sudo sh -c "echo mac_salt_home: $DIR >> /etc/salt/grains"
 which salt-call > /dev/null
 HAS_SALT=$?
 
-if [ $HAS_SALT -eq 0 ]; then
+if [ $HAS_SALT -eq 0 ] && [[ $@ != "silent" ]]; then
 	echo ""
 	echo "Salt already installed"
 	echo ""
@@ -80,8 +89,12 @@ if [ $HAS_SALT -ne 0 ]; then
 	brew install saltstack
 fi
 
-echo "installation complete"
-echo ""
-echo "You may now run:"
-echo ""
-echo "$DIR/bin/mac_salt state.highstate"
+if [[ $@ != "silent" ]]; then
+
+	echo "installation complete"
+	echo ""
+	echo "You may now run:"
+	echo ""
+	echo "$DIR/bin/mac_salt state.highstate"
+
+fi

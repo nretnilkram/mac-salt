@@ -1,13 +1,16 @@
+{% if grains['mac_salt_file_exists'] %}
 remove_mac_salt_file:
   file.absent:
     - name: {{grains['homedir']}}/.mac_salt
+    - 
+{% endif %}
 
 create_mac_salt_dir:
   file.directory:
     - name: {{grains['homedir']}}/.mac_salt
     - user: {{grains['user']}}
     - group: staff
-    - mode: 755
+    - mode: 644
     - makedirs: True
 
 /usr/local:

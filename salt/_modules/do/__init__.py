@@ -8,6 +8,10 @@ def test():
   log.info("do.test exists")
   return True
 
+def help():
+  ''' Output what needs to go into bash profile '''
+  log.info("\nAdd the following to .bash_profile or .bashrc to source the MAC SALT bash configuration:\n\nif [ -f ~/.mac_salt/.bash_config ]; then \n\tsource ~/.mac_salt/.bash_config\nfi")
+
 def update():
   ''' Update local Salt Config '''
   log.info("Updating Salt Config")

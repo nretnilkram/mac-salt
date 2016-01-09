@@ -1,21 +1,23 @@
-if [ -f .git-completion.bash ]; then
-	source .git-completion.bash
+CONFIGDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+if [ -f $CONFIGDIR/.git-completion.bash ]; then
+	source $CONFIGDIR/.git-completion.bash
 fi
 
-if [ -f .git-prompt.sh ]; then
-	source .git-prompt.sh
+if [ -f $CONFIGDIR/.git-prompt.sh ]; then
+	source $CONFIGDIR/.git-prompt.sh
 fi
 
-if [ -f .profile ]; then
-	source .profile
+if [ -f $CONFIGDIR/.profile ]; then
+	source $CONFIGDIR/.profile
 fi
 
-if [ -f .aliases ]; then
-	source .aliases
+if [ -f $CONFIGDIR/.aliases ]; then
+	source $CONFIGDIR/.aliases
 fi
 
-if [ -f .functions ]; then
-	source .functions
+if [ -f $CONFIGDIR/.functions ]; then
+	source $CONFIGDIR/.functions
 fi
 
 if [[ -d "$HOME/.rbenv" ]] ; then
