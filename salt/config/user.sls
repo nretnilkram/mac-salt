@@ -10,7 +10,7 @@ create_mac_salt_dir:
     - name: {{grains['homedir']}}/.mac_salt
     - user: {{grains['user']}}
     - group: staff
-    - mode: 644
+    - mode: 755
     - makedirs: True
 
 /usr/local:
