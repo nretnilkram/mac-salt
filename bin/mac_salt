@@ -18,6 +18,6 @@ case $@ in
 		git pull
 		;;
 	*)
-		$MACSALT/../bootstrap.sh silent
+		$MACSALT/grains.sh
 		sudo -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@
 esac

@@ -12,42 +12,23 @@ if  [ $? -ne 0 ]
 		exit 1
 fi
 
-USERNAME=`whoami`
-HOMEDIR=$HOME
-
-# Figure out where homebrew is installed
-HOMEBREWDIR="/usr/local"
-if [[ -e /opt/boxen/homebrew ]]; then
-	HOMEBREWDIR="/opt/boxen/homebrew"
-fi
-
-if [ ! -d "/etc/salt" ]; then
-	sudo mkdir /etc/salt
-fi
-
 if [ ! -d "/var/log/salt" ]; then
 	sudo mkdir /var/log/salt
 fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-MACSALTFILEEXISTS=true
-
-if [ -d "$HOMEDIR/.mac_salt" ]; then
-	MACSALTFILEEXISTS=false
-fi
+HOMEBREWDIR="/usr/local"
 
 if [[ $@ != "silent" ]]; then
 	echo "Using homebrew at $HOMEBREWDIR"
 fi
 
-sudo sh -c "echo $USERNAME-cpdm > /etc/salt/minion_id"
-sudo sh -c "echo file_client: local > /etc/salt/minion"
-sudo sh -c "echo user: $USERNAME > /etc/salt/grains"
-sudo sh -c "echo homedir: $HOMEDIR >> /etc/salt/grains"
-sudo sh -c "echo homebrew_home: $HOMEBREWDIR >> /etc/salt/grains"
-sudo sh -c "echo mac_salt_home: $DIR >> /etc/salt/grains"
-sudo sh -c "echo mac_salt_file_exists: $MACSALTFILEEXISTS >> /etc/salt/grains"
+#
+# Setting Grains File
+#
+
+$DIR/bin/grains.sh
 
 #
 # Check for salt

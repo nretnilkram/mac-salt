@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#
+# Create Grains File
+#
+
+echo "Setting Grains"
+
+USERNAME=`whoami`
+HOMEDIR=$HOME
+GRAINSFILE='/etc/salt/grains'
+
+HOMEBREWDIR="/usr/local"
+
+if [ ! -d "/etc/salt" ]; then
+	sudo mkdir /etc/salt
+fi
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+MACSALTFILEEXISTS=true
+
+if [ -d "$HOMEDIR/.mac_salt" ]; then
+	MACSALTFILEEXISTS=false
+fi
+
+sudo sh -c "echo $USERNAME-cpdm > /etc/salt/minion_id"
+sudo sh -c "echo file_client: local > /etc/salt/minion"
+sudo sh -c "echo user: $USERNAME > $GRAINSFILE"
+sudo sh -c "echo homedir: $HOMEDIR >> $GRAINSFILE"
+sudo sh -c "echo homebrew_home: $HOMEBREWDIR >> $GRAINSFILE"
+sudo sh -c "echo mac_salt_home: $DIR >> $GRAINSFILE"
+sudo sh -c "echo mac_salt_file_exists: $MACSALTFILEEXISTS >> $GRAINSFILE"
