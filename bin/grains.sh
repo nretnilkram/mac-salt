@@ -4,8 +4,6 @@
 # Create Grains File
 #
 
-echo "Setting Grains"
-
 USERNAME=`whoami`
 HOMEDIR=$HOME
 GRAINSFILE='/etc/salt/grains'
@@ -24,7 +22,7 @@ if [ -d "$HOMEDIR/.mac_salt" ]; then
 	MACSALTFILEEXISTS=false
 fi
 
-sudo sh -c "echo $USERNAME-cpdm > /etc/salt/minion_id"
+sudo sh -c "echo $USERNAME-dev-host > /etc/salt/minion_id"
 sudo sh -c "echo file_client: local > /etc/salt/minion"
 sudo sh -c "echo user: $USERNAME > $GRAINSFILE"
 sudo sh -c "echo homedir: $HOMEDIR >> $GRAINSFILE"
