@@ -8,10 +8,18 @@ case $@ in
 		;;
 	help)
 		echo "Add the following to .bash_profile or .bashrc to source the MAC SALT bash configuration: "
-		echo ""
+		echo 
 		echo "if [ -f ~/.mac_salt/.bash_config ]; then"
 		echo "	source ~/.mac_salt/.bash_config"
 		echo "fi"
+		echo
+		echo "Seperate your ssh Proxy settings with a comment at the bottom of your ssh config file."
+		echo
+		echo "Host *" 
+		echo "	KeepAlive yes"
+		echo "	###### Do not place anything below this line.  It will be updated frequently by the proxy update functions."
+		echo "	ProxyCommand /usr/local/bin/corkscrew 127.0.0.1 8840 %h %p"
+		echo
 		;;
 	update)
 		cd $MACSALT/..
