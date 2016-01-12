@@ -4,7 +4,7 @@
 
 #   sshgit:  Push to git using an ssh key
 #   -------------------------------------------------------------------
-sshgit() {
+function sshgit() {
     if [ $# -eq 0 ]; then
         echo "Git wrapper script that allows you to specify an ssh-key file
 Usage:
@@ -33,7 +33,7 @@ Usage:
 
 #   update:  Update brew packages and gems
 #   -------------------------------------------------------------------
-update() {
+function update() {
     echo "Gem Updates..."
     sudo gem update
     echo "Brew Updates..."
@@ -41,4 +41,21 @@ update() {
     brew upgrade --all
     echo "Cleaning Up Brew Packages..."
     brew cleanup
+}
+
+function disable_proxy() {
+  unset http_proxy;
+  unset https_proxy;
+  unset HTTP_PROXY;
+  unset HTTPS_PROXY;
+}
+
+function www_proxy_enable() {
+  export http_proxy="http://www-proxy.us.oracle.com:80";
+  export https_proxy="http://www-proxy.us.oracle.com:80";
+}
+
+function rmdc_proxy_enable() {
+  export http_proxy="http://rmdc-proxy.oracle.com:80";
+  export https_proxy="http://rmdc-proxy.oracle.com:80";
 }

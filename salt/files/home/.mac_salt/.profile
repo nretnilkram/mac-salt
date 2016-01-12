@@ -99,12 +99,12 @@ HISTSIZE=10000
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignorespace:ignoredups
 
-history() {
+function history () {
   _bash_history_sync
   builtin history "$@"
 }
 
-_bash_history_sync() {
+function _bash_history_sync () {
   builtin history -a              #1
   export HISTFILESIZE=$HISTSIZE   #2
   builtin history -c              #3
@@ -123,7 +123,7 @@ alias mv='mv -iv'                           # Preferred 'mv' implementation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
 alias ll='ls -FGlAhpa'                      # Preferred 'ls' implementation
 alias less='less -FSRXc'                    # Preferred 'less' implementation
-#cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
+#function cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
 alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
 alias ..='cd ../'                           # Go back 1 directory level
 alias ...='cd ../../'                       # Go back 2 directory levels
@@ -140,9 +140,9 @@ alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable 
 alias show_options='shopt'                  # Show_options: display bash options settings
 alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
 alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
-mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
-trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
-ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
+function mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
+function trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
+function ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
 alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
 
 #   lr:  Full Recursive Directory Listing
@@ -152,13 +152,13 @@ alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\
 #   mans:   Search manpage given in agument '1' for term given in argument '2' (case insensitive)
 #           displays paginated result with colored search terms and two lines surrounding each hit.             Example: mans mplayer codec
 #   --------------------------------------------------------------------
-mans () {
+function mans () {
     man $1 | grep -iC2 --color=always $2 | less
 }
 
 #   showa: to remind yourself of an alias (given some part of it)
 #   ------------------------------------------------------------
-showa () { /usr/bin/grep --color=always -i -a1 $@ ~/Library/init/bash/aliases.bash | grep -v '^\s*$' | less -FSRXc ; }
+function showa () { /usr/bin/grep --color=always -i -a1 $@ ~/Library/init/bash/aliases.bash | grep -v '^\s*$' | less -FSRXc ; }
 
 
 
@@ -166,7 +166,7 @@ showa () { /usr/bin/grep --color=always -i -a1 $@ ~/Library/init/bash/aliases.ba
 #   4.  FILE AND FOLDER MANAGEMENT
 #   -------------------------------
 
-zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
+function zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
 alias numFiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden files in current dir
 alias make1mb='mkfile 1m ./1MB.dat'         # make1mb:      Creates a file of 1mb size (all zeros)
 alias make5mb='mkfile 5m ./5MB.dat'         # make5mb:      Creates a file of 5mb size (all zeros)
@@ -174,7 +174,7 @@ alias make10mb='mkfile 10m ./10MB.dat'      # make10mb:     Creates a file of 10
 
 #   cdf:  'Cd's to frontmost window of MacOS Finder
 #   ------------------------------------------------------
-cdf () {
+function cdf () {
     currFolderPath=$( /usr/bin/osascript <<EOT
         tell application "Finder"
             try
@@ -192,7 +192,7 @@ EOT
 
 #   extract:  Extract most know archives with one command
 #   ---------------------------------------------------------
-extract () {
+function extract () {
     if [ -f $1 ] ; then
       case $1 in
         *.tar.bz2)   tar xjf $1     ;;
@@ -220,13 +220,13 @@ extract () {
 #   ---------------------------
 
 alias qfind="find . -name "                 # qfind:    Quickly search for file
-ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
-ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
-ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
+function ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
+function ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
+function ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
 
 #   spotlight: Search for a file using MacOS Spotlight's metadata
 #   -----------------------------------------------------------
-spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
+function spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
 
 
 
@@ -240,7 +240,7 @@ spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
 #       E.g. findPid '/d$/' finds pids of all processes with names ending in 'd'
 #       Without the 'sudo' it will only find processes of the current user
 #   -----------------------------------------------------
-findPid () { lsof -t -c "$@" ; }
+function findPid () { lsof -t -c "$@" ; }
 
 #   memHogsTop, memHogsPs:  Find memory hogs
 #   -----------------------------------------------------
@@ -264,7 +264,7 @@ alias ttop="top -R -F -s 10 -o rsize"
 
 #   my_ps: List processes owned by my user:
 #   ------------------------------------------------------------
-my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
+function my_ps () { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
 
 
 
@@ -285,7 +285,7 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
 
 #   ii:  display useful host related informaton
 #   -------------------------------------------------------------------
-ii() {
+function ii () {
     echo -e "\n${Red}You are logged on: $NC " ; hostname
     echo -e "\n${Red}Additionnal information:$NC " ; uname -a
     echo -e "\n${Red}Users logged on:$NC " ; w -h
@@ -336,11 +336,11 @@ alias apacheRestart='sudo apachectl graceful'           # apacheRestart:    Rest
 alias editHosts='sudo edit /etc/hosts'                  # editHosts:        Edit /etc/hosts file
 alias herr='tail /var/log/httpd/error_log'              # herr:             Tails HTTP error logs
 alias apacheLogs="less +F /var/log/apache2/error_log"   # Apachelogs:   Shows apache error logs
-httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grabs headers from web page
+function httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grabs headers from web page
 
 #   httpDebug:  Download a web page and show info on what took time
 #   -------------------------------------------------------------------
-httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
+function httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
 
 
 
