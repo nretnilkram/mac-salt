@@ -43,19 +43,70 @@ function update() {
     brew cleanup
 }
 
+function _unset_ssh_proxy() {
+    FILE=$HOME/.ssh/config
+    LASTLINE=`tail -1 $FILE`
+    if [[ $(echo $LASTLINE | head -c 1) != '#' ]] ; then
+        # Remove the last line from ssh/config if it's a ProxyCommand
+        FIRSTWORD=`echo $LASTLINE | cut -d " " -f 1`
+        if [[ $FIRSTWORD == 'ProxyCommand' ]] ; then
+            cp $FILE $FILE.tmp &> /dev/null
+            sed '$ d' $FILE.tmp > $FILE
+            rm -f $FILE.tmp
+        fi
+    fi
+}
+
+function _set_ssh_proxy() {
+    FILE=$HOME/.ssh/config
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "you must pass a proxy host in \$1 and port in \$2"
+        echo
+        echo "_set_ssh_proxy adc-proxy.oracle.com 80"
+        return 1
+    fi
+
+    _unset_ssh_proxy
+    echo -e "\tProxyCommand /usr/local/bin/corkscrew $1 $2 %h %p" >> $FILE
+}
+
+function _set_proxy() {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "you must pass a proxy host in \$1 and port in \$2"
+        echo
+        echo "_set_proxy adc-proxy.oracle.com 80"
+        return 1
+    fi
+
+    export http_proxy=http://$1:$2;
+    export https_proxy=http://$1:$2;
+    git config --global http.proxy http://$1:$2;
+    git config --global https.proxy http://$1:$2;
+    _set_ssh_proxy $1 $2
+}
+
 function disable_proxy() {
-  unset http_proxy;
-  unset https_proxy;
-  unset HTTP_PROXY;
-  unset HTTPS_PROXY;
+    unset http_proxy;
+    unset https_proxy;
+    unset HTTP_PROXY;
+    unset HTTPS_PROXY;
+    git config --global --unset http.proxy;
+    git config --global --unset https.proxy;
+    _unset_ssh_proxy
+}
+
+function local_proxy_enable() {
+    _set_proxy 127.0.0.1 8840
 }
 
 function www_proxy_enable() {
-  export http_proxy="http://www-proxy.us.oracle.com:80";
-  export https_proxy="http://www-proxy.us.oracle.com:80";
+    _set_proxy www-proxy.us.oracle.com 80
 }
 
 function rmdc_proxy_enable() {
-  export http_proxy="http://rmdc-proxy.oracle.com:80";
-  export https_proxy="http://rmdc-proxy.oracle.com:80";
+    _set_proxy rmdc-proxy.oracle.com 80
+}
+
+function adc_proxy_enable() {
+    _set_proxy adc-proxy.oracle.com 80
 }
