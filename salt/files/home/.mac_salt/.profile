@@ -293,7 +293,9 @@ ii() {
     echo -e "\n${Red}Machine stats :$NC " ; uptime
     echo -e "\n${Red}Current network location :$NC " ; scselect
     echo -e "\n${Red}Public facing IP Address :$NC " ; myip
-    echo -e "\n${Red}DNS Configuration:$NC " ; scutil --dns
+    if [ ! -z "$@" ] ; then
+      echo -e "\n${Red}DNS Configuration:$NC " ; scutil --dns
+    fi
     echo
 }
 
