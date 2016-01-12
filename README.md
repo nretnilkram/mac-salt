@@ -59,6 +59,7 @@ fi
 
 
 ### Aliased commands for running the MAC SALT stack (all added in .aliases):
+
 mac_salt, mac-salt, macsalt, ms, salt-local, or bin/mac_salt (from the mac-salt directory)
 
 ```
@@ -78,6 +79,19 @@ ms update
 or with the additional module
 ```
 mac-salt do.update
+```
+
+
+### SSH Config and Proxy Functions
+
+You will want to put your * host with the ProxyCommand at the Bottom and seperate the actual ProxyCommand with a comment like what you see below.
+
+```
+Host * 
+	KeepAlive yes
+	ServerAliveInterval 30
+###### Do not place anything below this line.  It will be updated frequently by the proxy update functions.
+	ProxyCommand /usr/local/bin/corkscrew 127.0.0.1 8840 %h %p
 ```
 
 

@@ -90,8 +90,8 @@ function disable_proxy() {
     unset https_proxy;
     unset HTTP_PROXY;
     unset HTTPS_PROXY;
-    git config --global --unset http.proxy;
-    git config --global --unset https.proxy;
+    git config --global --replace-all http.proxy "";
+    git config --global --replace-all https.proxy "";
     _unset_ssh_proxy
 }
 
