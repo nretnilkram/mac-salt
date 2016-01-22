@@ -12,6 +12,7 @@ alias s="cd $HOME/dev/shared"
 alias sys="cd $HOME/dev/systems"
 alias c="cd $HOME/dev/content_router"
 alias i="cd $HOME/dev/image_manager"
+alias t="cd $HOME/dev/task_scheduling_service"
 alias sand="cd $HOME/Dropbox/Sandbox"
 
 # csshX shortcuts
