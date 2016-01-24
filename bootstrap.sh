@@ -3,13 +3,15 @@
 #
 # Figure out if homebrew is installed
 #
-which brew > /dev/null
+if [ "$(uname)" == "Darwin" ]; then
+	which brew > /dev/null
 
-if  [ $? -ne 0 ]
-	then
-		echo "Install Homebrew first"
-		echo "http://brew.sh"
-		exit 1
+	if  [ $? -ne 0 ]
+		then
+			echo "Install Homebrew first"
+			echo "http://brew.sh"
+			exit 1
+	fi
 fi
 
 if [ ! -d "/var/log/salt" ]; then
