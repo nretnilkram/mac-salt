@@ -22,8 +22,8 @@ create_mac_salt_dir:
 
 bash_aliases:
   file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/.aliases
-    - source: salt://files/home/.mac_salt/.aliases
+    - name: {{grains['homedir']}}/.mac_salt/aliases
+    - source: salt://files/home/.mac_salt/aliases
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
@@ -31,8 +31,8 @@ bash_aliases:
 
 bash_profile:
   file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/.profile
-    - source: salt://files/home/.mac_salt/.profile
+    - name: {{grains['homedir']}}/.mac_salt/profile
+    - source: salt://files/home/.mac_salt/profile
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
@@ -47,24 +47,24 @@ bash_bash_sessions_disable:
 
 bash_git_completion:
   file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/.git-completion.bash
-    - source: salt://files/home/.mac_salt/.git-completion.bash
+    - name: {{grains['homedir']}}/.mac_salt/git-completion.bash
+    - source: salt://files/home/.mac_salt/git-completion.bash
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
 
 bash_git_prompt:
   file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/.git-prompt.sh
-    - source: salt://files/home/.mac_salt/.git-prompt.sh
+    - name: {{grains['homedir']}}/.mac_salt/git-prompt.sh
+    - source: salt://files/home/.mac_salt/git-prompt.sh
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
 
 bash_functions:
   file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/.functions
-    - source: salt://files/home/.mac_salt/.functions
+    - name: {{grains['homedir']}}/.mac_salt/functions
+    - source: salt://files/home/.mac_salt/functions
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
@@ -72,8 +72,8 @@ bash_functions:
 
 bash_config:
   file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/.bash_config
-    - source: salt://files/home/.mac_salt/.bash_config
+    - name: {{grains['homedir']}}/.mac_salt/bash_config
+    - source: salt://files/home/.mac_salt/bash_config
     - user: {{grains['user']}}
     - group: staff
     - mode: 644

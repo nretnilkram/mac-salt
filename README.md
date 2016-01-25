@@ -52,8 +52,8 @@ bin/mac_salt state.sls services.dns
 MAC SALT will add the files to your home directory, but you will need to tell your bash_profile to source .mac_salt, which sources all the others.
 
 ```
-if [ -f ~/.mac_salt/.bash_config ]; then
-	source ~/.mac_salt/.bash_config
+if [ -f ~/.mac_salt/bash_config ]; then
+	source ~/.mac_salt/bash_config
 fi
 ```
 
