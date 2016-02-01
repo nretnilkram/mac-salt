@@ -1,3 +1,4 @@
+MACSALTHOME="{{grains['mac_salt_home']}}"
 MACSALTPATH="{{grains['mac_salt_home']}}/bin/mac_salt"
 alias mac_salt=$MACSALTPATH
 alias mac-salt=$MACSALTPATH
@@ -13,6 +14,8 @@ alias sys="cd $HOME/dev/systems"
 alias c="cd $HOME/dev/content_router"
 alias i="cd $HOME/dev/image_manager"
 alias t="cd $HOME/dev/task_scheduling_service"
+alias n="cd $HOME/dev/network_clone"
+alias m="cd $MACSALTHOME"
 alias sand="cd $HOME/Dropbox/Sandbox"
 
 # csshX shortcuts
