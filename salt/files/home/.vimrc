@@ -111,8 +111,8 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Add a bit extra margin to the left
-set foldcolumn=1
+" Add line numbers to the gutter
+set number
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -120,13 +120,6 @@ set foldcolumn=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable 
-
-try
-  colorscheme desert
-catch
-endtry
-
-set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
