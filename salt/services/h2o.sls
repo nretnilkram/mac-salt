@@ -2,9 +2,10 @@ h2o:
   pkg.installed
 
 h2o_plist:
-  file.symlink:
+  file.copy:
     - name: {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist
-    - target: /usr/local/opt/h2o/homebrew.mxcl.h2o.plist
+    - source: /usr/local/opt/h2o/homebrew.mxcl.h2o.plist
+    - force: true
     - require:
       - pkg: h2o
 
