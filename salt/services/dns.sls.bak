@@ -21,26 +21,29 @@ resolver_dir:
 
 {% endfor %}
 
-dnsmasq_conf:
+dns_masq_conf:
   file.managed:
-    - name: /usr/local/etc/dnsmasq.conf
+    - name: /etc/dnsmasq.conf
     - source: salt://files/usr/local/etc/dnsmasq.conf
     - user: root
     - group: admin
     - mode: 644
-    - require:
-      - pkg: dnsmasq
 
 dev_dnsmasq_plist:
-  file.copy:
-    - name: /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
-    - source: /usr/local/opt/dnsmasq/homebrew.mxcl.dnsmasq.plist
+  file.managed:
+    - name: /Library/LaunchDaemons/dev.dnsmasq.plist
+    - source: salt://files/Library/LaunchDaemons/dev.dnsmasq.plist
     - user: root
+    - template: jinja
     - group: admin
     - mode: 644
-    - force: true
-    - require:
-      - pkg: dnsmasq
+
+dnsmasq_log_dir:
+  file.directory:
+    - name: /var/log/dnsmasq/
+    - user: nobody
+    - group: staff
+    - mode: 755
 
 hosts_dnsmasq:
   file.managed:
@@ -52,7 +55,7 @@ hosts_dnsmasq:
 
 dnsmasq_setup_service:
   cmd.run:
-    - name: launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist; launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+    - name: launchctl unload -w /Library/LaunchDaemons/dev.dnsmasq.plist; launchctl load -w /Library/LaunchDaemons/dev.dnsmasq.plist
     - require:
-      - file: dnsmasq_conf
+      - file: dns_masq_conf
       - file: dev_dnsmasq_plist

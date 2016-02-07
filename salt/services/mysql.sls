@@ -2,12 +2,13 @@ mysql:
   pkg.installed
 
 mysql_plist:
-  file.managed:
+  file.copy:
     - name: /Library/LaunchDaemons/homebrew.mxcl.mysql.plist
-    - source: salt://files/Library/LaunchDaemons/homebrew.mxcl.mysql.plist
+    - source: /usr/local/opt/mysql/homebrew.mxcl.mysql.plist
     - user: root
     - group: admin
     - mode: 644
+    - force: true
     - require: 
       - pkg: mysql
 
