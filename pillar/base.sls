@@ -14,6 +14,8 @@ dns_masq_domains:
   - dev.cpdm.oraclecorp.com
   - saml.cpdm.oraclecorp.com
   - hubots-lair.com
+  - networkapps.com
+  - coolermaster.com
 
 ruby_pkgs:
   - libyaml
