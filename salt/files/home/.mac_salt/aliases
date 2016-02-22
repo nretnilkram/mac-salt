@@ -6,7 +6,12 @@ alias macsalt=$MACSALTPATH
 alias ms=$MACSALTPATH
 alias salt-local=$MACSALTPATH
 
-# Directory shortcuts
+#Proxy Shortcuts
+alias lpe=local_proxy_enable
+alias rmdc=rmdc_proxy_enable
+alias adc=adc_proxy_enable
+
+# Directory Shortcuts
 alias b="cd $HOME/dev/blog/application/trunk"
 alias p="cd $HOME/dev/padrino_api"
 alias s="cd $HOME/dev/shared"
@@ -18,13 +23,13 @@ alias n="cd $HOME/dev/network_clone"
 alias m="cd $MACSALTHOME"
 alias sand="cd $HOME/Dropbox/Sandbox"
 
-# csshX shortcuts
+# csshX Shortcuts
 alias csshx="csshX"
 alias csshx1="csshX -screen 1"
 alias csshx2="csshX -screen 2"
 alias csshx3="csshX -screen 3"
 
-# Tar shortcuts
+# Tar Shortcuts
 alias tarup="tar -cvzf"
 alias untar="tar -xvf"
 
