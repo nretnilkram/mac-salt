@@ -66,7 +66,7 @@ function _set_ssh_proxy() {
         return 1
     fi
 
-    echo "Setting SSH Proxy Settings"
+    echo "Setting SSH Proxy Settings: $1:$2"
     _unset_ssh_proxy
     echo -e "\tProxyCommand /usr/local/bin/corkscrew $1 $2 %h %p" >> $FILE
 }
@@ -94,7 +94,7 @@ function _set_gem_proxy() {
         return 1
     fi
 
-    echo "Setting Gem Proxy Settings"
+    echo "Setting Gem Proxy Settings: http://$1:$2"
     _unset_gem_proxy
     echo -e "http-proxy: http://$1:$2" >> $FILE
 }
@@ -107,7 +107,7 @@ function _set_proxy() {
         return 1
     fi
 
-    echo "Setting Environment Proxy Settings"
+    echo "Setting Environment Proxy Settings: http://$1:$2"
     export http_proxy=http://$1:$2;
     export HTTP_PROXY=http://$1:$2;
     export https_proxy=http://$1:$2;
@@ -119,13 +119,17 @@ function _set_proxy() {
 }
 
 function disable_proxy() {
+    echo "Unsetting Environment Proxy"
     unset http_proxy;
     unset https_proxy;
     unset HTTP_PROXY;
     unset HTTPS_PROXY;
     git config --global --replace-all http.proxy "";
     git config --global --replace-all https.proxy "";
+    echo "Unsetting SSH Proxy"
     _unset_ssh_proxy
+    echo "Unsetting Gem Proxy"
+    _unset_gem_proxy
 }
 
 function local_proxy_enable() {
