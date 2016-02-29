@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#
-# Create Grains File
-#
+#####
+# Create / Update Grains File
+#####
 
 USERNAME=`whoami`
 HOMEDIR=$HOME
@@ -16,11 +16,14 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
+#####
+# This determines if legacy .macsalt file is still present so that it can be removed.
+#####
 MACSALTFILEEXISTS=true
-
 if [ -d "$HOMEDIR/.mac_salt" ]; then
 	MACSALTFILEEXISTS=false
 fi
+#####
 
 sudo sh -c "echo $USERNAME-dev-host > /etc/salt/minion_id"
 sudo sh -c "echo file_client: local > /etc/salt/minion"

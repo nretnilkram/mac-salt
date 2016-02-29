@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#
+#####
 # Figure out if homebrew is installed
-#
+#####
 if [ "$(uname)" == "Darwin" ]; then
 	which brew > /dev/null
 
@@ -26,15 +26,15 @@ if [[ $@ != "silent" ]]; then
 	echo "Using homebrew at $HOMEBREWDIR"
 fi
 
-#
-# Setting Grains File
-#
+#####
+# Create / Update Grains File
+#####
 
 $DIR/bin/grains.sh
 
-#
+#####
 # Check for salt
-#
+#####
 
 which salt-call > /dev/null
 HAS_SALT=$?
@@ -45,17 +45,17 @@ if [ $HAS_SALT -eq 0 ] && [[ $@ != "silent" ]]; then
 	echo ""
 fi
 
-#
+#####
 # Salt needs installed
-#
+#####
 
 if [ $HAS_SALT -ne 0 ]; then
 	echo ""
 	echo "Installing Salt"
 
-	#
+	#####
 	# Swig 3.0.5 will cause salt stack to fail to install.
-	#
+	#####
 	SWIG_VERSION=`brew info swig  | grep swig\: | cut -d " " -f 3`
 	if [ $SWIG_VERSION == "3.0.5" ]; then
 		echo ""

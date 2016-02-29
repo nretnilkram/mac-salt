@@ -2,7 +2,6 @@
 remove_mac_salt_file:
   file.absent:
     - name: {{grains['homedir']}}/.mac_salt
-    - 
 {% endif %}
 
 create_mac_salt_dir:

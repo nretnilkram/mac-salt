@@ -2,24 +2,29 @@
 
 MACSALT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+function help_function () {
+	echo -e "
+Add the following to .bash_profile or .bashrc to source the MAC SALT bash configuration: 
+
+if [ -f ~/.mac_salt/bash_config ]; then
+	source ~/.mac_salt/bash_config
+fi
+
+Seperate your ssh Proxy settings with a comment at the bottom of your ssh config file.
+
+Host *
+	KeepAlive yes
+	###### Do not place anything below this line.  It will be updated frequently by the proxy update functions.
+	ProxyCommand /usr/local/bin/corkscrew 127.0.0.1 8840 %h %p
+"
+}
+
 case $@ in
 	bootstrap)
 		$MACSALT/../bootstrap.sh
 		;;
 	help)
-		echo "Add the following to .bash_profile or .bashrc to source the MAC SALT bash configuration: "
-		echo 
-		echo "if [ -f ~/.mac_salt/.bash_config ]; then"
-		echo "	source ~/.mac_salt/.bash_config"
-		echo "fi"
-		echo
-		echo "Seperate your ssh Proxy settings with a comment at the bottom of your ssh config file."
-		echo
-		echo "Host *" 
-		echo "	KeepAlive yes"
-		echo "	###### Do not place anything below this line.  It will be updated frequently by the proxy update functions."
-		echo "	ProxyCommand /usr/local/bin/corkscrew 127.0.0.1 8840 %h %p"
-		echo
+		help_function
 		;;
 	update)
 		cd $MACSALT/..
