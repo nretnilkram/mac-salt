@@ -32,5 +32,6 @@ gems:
 node_pkgs:
   - npm-check-updates
   - coffee-script
+  - grunt-cli
 
 ruby_version: 2.2.3

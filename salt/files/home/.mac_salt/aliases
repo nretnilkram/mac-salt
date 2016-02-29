@@ -10,6 +10,7 @@ alias salt-local=$MACSALTPATH
 alias lpe=local_proxy_enable
 alias rmdc=rmdc_proxy_enable
 alias adc=adc_proxy_enable
+alias dp=disable_proxy
 
 # Directory Shortcuts
 alias b="cd $HOME/dev/blog/application/trunk"

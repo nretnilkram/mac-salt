@@ -29,7 +29,6 @@ dev_networking_plist:
     - require:
       - file: networking_setup_script
 
-
 networking_setup_service:
   cmd.run:
     - name:  launchctl unload -w /Library/LaunchDaemons/dev.networking.plist;  launchctl load -w /Library/LaunchDaemons/dev.networking.plist
