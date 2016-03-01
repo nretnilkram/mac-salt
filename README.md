@@ -102,3 +102,8 @@ Host *
 sudo chown -R _mysql /usr/local/var/mysql
 sudo chmod -R o+rwx /usr/local/var/mysql
 ```
+
+* if you are running into issue installing php56 for the nginx configuration try:
+```
+xcode-select --install
+```

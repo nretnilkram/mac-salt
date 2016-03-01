@@ -5,6 +5,7 @@ h2o_plist:
   file.copy:
     - name: {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist
     - source: /usr/local/opt/h2o/homebrew.mxcl.h2o.plist
+    - user: {{grains['user']}}
     - force: true
     - require:
       - pkg: h2o

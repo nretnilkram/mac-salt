@@ -8,6 +8,9 @@ brew_pkgs:
 
 dns_masq_domains:
   - dev
+  - dev.com
+  - h2o.dev.com
+  - nginx.dev.com
   - foo.bar.com
   - cnsr.com
   - compend.me

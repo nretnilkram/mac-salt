@@ -2,6 +2,20 @@
 #   USEFUL Bash FUNCTIONS
 #   ---------------------------------------
 
+#   port:  check what is using a specific port
+#   -------------------------------------------------------------------
+function port() {
+    if [ "$1" -eq "$1" ]; then
+        lsof -i :$1
+    else
+        echo "port allows you to check on what is currently using a port
+Usage:
+    port 9000"
+        return 1
+    fi
+}
+
+
 #   sshgit:  Push to git using an ssh key
 #   -------------------------------------------------------------------
 function sshgit() {

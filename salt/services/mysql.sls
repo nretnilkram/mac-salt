@@ -3,19 +3,24 @@ mysql:
 
 mysql_plist:
   file.copy:
-    - name: /Library/LaunchDaemons/homebrew.mxcl.mysql.plist
+    - name: {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.mysql.plist
     - source: /usr/local/opt/mysql/homebrew.mxcl.mysql.plist
-    - user: root
-    - group: admin
-    - mode: 644
+    - user: {{grains['user']}}
     - force: true
-    - require: 
+    - require:
       - pkg: mysql
+
+remove_old_mysql_plist:
+  file.absent:
+    - name: /Library/LaunchDaemons/homebrew.mxcl.mysql.plist
+
+mysql_remove_err_files:
+  cmd.run:
+    - name: rm -f /usr/local/var/mysql/*.err
 
 mysql_setup_service:
   cmd.run:
-    - name: launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.mysql.plist; launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.mysql.plist
-    - user: root
-    - group: wheel
+    - name: launchctl unload -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.mysql.plist; launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+    - user: {{grains['user']}}
     - require:
       - file: mysql_plist
