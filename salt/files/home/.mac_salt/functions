@@ -5,13 +5,10 @@
 #   port:  check what is using a specific port
 #   -------------------------------------------------------------------
 function port() {
-    if [ "$1" -eq "$1" ]; then
+    if [ "$1" -eq "$1" ] 2>/dev/null ; then
         lsof -i :$1
     else
-        echo "port allows you to check on what is currently using a port
-Usage:
-    port 9000"
-        return 1
+        lsof -i
     fi
 }
 
@@ -42,7 +39,7 @@ Usage:
     fi
 
     # remove temporary file on exit
-    trap 'rm -f /tmp/.git_ssh.$$' 0
+    trap 'command rm -f /tmp/.git_ssh.$$' 0
 
     if [ "$1" = "-i" ]; then
         ssh-add $2
@@ -80,7 +77,7 @@ function _unset_ssh_proxy() {
         if [[ $FIRSTWORD == 'ProxyCommand' ]] ; then
             cp $FILE $FILE.tmp &> /dev/null
             sed '$ d' $FILE.tmp > $FILE
-            rm -f $FILE.tmp
+            command rm -f $FILE.tmp
         fi
     fi
 }
@@ -108,7 +105,7 @@ function _unset_gem_proxy() {
         if [[ $FIRSTWORD == 'http-proxy:' ]] ; then
             cp $FILE $FILE.tmp &> /dev/null
             sed '$ d' $FILE.tmp > $FILE
-            rm -f $FILE.tmp
+            command rm -f $FILE.tmp
         fi
     fi
 }
