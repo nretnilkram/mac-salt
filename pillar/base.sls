@@ -5,6 +5,7 @@ brew_pkgs:
   - bash-completion
   - heroku-toolbelt
   - tmux
+  - rmtrash
 
 dns_masq_domains:
   - dev

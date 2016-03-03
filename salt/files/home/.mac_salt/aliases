@@ -1,3 +1,4 @@
+# Mac Salt Short Cuts
 MACSALTHOME="{{grains['mac_salt_home']}}"
 MACSALTPATH="{{grains['mac_salt_home']}}/bin/mac_salt"
 alias mac_salt=$MACSALTPATH
@@ -37,3 +38,6 @@ alias untar="tar -xvf"
 
 # Helpful Shortcuts
 alias pjt='python -mjson.tool'
+
+# rm to trash
+alias rm='rmtrash'
