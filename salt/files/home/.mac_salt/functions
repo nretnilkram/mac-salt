@@ -16,6 +16,20 @@ Usage:
 }
 
 
+#   delete_ds:  recursivly delete all .DS_STORE files from current dir
+#   -------------------------------------------------------------------
+function delete_ds() {
+    sudo find . -name "*.DS_STORE*" -depth -type f -exec rm {} \;
+}
+
+
+#   delete_all_ds:  recursivly delete all .DS_STORE files
+#   -------------------------------------------------------------------
+function delete_all_ds() {
+   sudo find / -name "*.DS_STORE*" -depth -type f -exec rm {} \;
+}
+
+
 #   sshgit:  Push to git using an ssh key
 #   -------------------------------------------------------------------
 function sshgit() {
