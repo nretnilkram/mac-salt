@@ -172,3 +172,25 @@ function rmdc_proxy_enable() {
 function adc_proxy_enable() {
     _set_proxy adc-proxy.oracle.com 80
 }
+
+#   iso_to_usb:  convert iso file to UDRW to use on bootable USB stick
+#   -------------------------------------------------------------------
+function iso_to_usb() {
+    if [ -z "$1" ] && [ -z "$2" ]; then
+        echo "Git wrapper script that allows you to specify an ssh-key file
+Usage:
+    iso_to_usb iso_file /dev/disk_to_use
+        "
+        return 1
+    fi
+    TMP_FILE=/tmp/destination_file.img
+    echo "Converting ISO file to UDRW format"
+    hdiutil convert -format UDRW -o $TMP_FILE $1
+    echo "Erasing USB"
+    diskutil partitionDisk $2 1 "Free Space" "unused" "100%"
+    echo "Copying Image to USB"
+    dd if=$TMP_FILE of=$2 bs=1m
+    echo "Ejecting Disk"
+    diskutil eject $2
+    echo "Finished"
+}
