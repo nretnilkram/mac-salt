@@ -173,24 +173,101 @@ function adc_proxy_enable() {
     _set_proxy adc-proxy.oracle.com 80
 }
 
+#   eject:  eject disk
+#   -------------------------------------------------------------------
+function eject() {
+    if [ -z "$1" ]; then
+        echo "eject disk
+Usage:
+    iso_to_usb /dev/disk_to_use
+        "
+        return 1
+    fi
+    diskutil eject $1
+}
+
+#   drive_list:  convert iso file to UDRW to use on bootable USB stick
+#   -------------------------------------------------------------------
+function drive_list() {
+    diskutil list
+}
+
 #   iso_to_usb:  convert iso file to UDRW to use on bootable USB stick
 #   -------------------------------------------------------------------
 function iso_to_usb() {
     if [ -z "$1" ] && [ -z "$2" ]; then
-        echo "Git wrapper script that allows you to specify an ssh-key file
+        echo "convert iso file to UDRW to use on bootable USB stick
 Usage:
     iso_to_usb iso_file /dev/disk_to_use
         "
         return 1
     fi
-    TMP_FILE=/tmp/destination_file.img
+    TIMESTAMP=$(sudo date +%s)
+    TMP_FILE="/tmp/__"$TIMESTAMP"__file.img"
+    echo $TIMESTAMP
+    echo $TMP_FILE
     echo "Converting ISO file to UDRW format"
-    hdiutil convert -format UDRW -o $TMP_FILE $1
-    echo "Erasing USB"
-    diskutil partitionDisk $2 1 "Free Space" "unused" "100%"
-    echo "Copying Image to USB"
-    dd if=$TMP_FILE of=$2 bs=1m
-    echo "Ejecting Disk"
-    diskutil eject $2
+    hdiutil convert -format UDRW -o "$TMP_FILE" $1
+    if [ $? -eq 0 ]; then
+        echo "Erasing USB"
+        diskutil partitionDisk $2 1 "Free Space" "unused" "100%"
+    else
+        command rm $TMP_FILE.dmg
+    fi
+    if [ $? -eq 0 ]; then
+        echo "Copying Image to USB"
+        diskutil unmountDisk $2
+        sudo dd if=$TMP_FILE.dmg of=$2 bs=1m
+    fi
+    if [ $? -eq 0 ]; then
+        echo "Ejecting Disk"
+        diskutil eject $2
+    fi
+    if [ $? -eq 0 ]; then
+        echo "Removing tmp file"
+        command rm $TMP_FILE.dmg
+    fi
     echo "Finished"
+}
+
+#   fat_usb:  Initialze USB with FAT32 file system
+#   -------------------------------------------------------------------
+function fat_usb() {
+    if [ -z "$1" ] && [ -z "$2" ]; then
+        echo "Initialze USB with FAT32 file system
+Usage:
+    exfat_usb disk_name /dev/disk_to_use
+        "
+        return 1
+    fi
+    diskutil unmountDisk $2
+    diskutil partitionDisk $2 MBR FAT32 $1 0b
+}
+
+#   exfat_usb:  Initialze USB with ExFat file system
+#   -------------------------------------------------------------------
+function exfat_usb() {
+    if [ -z "$1" ] && [ -z "$2" ]; then
+        echo "Initialze USB with ExFat file system
+Usage:
+    exfat_usb disk_name /dev/disk_to_use
+        "
+        return 1
+    fi
+    diskutil unmountDisk $2
+    diskutil partitionDisk $2 MBR ExFat $1 0b
+}
+
+#   journaled_usb:  Initialze USB with Journaled file system
+#   -------------------------------------------------------------------
+function journaled_usb() {
+    if [ -z "$1" ] && [ -z "$2" ]; then
+        echo "Initialze USB with Journaled file system
+Usage:
+    journaled_usb disk_name /dev/disk_to_use
+        "
+        return 1
+    fi
+    diskutil unmountDisk $2
+    diskutil partitionDisk $2 GPT JHFS+ $1 0b
 }
