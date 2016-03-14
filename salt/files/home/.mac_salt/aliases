@@ -38,6 +38,8 @@ alias untar="tar -xvf"
 
 # Helpful Shortcuts
 alias pjt='python -mjson.tool'
+alias unset_proxy='unset http_proxy && unset https_proxy && unset HTTP_PROXY && unset HTTPS_PROXY'
+alias up='unset_proxy'
 
 # rm to trash
 alias rm='rmtrash'
