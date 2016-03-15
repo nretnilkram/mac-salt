@@ -4,3 +4,4 @@ include:
   - services.mysql
   - services.h2o
   - services.nginx
+  - services.redis
