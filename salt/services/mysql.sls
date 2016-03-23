@@ -17,10 +17,12 @@ remove_old_mysql_plist:
 mysql_remove_err_files:
   cmd.run:
     - name: rm -f /usr/local/var/mysql/*.err
+    - onlyif: test -f /usr/local/var/mysql/*.err
 
 mysql_setup_service:
   cmd.run:
-    - name: launchctl unload -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.mysql.plist; launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+    - name: launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.mysql.plist
     - user: {{grains['user']}}
+    - unless: launchctl list | grep homebrew.mxcl.mysql
     - require:
       - file: mysql_plist

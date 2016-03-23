@@ -30,6 +30,10 @@ case $@ in
 		cd $MACSALT/..
 		git pull
 		;;
+	source)
+		echo -e "source ~/.mac_salt/bash_config" | pbcopy
+		echo -e "paste clipboard into terminal."
+		;;
 	*)
 		$MACSALT/grains.sh
 		sudo -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@

@@ -20,8 +20,9 @@ h2o_conf:
 
 h2o_setup_service:
   cmd.run:
-    - name: launchctl unload -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist; launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist
+    - name: launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist
     - user: {{grains['user']}}
+    - unless: launchctl list | grep homebrew.mxcl.h2o
     - require:
       - file: h2o_conf
       - file: h2o_plist

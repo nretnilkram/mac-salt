@@ -25,6 +25,7 @@ alias t="cd $HOME/dev/task_scheduling_service"
 alias n="cd $HOME/dev/network_clone"
 alias m="cd $MACSALTHOME"
 alias sand="cd $HOME/Dropbox/Sandbox"
+alias sel="cd $HOME/dev/selenium-ruby"
 
 # csshX Shortcuts
 alias csshx="csshX"

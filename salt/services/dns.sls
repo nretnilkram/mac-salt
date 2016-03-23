@@ -52,7 +52,8 @@ hosts_dnsmasq:
 
 dnsmasq_setup_service:
   cmd.run:
-    - name: launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist; launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+    - name: launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+    - unless: launchctl list | grep homebrew.mxcl.dnsmasq
     - require:
       - file: dnsmasq_conf
       - file: dev_dnsmasq_plist

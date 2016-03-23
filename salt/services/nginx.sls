@@ -23,8 +23,9 @@ nginx_conf:
 
 nginx_setup_service:
   cmd.run:
-    - name: launchctl unload -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.nginx.plist; launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+    - name: launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.nginx.plist
     - user: {{grains['user']}}
+    - unless: launchctl list | grep homebrew.mxcl.nginx
     - require:
       - file: nginx_conf
       - file: nginx_plist

@@ -12,7 +12,8 @@ redis_plist:
 
 redis_setup_service:
   cmd.run:
-    - name: launchctl unload -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.redis.plist; launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.redis.plist
+    - name: launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.redis.plist
     - user: {{grains['user']}}
+    - unless: launchctl list | grep homebrew.mxcl.redis
     - require:
       - file: redis_plist
