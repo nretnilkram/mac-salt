@@ -41,6 +41,7 @@ alias untar="tar -xvf"
 alias pjt='python -mjson.tool'
 alias unset_proxy='unset http_proxy && unset https_proxy && unset HTTP_PROXY && unset HTTPS_PROXY'
 alias up='unset_proxy'
+alias beps='bundle exec padrino start'
 
 # rm to trash
 alias rm='rmtrash'
