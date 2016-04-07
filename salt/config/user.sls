@@ -69,6 +69,14 @@ bash_functions:
     - mode: 644
     - template: jinja
 
+bash_git_functions:
+  file.managed:
+    - name: {{grains['homedir']}}/.mac_salt/git_functions
+    - source: salt://files/home/.mac_salt/git_functions
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+
 bash_config:
   file.managed:
     - name: {{grains['homedir']}}/.mac_salt/bash_config

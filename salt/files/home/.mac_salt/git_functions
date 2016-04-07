@@ -1,0 +1,70 @@
+#   sshgit:  Push to git using an ssh key
+#   -------------------------------------------------------------------
+function sshgit() {
+    if [ $# -eq 0 ]; then
+        echo "Git wrapper script that allows you to specify an ssh-key file
+Usage:
+    sshgit -i ssh-key-file git-command
+        "
+        return 1
+    fi
+
+    # remove temporary file on exit
+    trap 'command rm -f /tmp/.git_ssh.$$' 0
+
+    if [ "$1" = "-i" ]; then
+        ssh-add $2
+        SSH_KEY=$2; shift; shift
+        echo "ssh -i $SSH_KEY \$@" > /tmp/.git_ssh.$$
+        chmod +x /tmp/.git_ssh.$$
+        export GIT_SSH=/tmp/.git_ssh.$$
+    fi
+
+    # in case the git command is repeated
+    [ "$1" = "git" ] && shift
+
+    # Run the git command
+    git "$@"
+}
+
+
+#   clean_all_branches:  Loop through all directories and remove branches
+#                        from each git repo.
+#   -------------------------------------------------------------------
+function clean_all_branches() {
+    if [ $# -eq 0 ]; then
+        echo "function to clean up git remote branches
+Usage:
+    clean_all_branches ~/dev
+        "
+        return 1
+    fi
+
+    curdir=`pwd`
+    cd $1
+    dir=`pwd`
+    for d in */ ; do
+        repo=$dir/$d
+        echo "$repo"
+        cd $repo
+        clean_branches
+    done
+    cd $curdir
+}
+
+#   clean_branches:  clean git branches from current directory
+#   -------------------------------------------------------------------
+function clean_branches() {
+    if [ ! -d ".git" ]; then
+        echo "This is not a Git repo."
+        return 1
+    fi
+    _clean_remote_branches
+}
+
+#   _clean_remote_branches:  loops through the branches of a git repository
+#                            and deletes all that are not master or current
+#   -------------------------------------------------------------------
+function _clean_remote_branches() {
+    git branch | grep -v "master" | grep -v "*" | xargs git branch -D
+}

@@ -40,6 +40,13 @@ git_upll_alias:
     - value: pull
     - user: {{grains['user']}}
 
+git_sup_alias:
+  git.config_set:
+    - global: True
+    - name: alias.sup
+    - value: "!git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`"
+    - user: {{grains['user']}}
+
 git_autosetuprebase:
   git.config_set:
     - global: True

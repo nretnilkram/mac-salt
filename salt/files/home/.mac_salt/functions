@@ -27,35 +27,6 @@ function delete_all_ds() {
 }
 
 
-#   sshgit:  Push to git using an ssh key
-#   -------------------------------------------------------------------
-function sshgit() {
-    if [ $# -eq 0 ]; then
-        echo "Git wrapper script that allows you to specify an ssh-key file
-Usage:
-    sshgit -i ssh-key-file git-command
-        "
-        return 1
-    fi
-
-    # remove temporary file on exit
-    trap 'command rm -f /tmp/.git_ssh.$$' 0
-
-    if [ "$1" = "-i" ]; then
-        ssh-add $2
-        SSH_KEY=$2; shift; shift
-        echo "ssh -i $SSH_KEY \$@" > /tmp/.git_ssh.$$
-        chmod +x /tmp/.git_ssh.$$
-        export GIT_SSH=/tmp/.git_ssh.$$
-    fi
-
-    # in case the git command is repeated
-    [ "$1" = "git" ] && shift
-
-    # Run the git command
-    git "$@"
-}
-
 #   update:  Update brew packages and gems
 #   -------------------------------------------------------------------
 function update() {

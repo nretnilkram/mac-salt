@@ -20,6 +20,10 @@ if [ -f $CONFIGDIR/functions ]; then
 	source $CONFIGDIR/functions
 fi
 
+if [ -f $CONFIGDIR/git_functions ]; then
+	source $CONFIGDIR/git_functions
+fi
+
 if [[ -d "$HOME/.rbenv" ]] ; then
 	export PATH="$HOME/.rbenv/bin:$PATH"
 	eval "$(rbenv init -)";
