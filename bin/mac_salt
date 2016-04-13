@@ -31,7 +31,7 @@ case $@ in
 		git pull
 		;;
 	source)
-		echo -e "source ~/.mac_salt/bash_config" | pbcopy
+		echo -e "source ~/.mac_salt/bash_config" | tr -d '\n' | pbcopy
 		echo -e "paste clipboard into terminal."
 		;;
 	*)
