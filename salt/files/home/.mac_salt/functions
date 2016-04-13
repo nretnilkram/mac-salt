@@ -242,3 +242,10 @@ Usage:
     diskutil unmountDisk $2
     diskutil partitionDisk $2 GPT JHFS+ $1 0b
 }
+
+#   fix_brew_permissions:  sets ownership to current user on brew directories
+#   -------------------------------------------------------------------
+function fix_brew_permissions() {
+    sudo chown -R $(whoami) /usr/local/bin
+    sudo chown -R $(whoami) /usr/local/lib
+}
