@@ -1,4 +1,5 @@
 brew_pkgs:
+  - corkscrew
   - git
   - htop-osx
   - wget

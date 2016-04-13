@@ -30,6 +30,9 @@ case $@ in
 		cd $MACSALT/..
 		git pull
 		;;
+	doctor)
+		$MACSALT/ms_doctor.sh
+		;;
 	source)
 		echo -e "source ~/.mac_salt/bash_config" | tr -d '\n' | pbcopy
 		echo -e "paste clipboard into terminal."
