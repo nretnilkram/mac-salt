@@ -249,3 +249,10 @@ function fix_brew_permissions() {
     sudo chown -R $(whoami) /usr/local/bin
     sudo chown -R $(whoami) /usr/local/lib
 }
+
+#   fix_sudo_bundle:  fixes isssues caused by doing sudo bundle install
+#   -------------------------------------------------------------------
+function fix_sudo_bundle() {
+    sudo bundle install --system
+    bundle install --path ~/.gem
+}
