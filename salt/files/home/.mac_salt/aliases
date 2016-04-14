@@ -7,7 +7,10 @@ alias macsalt=$MACSALTPATH
 alias ms=$MACSALTPATH
 alias salt-local=$MACSALTPATH
 
-#Proxy Shortcuts
+# Sudo keep environment
+alias sudo='sudo -E'
+
+# Proxy Shortcuts
 alias lpe=local_proxy_enable
 alias rmdc=rmdc_proxy_enable
 alias adc=adc_proxy_enable
