@@ -13,7 +13,6 @@
 #  8.   System Operations & Information
 #  9.   Web Development
 #  10.  Reminders & Notes
-#  11.  Useful Functions
 #
 #  ---------------------------------------------------------------------------
 
@@ -292,6 +291,7 @@ function ii () {
   echo -e "\n${Red}Current date :$NC " ; date
   echo -e "\n${Red}Machine stats :$NC " ; uptime
   echo -e "\n${Red}Current network location :$NC " ; scselect
+  echo -e "\n${Red}Internal IP Address(es) :$NC " ; ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172'
   echo -e "\n${Red}Public facing IP Address :$NC " ; myip
   if [ ! -z "$@" ] ; then
     echo -e "\n${Red}DNS Configuration:$NC " ; scutil --dns

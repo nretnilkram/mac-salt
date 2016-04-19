@@ -13,6 +13,13 @@ function port() {
 }
 
 
+#   internal_ip:  check what is using a specific port
+#   -------------------------------------------------------------------
+function internal_ip() {
+    ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172'
+}
+
+
 #   delete_ds:  recursivly delete all .DS_STORE files from current dir
 #   -------------------------------------------------------------------
 function delete_ds() {
