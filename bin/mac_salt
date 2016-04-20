@@ -22,7 +22,10 @@ If you are running issues running mac_salt then you should try running: 'mac_sal
 
 case $@ in
 	alias|aliases)
-		cat ~/.mac_salt/aliases | grep "alias" | awk '{ $1=""; print $0 }' | sort -n 
+		echo -e "aliases:"
+		cat ~/.mac_salt/aliases | grep "^alias" | awk '{ $1=""; print $0 }' | sort -n 
+		echo -e "\nprofile:"
+		cat ~/.mac_salt/profile | grep "^alias" | awk '{ $1=""; print $0 }' | sort -n
 		;;
 	bootstrap)
 		$MACSALT/../bootstrap.sh
@@ -31,8 +34,12 @@ case $@ in
 		$MACSALT/ms_doctor.sh
 		;;
 	function|functions)
+		echo -e "functions:"
 		cat ~/.mac_salt/functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n 
+		echo -e "\ngit_functions:"
 		cat ~/.mac_salt/git_functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n 
+		echo -e "\nprofile:"
+		cat ~/.mac_salt/profile | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
 		;;
 	help)
 		help_function
