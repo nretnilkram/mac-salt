@@ -1,3 +1,7 @@
+#   ---------------------------------------
+#   USEFUL Git Bash FUNCTIONS
+#   ---------------------------------------
+
 ##  sshgit -i <ssh key file> git-command:  Push to git using an ssh key
 #   -------------------------------------------------------------------
 function sshgit() {

@@ -27,6 +27,17 @@ if [[ $@ != "silent" ]]; then
 fi
 
 #####
+# Setup /etc/salt files
+#####
+
+if [ ! -d "/etc/salt" ]; then
+	sudo mkdir /etc/salt
+fi
+
+sudo sh -c "echo $(whoami)-dev-host > /etc/salt/minion_id"
+sudo sh -c "echo file_client: local > /etc/salt/minion"
+
+#####
 # Create / Update Grains File
 #####
 

@@ -4,47 +4,51 @@ MACSALT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 function help_function () {
 	echo -e "
-Add the following to .bash_profile or .bashrc to source the MAC SALT bash configuration: 
+options:
 
-if [ -f ~/.mac_salt/bash_config ]; then
-	source ~/.mac_salt/bash_config
-fi
+alias
+bootstrap
+doctor
+function
+help
+source
+update
+state.highstate
+state.sls <sls>
 
-Seperate your ssh Proxy settings with a comment at the bottom of your ssh config file.
-
-Host *
-	KeepAlive yes
-	###### Do not place anything below this line.  It will be updated frequently by the proxy update functions.
-	ProxyCommand /usr/local/bin/corkscrew 127.0.0.1 8840 %h %p
+If you are running issues running mac_salt then you should try running: 'mac_salt' doctor to see if there are any issues with the setup.
 "
 }
 
 case $@ in
+	alias|aliases)
+		cat ~/.mac_salt/aliases | grep "alias" | awk '{ $1=""; print $0 }' | sort -n 
+		;;
 	bootstrap)
 		$MACSALT/../bootstrap.sh
 		;;
-	help)
-		help_function
-		;;
-	update)
-		cd $MACSALT/..
-		git pull
-		;;
 	doctor)
 		$MACSALT/ms_doctor.sh
-		;;
-	source)
-		echo -e "source ~/.mac_salt/bash_config" | tr -d '\n' | pbcopy
-		echo -e "paste clipboard into terminal."
-		;;
-	alias|aliases)
-		cat ~/.mac_salt/aliases | grep "alias" | awk '{ $1=""; print $0 }' | sort -n 
 		;;
 	function|functions)
 		cat ~/.mac_salt/functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n 
 		cat ~/.mac_salt/git_functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n 
 		;;
-	*)
+	help)
+		help_function
+		;;
+	source)
+		echo -e "source ~/.mac_salt/bash_config" | tr -d '\n' | pbcopy
+		echo -e "paste clipboard into terminal."
+		;;
+	update)
+		cd $MACSALT/..
+		git pull
+		;;
+	state.*)
 		$MACSALT/grains.sh
 		sudo -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@
+		;;
+	*)
+		help_function
 esac
