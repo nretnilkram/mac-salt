@@ -28,7 +28,7 @@ fi
 
 #   Check if brew is installed
 #   ---------------------------------------
-which bredw > /dev/null
+which brew > /dev/null
 
 if [ $? -ne 0 ]
 	then
