@@ -1,4 +1,4 @@
-##  sshgit:  Push to git using an ssh key
+##  sshgit -i <ssh key file> git-command:  Push to git using an ssh key
 #   -------------------------------------------------------------------
 function sshgit() {
     if [ $# -eq 0 ]; then
