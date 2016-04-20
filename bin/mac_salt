@@ -37,6 +37,13 @@ case $@ in
 		echo -e "source ~/.mac_salt/bash_config" | tr -d '\n' | pbcopy
 		echo -e "paste clipboard into terminal."
 		;;
+	alias|aliases)
+		cat ~/.mac_salt/aliases | grep "alias" | awk '{ $1=""; print $0 }' | sort -n 
+		;;
+	function|functions)
+		cat ~/.mac_salt/functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n 
+		cat ~/.mac_salt/git_functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n 
+		;;
 	*)
 		$MACSALT/grains.sh
 		sudo -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@

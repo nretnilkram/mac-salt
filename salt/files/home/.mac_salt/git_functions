@@ -1,4 +1,4 @@
-#   sshgit:  Push to git using an ssh key
+##  sshgit:  Push to git using an ssh key
 #   -------------------------------------------------------------------
 function sshgit() {
     if [ $# -eq 0 ]; then
@@ -28,12 +28,11 @@ Usage:
 }
 
 
-#   clean_all_branches:  Loop through all directories and remove branches
-#                        from each git repo.
+##  clean_all_branches <dir>:  Loop through all directories and remove branches from each git repo.
 #   -------------------------------------------------------------------
 function clean_all_branches() {
     if [ $# -eq 0 ]; then
-        echo "function to clean up git remote branches
+        echo "Clean up git branches locally
 Usage:
     clean_all_branches ~/dev
         "
@@ -52,7 +51,7 @@ Usage:
     cd $curdir
 }
 
-#   clean_branches:  clean git branches from current directory
+##  clean_branches:  clean git branches from current directory
 #   -------------------------------------------------------------------
 function clean_branches() {
     if [ ! -d ".git" ]; then
@@ -62,8 +61,7 @@ function clean_branches() {
     _clean_remote_branches
 }
 
-#   _clean_remote_branches:  loops through the branches of a git repository
-#                            and deletes all that are not master or current
+#  _clean_remote_branches:  loops through the branches of a git repository and deletes all that are not master or current
 #   -------------------------------------------------------------------
 function _clean_remote_branches() {
     git branch | grep -v "master" | grep -v "*" | xargs git branch -D

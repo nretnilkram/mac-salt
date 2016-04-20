@@ -2,7 +2,7 @@
 #   USEFUL Bash FUNCTIONS
 #   ---------------------------------------
 
-#   port:  check what is using a specific port
+##  port <port to check>:  check what is using a specific port
 #   -------------------------------------------------------------------
 function port() {
     if [ "$1" -eq "$1" ] 2>/dev/null ; then
@@ -13,28 +13,28 @@ function port() {
 }
 
 
-#   internal_ip:  check what is using a specific port
+##  internal_ip:  check what is using a specific port
 #   -------------------------------------------------------------------
 function internal_ip() {
     ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172'
 }
 
 
-#   delete_ds:  recursivly delete all .DS_STORE files from current dir
+##  delete_ds:  recursivly delete all .DS_STORE files from current dir
 #   -------------------------------------------------------------------
 function delete_ds() {
     sudo find . -name "*.DS_STORE*" -depth -type f -exec rm {} \;
 }
 
 
-#   delete_all_ds:  recursivly delete all .DS_STORE files
+##  delete_all_ds:  recursivly delete all .DS_STORE files
 #   -------------------------------------------------------------------
 function delete_all_ds() {
    sudo find / -name "*.DS_STORE*" -depth -type f -exec rm {} \;
 }
 
 
-#   update:  Update brew packages and gems
+##  update:  Update brew packages and gems
 #   -------------------------------------------------------------------
 function update() {
     echo "Gem Updates..."
@@ -46,6 +46,8 @@ function update() {
     brew cleanup
 }
 
+#   _unset_ssh_proxy:  remove ProxyCommand line from Host *
+#   -------------------------------------------------------------------
 function _unset_ssh_proxy() {
     FILE=$HOME/.ssh/config
     LASTLINE=`tail -1 $FILE`
@@ -60,6 +62,8 @@ function _unset_ssh_proxy() {
     fi
 }
 
+#   _set_ssh_proxy:  add ProxyCommand line to Host * in ssh/config
+#   -------------------------------------------------------------------
 function _set_ssh_proxy() {
     FILE=$HOME/.ssh/config
     if [ -z "$1" ] || [ -z "$2" ]; then
@@ -74,11 +78,12 @@ function _set_ssh_proxy() {
     echo -e "\tProxyCommand /usr/local/bin/corkscrew $1 $2 %h %p" >> $FILE
 }
 
+#   _unset_gem_proxy:  remove proxy setting from gemrc
+#   -------------------------------------------------------------------
 function _unset_gem_proxy() {
     FILE=$HOME/.gemrc
     LASTLINE=`tail -1 $FILE`
     if [[ $(echo $LASTLINE | head -c 1) != '#' ]] ; then
-        # Remove the last line from ssh/config if it's a ProxyCommand
         FIRSTWORD=`echo $LASTLINE | cut -d " " -f 1`
         if [[ $FIRSTWORD == 'http-proxy:' ]] ; then
             cp $FILE $FILE.tmp &> /dev/null
@@ -88,6 +93,8 @@ function _unset_gem_proxy() {
     fi
 }
 
+#   _set_gem_proxy: add proxy setting to gemrc
+#   -------------------------------------------------------------------
 function _set_gem_proxy() {
     FILE=$HOME/.gemrc
     if [ -z "$1" ] || [ -z "$2" ]; then
@@ -102,6 +109,8 @@ function _set_gem_proxy() {
     echo -e "http-proxy: http://$1:$2" >> $FILE
 }
 
+#   _set_proxy:  setup proxy settings for env, ssh, gem, and git
+#   -------------------------------------------------------------------
 function _set_proxy() {
     if [ -z "$1" ] || [ -z "$2" ]; then
         echo "you must pass a proxy host in \$1 and port in \$2"
@@ -121,6 +130,8 @@ function _set_proxy() {
     _set_gem_proxy $1 $2
 }
 
+##  disable_proxy:  removes all proxy settings from terminal (env, git, ssh, gem)
+#   -------------------------------------------------------------------
 function disable_proxy() {
     echo "Unsetting Environment Proxy"
     unset http_proxy;
@@ -135,42 +146,50 @@ function disable_proxy() {
     _unset_gem_proxy
 }
 
+##  local_proxy_enable:  set proxy settings to use 127.0.0.1 8840
+#   -------------------------------------------------------------------
 function local_proxy_enable() {
     _set_proxy 127.0.0.1 8840
 }
 
+##  www_proxy_enable:  set proxy settings to use www-proxy.us.oracle.com 80
+#   -------------------------------------------------------------------
 function www_proxy_enable() {
     _set_proxy www-proxy.us.oracle.com 80
 }
 
+##  rmdc_proxy_enable:  set proxy settings to use rmdc-proxy.oracle.com 80
+#   -------------------------------------------------------------------
 function rmdc_proxy_enable() {
     _set_proxy rmdc-proxy.oracle.com 80
 }
 
+##  adc_proxy_enable:  set proxy settings to use adc-proxy.oracle.com 80
+#   -------------------------------------------------------------------
 function adc_proxy_enable() {
     _set_proxy adc-proxy.oracle.com 80
 }
 
-#   eject:  eject disk
+##  eject <disk to eject>:  eject mounted disk
 #   -------------------------------------------------------------------
 function eject() {
     if [ -z "$1" ]; then
-        echo "eject disk
+        echo "eject
 Usage:
-    iso_to_usb /dev/disk_to_use
+    eject /dev/disk_to_eject
         "
         return 1
     fi
     diskutil eject $1
 }
 
-#   drive_list:  convert iso file to UDRW to use on bootable USB stick
+##  drive_list:  convert iso file to UDRW to use on bootable USB stick
 #   -------------------------------------------------------------------
 function drive_list() {
     diskutil list
 }
 
-#   iso_to_usb:  convert iso file to UDRW to use on bootable USB stick
+##  iso_to_usb <iso file> <disk to use>:  convert iso file to UDRW to use on bootable USB stick
 #   -------------------------------------------------------------------
 function iso_to_usb() {
     if [ -z "$1" ] && [ -z "$2" ]; then
@@ -208,7 +227,7 @@ Usage:
     echo "Finished"
 }
 
-#   fat_usb:  Initialze USB with FAT32 file system
+##  fat_usb <disk name> <disk to use>:  Initialze USB with FAT32 file system
 #   -------------------------------------------------------------------
 function fat_usb() {
     if [ -z "$1" ] && [ -z "$2" ]; then
@@ -222,7 +241,7 @@ Usage:
     diskutil partitionDisk $2 MBR FAT32 $1 0b
 }
 
-#   exfat_usb:  Initialze USB with ExFat file system
+##  exfat_usb <disk name> <disk to use>:  Initialze USB with ExFat file system
 #   -------------------------------------------------------------------
 function exfat_usb() {
     if [ -z "$1" ] && [ -z "$2" ]; then
@@ -236,7 +255,7 @@ Usage:
     diskutil partitionDisk $2 MBR ExFat $1 0b
 }
 
-#   journaled_usb:  Initialze USB with Journaled file system
+##  journaled_usb <disk name> <disk to use>:  Initialze USB with Journaled file system
 #   -------------------------------------------------------------------
 function journaled_usb() {
     if [ -z "$1" ] && [ -z "$2" ]; then
@@ -250,14 +269,14 @@ Usage:
     diskutil partitionDisk $2 GPT JHFS+ $1 0b
 }
 
-#   fix_brew_permissions:  sets ownership to current user on brew directories
+##  fix_brew_permissions:  sets ownership to current user on brew directories
 #   -------------------------------------------------------------------
 function fix_brew_permissions() {
     sudo chown -R $(whoami) /usr/local/bin
     sudo chown -R $(whoami) /usr/local/lib
 }
 
-#   fix_sudo_bundle:  fixes isssues caused by doing sudo bundle install
+##  fix_sudo_bundle:  fixes isssues caused by doing sudo bundle install
 #   -------------------------------------------------------------------
 function fix_sudo_bundle() {
     sudo bundle install --system
