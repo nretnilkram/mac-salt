@@ -13,8 +13,18 @@ function
 help
 source
 update
-state.highstate
-state.sls <sls>
+
+do:
+	help
+	update
+
+pillar:
+	raw
+
+state:
+	highstate
+	sls <sls>
+
 
 If you are running issues running mac_salt then you should try running: 'mac_salt' doctor to see if there are any issues with the setup.
 "
@@ -52,7 +62,7 @@ case $@ in
 		cd $MACSALT/..
 		git pull
 		;;
-	state.*)
+	state.*|do.*|pillar.*)
 		$MACSALT/grains.sh
 		sudo -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@
 		;;
