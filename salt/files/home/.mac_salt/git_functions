@@ -1,6 +1,9 @@
 #   ---------------------------------------
 #   USEFUL Git Bash FUNCTIONS
 #   ---------------------------------------
+#
+#   If you want to show the function description in the "mac_salt function" command you must use two # to start line.
+#
 
 ##  sshgit -i <ssh key file> git-command:  Push to git using an ssh key
 #   -------------------------------------------------------------------
@@ -32,7 +35,7 @@ Usage:
 }
 
 
-##  clean_all_branches <dir>:  Loop through all directories and remove branches from each git repo.
+##  clean_all_branches <dir>:  Loop through first level directories of given dir and remove branches from each git repo.
 #   -------------------------------------------------------------------
 function clean_all_branches() {
     if [ $# -eq 0 ]; then

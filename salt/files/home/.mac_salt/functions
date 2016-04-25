@@ -1,6 +1,9 @@
 #   ---------------------------------------
 #   USEFUL Bash FUNCTIONS
 #   ---------------------------------------
+#
+#   If you want to show the function description in the "mac_salt function" command you must use two # to start line.
+#
 
 ##  port <port to check>:  check what is using a specific port
 #   -------------------------------------------------------------------
