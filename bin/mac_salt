@@ -64,7 +64,7 @@ case $@ in
 		;;
 	state.*|do.*|pillar.*)
 		$MACSALT/grains.sh
-		sudo -H -E salt-call --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@
+		sudo -H -E salt-call --state-output=changes --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@
 		;;
 	*)
 		help_function
