@@ -1,6 +1,6 @@
 include:
   - services.networking
-  - services.dns
+  - services.dnsmasq
   - services.mysql
   - services.h2o
   - services.nginx
