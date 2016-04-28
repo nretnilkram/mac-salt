@@ -3,6 +3,9 @@
 #   ---------------------------------------
 #   Mac Salt Doctor
 #   ---------------------------------------
+#
+#   This script will run through list of checks that are known to cause issues with the running of mac_salt
+#
 
 found_issue=false
 
@@ -58,6 +61,22 @@ to resolve this issue.
 	found_issue=true
 fi
 
+#   Check permissions on /usr/local/var/mysql
+#   ---------------------------------------
+if [[ ! "$(whoami)" == "$(stat /usr/local/var/mysql/ | awk '{print $5}')" || ! "admin" == "$(stat /usr/local/var/mysql/ | awk '{print $6}')" ]]
+	then
+	echo "
+/user/local/var/mysql does not have $(whoami) as the owner which could cause issues with running mysql.
+
+run:
+
+sudo chown -R $(whoami):admin /usr/local/var/mysql
+
+or reinstall msyql to resolve this issue.
+	"
+	found_issue=true
+fi
+
 #   Check permissions on /usr/local/lib
 #   ---------------------------------------
 if [[ ! "$(whoami)" == "$(stat /usr/local/lib/ | awk '{print $5}')" ]]
@@ -108,5 +127,7 @@ if !( $found_issue )
 	then
 	echo -e "
 Ready to Go!
+
+mac_salt stat.highstate
 	"
 fi
