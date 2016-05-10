@@ -33,10 +33,12 @@ ruby_pkgs:
 
 gems:
   - bundler
+  - rubocop
 
 node_pkgs:
   - npm-check-updates
   - coffee-script
   - grunt-cli
+  - jshint
 
 ruby_version: 2.2.3
