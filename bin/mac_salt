@@ -62,7 +62,7 @@ case $@ in
 		cd $MACSALT/..
 		git pull
 		;;
-	state.*|do.*|pillar.*)
+	state.*|do.*|pillar.*|go.*)
 		$MACSALT/grains.sh
 		sudo -H -E salt-call --state-output=changes --local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar $@
 		;;
