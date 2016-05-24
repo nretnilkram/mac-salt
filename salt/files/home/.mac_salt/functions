@@ -299,3 +299,17 @@ Usage:
     fi
     dd if=/dev/zero of=$1 bs=1024*1024 count=$2
 }
+
+
+##  create_file_decimal <file_name> <size in MB>:  create file from /dev/zero
+#   -------------------------------------------------------------------
+function create_file() {
+    if [ -z "$1" ] && [ -z "$2" ]; then
+        echo "Create file for texting
+Usage:
+    create_file_decimal large_text_file.txt 300
+        "
+        return 1
+    fi
+    dd if=/dev/zero of=$1 bs=1000*1000 count=$2
+}
