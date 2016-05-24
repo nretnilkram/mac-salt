@@ -303,7 +303,7 @@ Usage:
 
 ##  create_file_decimal <file_name> <size in MB>:  create file from /dev/zero
 #   -------------------------------------------------------------------
-function create_file() {
+function create_file_decimal() {
     if [ -z "$1" ] && [ -z "$2" ]; then
         echo "Create file for texting
 Usage:
