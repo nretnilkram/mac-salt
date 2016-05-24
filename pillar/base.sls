@@ -4,7 +4,7 @@ brew_pkgs:
   - htop-osx
   - wget
   - bash-completion
-  - heroku-toolbelt
+  - heroku
   - tmux
   - rmtrash
 
