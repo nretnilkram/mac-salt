@@ -285,3 +285,17 @@ function fix_sudo_bundle() {
     sudo bundle install --system
     bundle install --path ~/.gem
 }
+
+
+##  create_file <file_name> <size in MB>:  create file from /dev/zero
+#   -------------------------------------------------------------------
+function create_file() {
+    if [ -z "$1" ] && [ -z "$2" ]; then
+        echo "Create file for texting
+Usage:
+    create_file large_text_file.txt 300
+        "
+        return 1
+    fi
+    dd if=/dev/zero of=$1 bs=1024*1024 count=$2
+}
