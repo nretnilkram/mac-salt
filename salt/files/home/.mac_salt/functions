@@ -319,4 +319,5 @@ Usage:
 #   -------------------------------------------------------------------
 function clear_cache_files() {
     sudo find ~/Library/Caches -type f -print0 | xargs -0 rm
+    sudo find /Library/Caches -type f -print0 | xargs -0 rm
 }
