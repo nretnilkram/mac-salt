@@ -313,3 +313,10 @@ Usage:
     fi
     dd if=/dev/zero of=$1 bs=1024*1024 count=$2
 }
+
+
+##  clear_cache_files:  clear all files from ~/Library/Caches
+#   -------------------------------------------------------------------
+function clear_cache_files() {
+    sudo find ~/Library/Caches -type f -print0 | xargs -0 rm
+}
