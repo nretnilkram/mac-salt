@@ -6,7 +6,6 @@ h2o_plist:
     - name: {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist
     - source: /usr/local/opt/h2o/homebrew.mxcl.h2o.plist
     - user: {{grains['user']}}
-    - force: true
     - require:
       - pkg: h2o
 
@@ -21,7 +20,7 @@ h2o_conf:
 h2o_setup_service:
   cmd.run:
     - name: launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist
-    - user: {{grains['user']}}
+    - runas: {{grains['user']}}
     - unless: launchctl list | grep homebrew.mxcl.h2o
     - require:
       - file: h2o_conf

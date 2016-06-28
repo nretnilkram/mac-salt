@@ -6,7 +6,6 @@ mysql_plist:
     - name: {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.mysql.plist
     - source: /usr/local/opt/mysql/homebrew.mxcl.mysql.plist
     - user: {{grains['user']}}
-    - force: true
     - require:
       - pkg: mysql
 
@@ -22,7 +21,7 @@ mysql_remove_err_files:
 mysql_setup_service:
   cmd.run:
     - name: launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.mysql.plist
-    - user: {{grains['user']}}
+    - runas: {{grains['user']}}
     - unless: launchctl list | grep homebrew.mxcl.mysql
     - require:
       - file: mysql_plist

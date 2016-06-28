@@ -7,6 +7,8 @@ brew_pkgs:
   - heroku
   - tmux
   - rmtrash
+  - nodenv
+  - node-build
 
 dns_masq_domains:
   - dev
@@ -40,5 +42,6 @@ node_pkgs:
   - coffee-script
   - grunt-cli
   - jshint
+  - webpack
 
 ruby_version: 2.2.3

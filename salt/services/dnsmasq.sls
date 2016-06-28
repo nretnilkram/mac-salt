@@ -38,7 +38,6 @@ dev_dnsmasq_plist:
     - user: root
     - group: admin
     - mode: 644
-    - force: true
     - require:
       - pkg: dnsmasq
 

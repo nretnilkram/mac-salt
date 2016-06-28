@@ -9,7 +9,6 @@ nginx_plist:
     - name: {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.nginx.plist
     - source: /usr/local/opt/nginx/homebrew.mxcl.nginx.plist
     - user: {{grains['user']}}
-    - force: true
     - require:
       - pkg: nginx
 
@@ -24,7 +23,7 @@ nginx_conf:
 nginx_setup_service:
   cmd.run:
     - name: launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.nginx.plist
-    - user: {{grains['user']}}
+    - runas: {{grains['user']}}
     - unless: launchctl list | grep homebrew.mxcl.nginx
     - require:
       - file: nginx_conf
