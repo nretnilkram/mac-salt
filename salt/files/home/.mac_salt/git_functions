@@ -73,3 +73,28 @@ function clean_branches() {
 function _clean_remote_branches() {
     git branch | grep -v "master" | grep -v "*" | xargs git branch -D
 }
+
+##  pull_all_branches <dir>:  Loop through first level directories of given dir and remove branches from each git repo.
+#   -------------------------------------------------------------------
+function pull_all_branches() {
+    if [ $# -eq 0 ]; then
+        echo "Clean up git branches locally
+Usage:
+    pull_all_branches ~/dev
+        "
+        return 1
+    fi
+
+    curdir=`pwd`
+    cd $1
+    dir=`pwd`
+    for d in */ ; do
+        repo=$dir/$d
+        echo "$repo"
+        cd $repo
+        if [ -d ".git" ]; then
+            git pull
+        fi
+    done
+    cd $curdir
+}
