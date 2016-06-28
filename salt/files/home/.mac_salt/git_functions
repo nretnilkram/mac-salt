@@ -74,9 +74,9 @@ function _clean_remote_branches() {
     git branch | grep -v "master" | grep -v "*" | xargs git branch -D
 }
 
-##  pull_all_branches <dir>:  Loop through first level directories of given dir and remove branches from each git repo.
+##  pull_all_projects <dir>:  Loop through first level directories of given dir and pull new data from each repo.
 #   -------------------------------------------------------------------
-function pull_all_branches() {
+function pull_all_projects() {
     if [ $# -eq 0 ]; then
         echo "Clean up git branches locally
 Usage:
