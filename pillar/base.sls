@@ -16,13 +16,7 @@ dns_masq_domains:
   - h2o.dev.com
   - nginx.dev.com
   - foo.bar.com
-  - cnsr.com
-  - compend.me
-  - dev.cpdm.oraclecorp.com
-  - saml.cpdm.oraclecorp.com
-  - hubots-lair.com
-  - networkapps.com
-  - coolermaster.com
+  - cpdm.oraclecorp.com
 
 ruby_pkgs:
   - libyaml
