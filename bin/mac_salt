@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OUTPUT='--state-output=changes '
+OUTPUT='--state-output=changes'
 if [[ $@ == *"--verbose"* ]]; then
   OUTPUT='--state-output=full --log-level=info'
 fi
@@ -73,8 +73,9 @@ case $ARGS in
 		;;
 	state.*|do.*|pillar.*|go.*)
 		$MACSALT/grains.sh
-		OPTIONS='--local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar'
-		sudo -H -E salt-call $OUTPUT $OPTIONS $ARGS
+		OPTIONS="--local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar"
+		echo "sudo -H -E salt-call $OPTIONS $OUTPUT $ARGS"
+		sudo -H -E salt-call $OPTIONS $OUTPUT $ARGS
 		;;
 	*)
 		echo "Did not find a matching option."
