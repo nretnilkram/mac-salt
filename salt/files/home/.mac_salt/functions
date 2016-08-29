@@ -16,6 +16,14 @@ function port() {
 }
 
 
+##  restart_dnsmasq:  restart dnsmasq service
+#   -------------------------------------------------------------------
+function restart_dnsmasq() {
+    sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+}
+
+
 ##  internal_ip:  check what is using a specific port
 #   -------------------------------------------------------------------
 function internal_ip() {
