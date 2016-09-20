@@ -28,3 +28,11 @@ nginx_setup_service:
     - require:
       - file: nginx_conf
       - file: nginx_plist
+
+nginx_restart_service:
+  cmd.wait:
+    - name: launchctl unload {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.nginx.plist && launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+    - runas: {{grains['user']}}
+    - watch:
+      - file: nginx_conf
+      - file: nginx_plist

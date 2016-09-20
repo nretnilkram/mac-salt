@@ -21,3 +21,10 @@ php_setup_service:
     - unless: launchctl list | grep homebrew.mxcl.php56
     - require:
       - file: php_plist
+
+php_restart_service:
+  cmd.wait:
+    - name: launchctl unload {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.php56.plist && launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.php56.plist
+    - runas: {{grains['user']}}
+    - watch:
+      - file: php_plist

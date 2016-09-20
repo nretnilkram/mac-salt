@@ -74,7 +74,7 @@ case $ARGS in
 	state.*|do.*|pillar.*|go.*)
 		$MACSALT/grains.sh
 		OPTIONS="--local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar"
-		echo "sudo -H -E salt-call $OPTIONS $OUTPUT $ARGS"
+		# echo "sudo -H -E salt-call $OPTIONS $OUTPUT $ARGS"
 		sudo -H -E salt-call $OPTIONS $OUTPUT $ARGS
 		;;
 	*)

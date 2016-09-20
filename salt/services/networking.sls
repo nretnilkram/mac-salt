@@ -35,3 +35,11 @@ networking_setup_service:
     - unless: launchctl list | grep dev.networking
     - require:
       - file: dev_networking_plist
+
+networking_restart_service:
+  cmd.wait:
+    - name: launchctl unload /Library/LaunchDaemons/dev.networking.plist && launchctl load -w /Library/LaunchDaemons/dev.networking.plist
+    - watch:
+      - file: dev_pf_rules
+      - file: networking_setup_script
+      - file: dev_networking_plist

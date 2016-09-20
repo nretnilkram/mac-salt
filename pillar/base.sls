@@ -39,3 +39,4 @@ node_pkgs:
   - webpack
 
 ruby_version: 2.2.3
+vagrant_version: 1.8.5

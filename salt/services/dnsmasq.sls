@@ -56,3 +56,11 @@ dnsmasq_setup_service:
     - require:
       - file: dnsmasq_conf
       - file: dev_dnsmasq_plist
+
+dnsmasq_restart_service:
+  cmd.wait:
+    - name: launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist && launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+    - watch:
+      - file: hosts_dnsmasq
+      - file: dnsmasq_conf
+      - file: dev_dnsmasq_plist

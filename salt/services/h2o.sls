@@ -25,3 +25,11 @@ h2o_setup_service:
     - require:
       - file: h2o_conf
       - file: h2o_plist
+
+h2o_restart_service:
+  cmd.wait:
+    - name: launchctl unload {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist && launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist
+    - runas: {{grains['user']}}
+    - watch:
+      - file: h2o_conf
+      - file: h2o_plist
