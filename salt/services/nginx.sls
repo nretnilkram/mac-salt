@@ -19,6 +19,8 @@ nginx_conf:
     - user: root
     - group: admin
     - mode: 644
+    - require:
+      - pkg: nginx
 
 nginx_setup_service:
   cmd.run:
@@ -28,6 +30,7 @@ nginx_setup_service:
     - require:
       - file: nginx_conf
       - file: nginx_plist
+      - pkg: nginx
 
 nginx_restart_service:
   cmd.wait:
@@ -36,3 +39,4 @@ nginx_restart_service:
     - watch:
       - file: nginx_conf
       - file: nginx_plist
+      - pkg: nginx

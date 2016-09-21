@@ -21,6 +21,7 @@ php_setup_service:
     - unless: launchctl list | grep homebrew.mxcl.php56
     - require:
       - file: php_plist
+      - pkg: php56
 
 php_restart_service:
   cmd.wait:
@@ -28,3 +29,4 @@ php_restart_service:
     - runas: {{grains['user']}}
     - watch:
       - file: php_plist
+      - pkg: php56

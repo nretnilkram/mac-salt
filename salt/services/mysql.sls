@@ -17,6 +17,8 @@ mysql_remove_err_files:
   cmd.run:
     - name: rm -f /usr/local/var/mysql/*.err
     - onlyif: test -f /usr/local/var/mysql/*.err
+    - require:
+      - pkg: mysql
 
 mysql_setup_service:
   cmd.run:
@@ -24,4 +26,5 @@ mysql_setup_service:
     - runas: {{grains['user']}}
     - unless: launchctl list | grep homebrew.mxcl.mysql
     - require:
+      - pkg: mysql
       - file: mysql_plist
