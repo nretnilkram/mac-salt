@@ -121,17 +121,17 @@ fi
 
 #   Check to see if ~/Library/LaunchAgents dir exists
 #   ---------------------------------------
-if [[ ! -d "~/Library/LaunchAgents" ]]
+if [ ! -d ~/Library/LaunchAgents ]
 	then
 	echo "
-You need to create a .ssh directory in your home directory
+You need to create a Library/LaunchAgents directory in your home directory
 	"
 	found_issue=true
 fi
 
 #   Check to see if ~/.ssh dir exists
 #   ---------------------------------------
-if [[ ! -d "~/.ssh" ]]
+if [ ! -d ~/.ssh ]
 	then
 	echo "
 You need to create a .ssh directory in your home directory
