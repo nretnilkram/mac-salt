@@ -9,12 +9,14 @@ foo_bar_conf:
     - name: /etc/apache2/other/foo.bar.com.conf
     - source: salt://files/etc/apache2/other/foo.bar.com.conf
     - mode: 644
+    - template: jinja
 
 localhost_conf:
   file.managed:
     - name: /etc/apache2/other/localhost.conf
     - source: salt://files/etc/apache2/other/localhost.conf
     - mode: 644
+    - template: jinja
 
 apache_start_service:
   cmd.run:
