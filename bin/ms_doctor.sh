@@ -155,6 +155,26 @@ Host *
 	found_issue=true
 fi
 
+#   Check to see if ~/Dropbox/Website exists
+#   ---------------------------------------
+if [ ! -d ~/Dropbox/Website ]
+	then
+	echo "
+You need to install dropbox or setup a ~/Dropbox/Website directory which is where apache's localhost config points
+	"
+	found_issue=true
+fi
+
+#   Check to see if ~/Dropbox/var-www-html exists
+#   ---------------------------------------
+if [ ! -d ~/Dropbox/var-www-html ]
+	then
+	echo "
+You need to install dropbox or setup a ~/Dropbox/var-www-html directory which is where apache's foo.bar.com config points
+	"
+	found_issue=true
+fi
+
 if !( $found_issue )
 	then
 	echo -e "
