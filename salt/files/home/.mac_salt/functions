@@ -294,7 +294,6 @@ function fix_sudo_bundle() {
     bundle install --path ~/.gem
 }
 
-
 ##  create_file <file_name> <size in MB>:  create file from /dev/zero
 #   -------------------------------------------------------------------
 function create_file() {
@@ -308,6 +307,11 @@ Usage:
     dd if=/dev/zero of=$1 bs=1000*1000 count=$2
 }
 
+##  fix_pf_rules:  initializes pf anchor rules
+#   -------------------------------------------------------------------
+function fix_pf_rules() {
+    sudo /sbin/pfctl -evf /etc/pf.anchors/dev
+}
 
 ##  create_file_binary <file_name> <size in MB>:  create file from /dev/zero
 #   -------------------------------------------------------------------
@@ -321,7 +325,6 @@ Usage:
     fi
     dd if=/dev/zero of=$1 bs=1024*1024 count=$2
 }
-
 
 ##  clear_cache_files:  clear all files from ~/Library/Caches
 #   -------------------------------------------------------------------
