@@ -52,7 +52,7 @@ function update() {
     gem update
     echo "Brew Updates..."
     brew update
-    brew upgrade --all
+    brew upgrade
     echo "Cleaning Up Brew Packages..."
     brew cleanup
 }
