@@ -64,3 +64,4 @@ dnsmasq_restart_service:
       - file: hosts_dnsmasq
       - file: dnsmasq_conf
       - file: dev_dnsmasq_plist
+      - pkg: dnsmasq

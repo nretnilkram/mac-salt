@@ -24,5 +24,6 @@ redis_restart_service:
     - runas: {{grains['user']}}
     - watch:
       - file: redis_plist
+      - pkg: redis
     - require:
       - pkg: redis
