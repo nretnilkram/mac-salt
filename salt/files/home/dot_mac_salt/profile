@@ -19,7 +19,6 @@
 #   If you want to show the function description in the "mac_salt function" command you must use two # to start line.
 #
 
-
 #   ---------------------------------------
 #   1.  COLORS
 #   ---------------------------------------
@@ -55,7 +54,6 @@ On_Cyan='\033[46m'        # Cyan
 On_White='\033[47m'       # White
 
 NC='\033[m'               # Color Reset
-
 
 
 #   -------------------------------
@@ -95,25 +93,6 @@ export BLOCKSIZE=1k
 #   ------------------------------------------------------------
 #   export CLICOLOR=1
 #   export LSCOLORS=ExFxBxDxCxegedabagacad
-
-#   Bash History Setup
-HISTSIZE=10000
-export HISTFILESIZE=$HISTSIZE
-export HISTCONTROL=ignorespace:ignoredups
-
-function history () {
-  _bash_history_sync
-  builtin history "$@"
-}
-
-function _bash_history_sync () {
-  builtin history -a              #1
-  export HISTFILESIZE=$HISTSIZE   #2
-  builtin history -c              #3
-  builtin history -r              #4
-}
-
-export PROMPT_COMMAND=_bash_history_sync
 
 
 #   -----------------------------
@@ -168,7 +147,6 @@ function mans () {
 ##  showa: to remind yourself of an alias (given some part of it)
 #   ------------------------------------------------------------
 function showa () { /usr/bin/grep --color=always -i -a1 $@ ~/Library/init/bash/aliases.bash | grep -v '^\s*$' | less -FSRXc ; }
-
 
 
 #   -------------------------------
@@ -226,7 +204,6 @@ function extract () {
 }
 
 
-
 #   ---------------------------
 #   5.  SEARCHING
 #   ---------------------------
@@ -250,7 +227,6 @@ function ffe () { /usr/bin/find . -name '*'"$@" ; }
 function spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
 
 
-
 #   ---------------------------
 #   6.  PROCESS MANAGEMENT
 #   ---------------------------
@@ -272,7 +248,6 @@ alias ttop="top -R -F -s 10 -o rsize"       #  ttop:  Recommended 'top' invocati
 ##  my_ps: List processes owned by my user:
 #   ------------------------------------------------------------
 function my_ps () { ps $@ -u $USER -o pid,%cpu,%mem,start,time,bsdtime,command ; }
-
 
 
 #   ---------------------------
@@ -308,7 +283,6 @@ function ii () {
 }
 
 
-
 #   ---------------------------------------
 #   8.  SYSTEMS OPERATIONS & INFORMATION
 #   ---------------------------------------
@@ -334,7 +308,6 @@ alias cleanupLS="/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 alias screensaverDesktop='/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine -background'
 
 
-
 #   ---------------------------------------
 #   9.  WEB DEVELOPMENT
 #   ---------------------------------------
@@ -352,7 +325,6 @@ function httpHeaders () { /usr/bin/curl -I -L $@ ; }
 ##   httpDebug <website>:  Download a web page and show info on what took time
 #   -------------------------------------------------------------------
 function httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
-
 
 
 #   ---------------------------------------

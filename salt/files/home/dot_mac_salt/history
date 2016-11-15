@@ -1,0 +1,19 @@
+# Bash History Setup
+export HISTSIZE=5000
+export HISTFILESIZE=10000
+export HISTCONTROL=ignorespace:ignoredups
+
+##  history: Lists history of bash commands
+#   ------------------------------------------------------------
+function history () {
+  _bash_history_sync
+  builtin history "$@"
+}
+
+function _bash_history_sync () {
+  builtin history -a              #1
+  builtin history -c              #2
+  builtin history -r              #3
+}
+
+export PROMPT_COMMAND="_bash_history_sync; $PROMPT_COMMAND"

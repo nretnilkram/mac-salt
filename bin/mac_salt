@@ -54,9 +54,11 @@ case $ARGS in
 		;;
 	function|functions)
 		echo -e "functions:"
-		cat ~/.mac_salt/functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n 
+		cat ~/.mac_salt/functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
+		echo -e "\nhistory:"
+		cat ~/.mac_salt/history | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
 		echo -e "\ngit_functions:"
-		cat ~/.mac_salt/git_functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n 
+		cat ~/.mac_salt/git_functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
 		echo -e "\nprofile:"
 		cat ~/.mac_salt/profile | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
 		;;
