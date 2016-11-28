@@ -16,4 +16,4 @@ function _bash_history_sync () {
   builtin history -r              #3
 }
 
-export PROMPT_COMMAND="$PROMPT_COMMAND; _bash_history_sync;"
+export PROMPT_COMMAND="_bash_history_sync; $PROMPT_COMMAND"
