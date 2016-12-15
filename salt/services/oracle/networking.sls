@@ -7,7 +7,7 @@ dev_pf_rules:
     - user: root
     - group: admin
     - mode: 755
-    - source: salt://files/etc/pf.anchors/dev
+    - source: salt://files/oracle/etc/pf.anchors/dev
 
 networking_setup_script:
   file.managed:
@@ -15,7 +15,7 @@ networking_setup_script:
     - user: root
     - group: admin
     - mode: 755
-    - source: salt://files/usr/local/bin/dev_network_setup.sh
+    - source: salt://files/oracle/usr/local/bin/dev_network_setup.sh
     - require:
       - file: dev_pf_rules
 
@@ -25,7 +25,7 @@ dev_networking_plist:
     - user: root
     - group: admin
     - mode: 755
-    - source: salt://files/Library/LaunchDaemons/dev.networking.plist
+    - source: salt://files/oracle/Library/LaunchDaemons/dev.networking.plist
     - require:
       - file: networking_setup_script
 

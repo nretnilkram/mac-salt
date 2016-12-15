@@ -1,5 +1,5 @@
 include:
-  - services.networking
+  - services.oracle.networking
   - services.dnsmasq
   - services.apache
   - services.mysql

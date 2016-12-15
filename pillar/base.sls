@@ -17,6 +17,7 @@ dns_masq_domains:
   - nginx.dev.com
   - foo.bar.com
   - cpdm.oraclecorp.com
+  - test-cpdm.oraclecorp.com
 
 ruby_pkgs:
   - libyaml
