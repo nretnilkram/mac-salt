@@ -21,6 +21,17 @@ resolver_dir:
 
 {% endfor %}
 
+{% for n in pillar.get("oracle_dns_masq_domains") %}
+
+{{n}}_resolver_conf:
+  file.managed:
+    - name: /etc/resolver/{{n}}
+    - source: salt://files/etc/resolver/resolver.template
+    - require:
+      - file: resolver_dir
+
+{% endfor %}
+
 dnsmasq_conf:
   file.managed:
     - name: /usr/local/etc/dnsmasq.conf

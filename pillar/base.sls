@@ -16,6 +16,8 @@ dns_masq_domains:
   - h2o.dev.com
   - nginx.dev.com
   - foo.bar.com
+
+oracle_dns_masq_domains:
   - cpdm.oraclecorp.com
   - test-cpdm.oraclecorp.com
 
@@ -40,4 +42,4 @@ node_pkgs:
   - webpack
 
 ruby_version: 2.2.3
-vagrant_version: 1.8.5
+vagrant_version: 1.9.1
