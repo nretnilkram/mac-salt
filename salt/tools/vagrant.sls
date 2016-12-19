@@ -21,9 +21,8 @@ vagrant_install:
 
 unmount_vagrant_volume:
   cmd.run:
-    - name: diskutil unmount /Volumes/Vagrant
-    - unless: /usr/local/bin/vagrant -v | grep '{{ pillar.get("vagrant_version") }}'
-    - removes: /Volumes/Vagrant
+    - name: diskutil unmount /Volumes/Vagrant/
+    - onlyif: ls /Volumes/Vagrant/
     - require:
-      - cmd: vagrant_install
       - cmd: mount_vagrant_volume
+      - cmd: vagrant_install
