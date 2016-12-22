@@ -93,18 +93,6 @@ to fix this.
 	found_issue=true
 fi
 
-#   Check that nodenv is being initialized
-#   ---------------------------------------
-if !( grep -Fq 'eval "$(nodenv init -)"' ~/.bash_profile ~/.bashrc &> /dev/null )
-	then
-	echo -e "
-Add the following to .bash_profile or .bashrc to source the MAC SALT bash configuration:
-
-eval \"\$(nodenv init -)\"
-	"
-	found_issue=true
-fi
-
 #   Check that bash_config is being sourced
 #   ---------------------------------------
 if !( grep -Fq "source ~/.mac_salt/bash_config" ~/.bash_profile ~/.bashrc &> /dev/null )
