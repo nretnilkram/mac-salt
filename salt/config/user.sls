@@ -85,6 +85,14 @@ bash_history:
     - group: staff
     - mode: 644
 
+bash_cpdm:
+  file.managed:
+    - name: {{grains['homedir']}}/.mac_salt/cpdm
+    - source: salt://files/home/dot_mac_salt/cpdm
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+
 bash_config:
   file.managed:
     - name: {{grains['homedir']}}/.mac_salt/bash_config

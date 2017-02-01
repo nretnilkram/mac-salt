@@ -1,0 +1,97 @@
+# Handy functions for CPDM deployments and mgmt
+
+# open up port forwards for 
+# 1. graylog  (9000)
+# 2. m/monit  (9443)
+# 3. graphite (8080)
+##  cpdm_managment:  open up port forwards for 
+#   -------------------------------------------------------------------
+function cpdm_mgmt {
+  if [ -z "$1" ]; then
+    echo "You must specify an environment"
+    return 1
+  fi
+
+  GRAPHITE_PORT=8080
+  GRAYLOG_PORT=9000
+  MMONIT_PORT=9443
+
+  if [ ! -z "$2" ]; then
+    GRAPHITE_PORT=$[$GRAPHITE_PORT+$2]
+    GRAYLOG_PORT=$[$GRAYLOG_PORT+$2]
+    MMONIT_PORT=$[$MMONIT_PORT+$2]
+  fi
+
+  ssh -L $GRAPHITE_PORT:127.0.0.1:80 \
+    -L $GRAYLOG_PORT:127.0.0.1:9000 \
+    -L $MMONIT_PORT:127.0.0.1:9443 log01-$1;
+}
+
+
+##  salt_sync:  sync your salt directory up to salt01-tor6 or slc1
+#   -------------------------------------------------------------------
+function salt_sync {
+  if [ -z "$1" ]; then
+    echo "You must specify an environment"
+    return 1
+  fi
+  
+  host="salt01-$1"
+  if [ "$1" == "slc1" ]; then
+    host="jenkins"
+  fi
+  echo "syncing your salt dir to $host";
+  pushd ~/dev;
+  rsync --delete --exclude .git -azv systems root@$host:;
+  popd;
+}
+
+
+##  yum_pull:  sync your local yum repo with jenkins01-slc1
+#   -------------------------------------------------------------------
+function yum_pull {
+  echo "syncing jenkins01-slc1 yum repo to ~/cpdm_jenkins";
+  mkdir -p  ~/cpdm_jenkins_repo/yum-tor6/ >/dev/null;
+  mkdir -p  ~/cpdm_jenkins_repo/yum-den3/ >/dev/null;
+
+  if [ -z "$1" ] || [ $1 = "tor6" ]; then
+  echo "syncing tor6 packages";
+  rsync -avz --exclude="*-dev-*" --exclude="*-devel-*" --exclude="*-stage-*" --exclude="*-den3-*"--delete jenkins:/var/lib/jenkins/yum-tor6/ ~/cpdm_jenkins_repo/yum-tor6/
+  fi
+
+  if [ -z "$1" ] || [ $1 = "den3" ]; then
+  echo "syncing den3 packages";
+  rsync -avz --exclude="*-devel-*" --delete jenkins:/var/lib/jenkins/yum-den3/ ~/cpdm_jenkins_repo/yum-den3/
+  fi
+}
+
+
+##  yum_push:  push your local yum repo up to yum01-tor6
+#   -------------------------------------------------------------------
+function yum_push {
+  if [ -z "$1" ]; then
+    echo "You must specify an environment"
+    return 1
+  fi
+
+  host="yum01-$1"
+  echo "syncing ~/cpdm_jenkins yum repo to $host";
+  mkdir -p  ~/cpdm_jenkins_repo/yum-$1/ >/dev/null;
+  rsync -azv --delete ~/cpdm_jenkins_repo/yum-$1/* root@$host:/srv/yum/
+}
+
+
+##  validate_md5:  Validate URL MD5sum
+#   -------------------------------------------------------------------
+function validate_md5 {
+  url=$1
+  remote_md5=`curl $url | gmd5sum | cut -f 1 -d "-" | sed -e 's/ //g'`
+  expected=$2
+  if [ "$remote_md5" != "$expected" ]; then
+    echo "\e[0;31mRemote md5 '$remote_md5' does not match expected '$expected' for URL $url\e[0m"
+    return 1
+  else
+    echo "\e[0;32mRemote md5 matches expected '$expected' for URL $url\e[0m"
+    return 0
+  fi
+}
