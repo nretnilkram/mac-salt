@@ -53,9 +53,9 @@ case $ARGS in
 		$MACSALT/ms_doctor.sh
 		;;
 	function|functions)
-		echo -e "\ncpdm:"
+		echo -e "cpdm:"
 		cat ~/.mac_salt/cpdm | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
-		echo -e "functions:"
+		echo -e "\nfunctions:"
 		cat ~/.mac_salt/functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
 		echo -e "\nhistory:"
 		cat ~/.mac_salt/history | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n

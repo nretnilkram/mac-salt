@@ -5,6 +5,7 @@
 #   If you want to show the function description in the "mac_salt function" command you must use two # to start line.
 #
 
+
 ##  port <port to check>:  check what is using a specific port
 #   -------------------------------------------------------------------
 function port() {
@@ -57,6 +58,7 @@ function update() {
     brew cleanup
 }
 
+
 #   _unset_ssh_proxy:  remove ProxyCommand line from Host *
 #   -------------------------------------------------------------------
 function _unset_ssh_proxy() {
@@ -72,6 +74,7 @@ function _unset_ssh_proxy() {
         fi
     fi
 }
+
 
 #   _set_ssh_proxy:  add ProxyCommand line to Host * in ssh/config
 #   -------------------------------------------------------------------
@@ -89,6 +92,7 @@ function _set_ssh_proxy() {
     echo -e "\tProxyCommand /usr/local/bin/corkscrew $1 $2 %h %p" >> $FILE
 }
 
+
 #   _unset_gem_proxy:  remove proxy setting from gemrc
 #   -------------------------------------------------------------------
 function _unset_gem_proxy() {
@@ -103,6 +107,7 @@ function _unset_gem_proxy() {
         fi
     fi
 }
+
 
 #   _set_gem_proxy: add proxy setting to gemrc
 #   -------------------------------------------------------------------
@@ -119,6 +124,7 @@ function _set_gem_proxy() {
     _unset_gem_proxy
     echo -e "http-proxy: http://$1:$2" >> $FILE
 }
+
 
 #   _set_proxy:  setup proxy settings for env, ssh, gem, and git
 #   -------------------------------------------------------------------
@@ -141,6 +147,7 @@ function _set_proxy() {
     _set_gem_proxy $1 $2
 }
 
+
 ##  disable_proxy:  removes all proxy settings from terminal (env, git, ssh, gem)
 #   -------------------------------------------------------------------
 function disable_proxy() {
@@ -157,11 +164,13 @@ function disable_proxy() {
     _unset_gem_proxy
 }
 
+
 ##  local_proxy_enable:  set proxy settings to use 127.0.0.1 8840
 #   -------------------------------------------------------------------
 function local_proxy_enable() {
     _set_proxy 127.0.0.1 8840
 }
+
 
 ##  www_proxy_enable:  set proxy settings to use www-proxy.us.oracle.com 80
 #   -------------------------------------------------------------------
@@ -169,17 +178,20 @@ function www_proxy_enable() {
     _set_proxy www-proxy.us.oracle.com 80
 }
 
+
 ##  rmdc_proxy_enable:  set proxy settings to use rmdc-proxy.oracle.com 80
 #   -------------------------------------------------------------------
 function rmdc_proxy_enable() {
     _set_proxy rmdc-proxy.oracle.com 80
 }
 
+
 ##  adc_proxy_enable:  set proxy settings to use adc-proxy.oracle.com 80
 #   -------------------------------------------------------------------
 function adc_proxy_enable() {
     _set_proxy adc-proxy.oracle.com 80
 }
+
 
 ##  eject <disk to eject>:  eject mounted disk
 #   -------------------------------------------------------------------
@@ -194,11 +206,13 @@ Usage:
     diskutil eject $1
 }
 
-##  drive_list:  convert iso file to UDRW to use on bootable USB stick
+
+##  drive_list:  list connected drives
 #   -------------------------------------------------------------------
 function drive_list() {
     diskutil list
 }
+
 
 ##  iso_to_usb <iso file> <disk to use>:  convert iso file to UDRW to use on bootable USB stick
 #   -------------------------------------------------------------------
@@ -212,28 +226,42 @@ Usage:
     fi
     TIMESTAMP=$(sudo date +%s)
     TMP_FILE="/tmp/__"$TIMESTAMP"__file.img"
-    echo $TIMESTAMP
-    echo $TMP_FILE
     echo "Converting ISO file to UDRW format"
     hdiutil convert -format UDRW -o "$TMP_FILE" $1
     if [ $? -eq 0 ]; then
         echo "Erasing USB"
+        diskutil unmountDisk force $2
         diskutil partitionDisk $2 1 "Free Space" "unused" "100%"
     else
         command rm $TMP_FILE.dmg
     fi
+
+    img_to_usb $TMP_FILE.dmg $2
+
     if [ $? -eq 0 ]; then
+        echo "Removing tmp file"
+        command rm $TMP_FILE.dmg
+    fi
+}
+
+##  img_to_usb <img file> <disk to use>:  import img file onto a USB
+#   -------------------------------------------------------------------
+function img_to_usb() {
+    if [ -z "$1" ] && [ -z "$2" ]; then
+        echo "import img file onto a USB
+Usage:
+    img_to_usb img_file /dev/disk_to_use
+        "
+        return 1
+    fi
+    if [ $? -eq 0 ]; then
+        diskutil unmountDisk force $2
         echo "Copying Image to USB"
-        diskutil unmountDisk $2
-        sudo dd if=$TMP_FILE.dmg of=$2 bs=1m
+        sudo dd if=$1 of=$2 bs=1m
     fi
     if [ $? -eq 0 ]; then
         echo "Ejecting Disk"
         diskutil eject $2
-    fi
-    if [ $? -eq 0 ]; then
-        echo "Removing tmp file"
-        command rm $TMP_FILE.dmg
     fi
     echo "Finished"
 }
