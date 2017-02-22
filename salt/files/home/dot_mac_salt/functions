@@ -25,7 +25,7 @@ function restart_dnsmasq() {
 }
 
 
-##  internal_ip:  check what is using a specific port
+##  internal_ip:  list current internal IP address
 #   -------------------------------------------------------------------
 function internal_ip() {
     ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172'
@@ -35,14 +35,14 @@ function internal_ip() {
 ##  delete_ds:  recursivly delete all .DS_STORE files from current dir
 #   -------------------------------------------------------------------
 function delete_ds() {
-    sudo find . -iname "*.DS_Store*" -depth -type f -exec rm {} \;
+    sudo find . -iname "*.DS_Store*" -depth -type f -exec rm -v {} \;
 }
 
 
 ##  delete_all_ds:  recursivly delete all .DS_STORE files
 #   -------------------------------------------------------------------
 function delete_all_ds() {
-    sudo find / -iname "*.DS_Store*" -depth -type f -exec rm {} \;
+    sudo find / -iname "*.DS_Store*" -depth -type f -exec rm -v {} \;
 }
 
 
