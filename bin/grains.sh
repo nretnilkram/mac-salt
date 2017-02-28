@@ -19,9 +19,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 #####
 # This determines if legacy .macsalt file is still present so that it can be removed.
 #####
-MACSALTFILEEXISTS=true
-if [ -d "$HOMEDIR/.mac_salt" ]; then
-	MACSALTFILEEXISTS=false
+MACSALTFILEEXISTS=false
+if [ -d "$HOMEDIR/.macsalt" ]; then
+	MACSALTFILEEXISTS=true
 fi
 #####
 

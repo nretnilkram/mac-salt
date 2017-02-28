@@ -1,7 +1,14 @@
+/usr/local:
+  file.directory:
+    - user : {{grains['user']}}
+    - group: admin
+    - mode: 755
+    - makedirs: False
+
 {% if grains['mac_salt_file_exists'] %}
 remove_mac_salt_file:
   file.absent:
-    - name: {{grains['homedir']}}/.mac_salt
+    - name: {{grains['homedir']}}/.macsalt
 {% endif %}
 
 create_mac_salt_dir:
@@ -11,13 +18,6 @@ create_mac_salt_dir:
     - group: staff
     - mode: 755
     - makedirs: True
-
-/usr/local:
-  file.directory:
-    - user : {{grains['user']}}
-    - group: admin
-    - mode: 755
-    - makedirs: False
 
 bash_aliases:
   file.managed:
@@ -101,19 +101,3 @@ bash_config:
     - group: staff
     - mode: 644
     - template: jinja
-
-tmux_config:
-  file.managed:
-    - name: {{grains['homedir']}}/.tmux.conf
-    - source: salt://files/home/.tmux.conf
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
-
-vim_config:
-  file.managed:
-    - name: {{grains['homedir']}}/.vimrc
-    - source: salt://files/home/.vimrc
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
