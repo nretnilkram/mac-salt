@@ -16,6 +16,7 @@ h2o_conf:
     - user: root
     - group: admin
     - mode: 644
+    - template: jinja
     - require:
       - pkg: h2o
 

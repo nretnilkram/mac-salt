@@ -43,3 +43,11 @@ node_pkgs:
 
 ruby_version: 2.2.3
 vagrant_version: 1.9.1
+
+apache_localhost_dir: {{grains['homedir']}}/Dropbox/Website
+apache_foo_bar_com_dir: {{grains['homedir']}}/Dropbox/var-www-html
+
+h2o_localhost_8080_dir: {{grains['homedir']}}/Dropbox/Website/dev/bootstrap4-start
+
+nginx_localhost_8081_dir: {{grains['homedir']}}/Dropbox/Website/dev/avatar
+nginx_localhost_8082_dir: {{grains['homedir']}}/dev_mlintern/lintern-us
