@@ -244,6 +244,7 @@ Usage:
     fi
 }
 
+
 ##  img_to_usb <img file> <disk to use>:  import img file onto a USB
 #   -------------------------------------------------------------------
 function img_to_usb() {
@@ -266,6 +267,7 @@ Usage:
     echo "Finished"
 }
 
+
 ##  fat_usb <disk name> <disk to use>:  Initialze USB with FAT32 file system
 #   -------------------------------------------------------------------
 function fat_usb() {
@@ -279,6 +281,7 @@ Usage:
     diskutil unmountDisk $2
     diskutil partitionDisk $2 MBR FAT32 $1 0b
 }
+
 
 ##  exfat_usb <disk name> <disk to use>:  Initialze USB with ExFat file system
 #   -------------------------------------------------------------------
@@ -294,6 +297,7 @@ Usage:
     diskutil partitionDisk $2 MBR ExFat $1 0b
 }
 
+
 ##  journaled_usb <disk name> <disk to use>:  Initialze USB with Journaled file system
 #   -------------------------------------------------------------------
 function journaled_usb() {
@@ -308,6 +312,7 @@ Usage:
     diskutil partitionDisk $2 GPT JHFS+ $1 0b
 }
 
+
 ##  fix_brew_permissions:  sets ownership to current user on brew directories
 #   -------------------------------------------------------------------
 function fix_brew_permissions() {
@@ -315,12 +320,14 @@ function fix_brew_permissions() {
     sudo chown -R $(whoami) /usr/local/lib
 }
 
+
 ##  fix_sudo_bundle:  fixes isssues caused by doing sudo bundle install
 #   -------------------------------------------------------------------
 function fix_sudo_bundle() {
     sudo bundle install --system
     bundle install --path ~/.gem
 }
+
 
 ##  create_file <file_name> <size in MB>:  create file from /dev/zero
 #   -------------------------------------------------------------------
@@ -335,11 +342,13 @@ Usage:
     dd if=/dev/zero of=$1 bs=1000*1000 count=$2
 }
 
+
 ##  fix_pf_rules:  initializes pf anchor rules
 #   -------------------------------------------------------------------
 function fix_pf_rules() {
     sudo /sbin/pfctl -evf /etc/pf.anchors/dev
 }
+
 
 ##  create_file_binary <file_name> <size in MB>:  create file from /dev/zero
 #   -------------------------------------------------------------------
@@ -354,12 +363,14 @@ Usage:
     dd if=/dev/zero of=$1 bs=1024*1024 count=$2
 }
 
+
 ##  clear_cache_files:  clear all files from ~/Library/Caches
 #   -------------------------------------------------------------------
 function clear_cache_files() {
     sudo find ~/Library/Caches -type f -print0 | xargs -0 rm
     sudo find /Library/Caches -type f -print0 | xargs -0 rm
 }
+
 
 #   backup_home_dir:  rsync home dir to location of choice, excluding 'VirtualBox VMs' dir
 #   -------------------------------------------------------------------
