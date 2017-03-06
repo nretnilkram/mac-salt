@@ -372,7 +372,7 @@ function clear_cache_files() {
 }
 
 
-#   backup_home_dir:  rsync home dir to location of choice, excluding 'VirtualBox VMs' dir
+#   backup_home_dir:  rsync home dir to location of choice, excluding 'VirtualBox VMs', Library, Applications, .rbenv and .nodenv dirs.
 #   -------------------------------------------------------------------
 function backup_home_dir() {
     if [ -z "$1" ]; then
@@ -382,5 +382,5 @@ function backup_home_dir() {
         return 1
     fi
 
-    sudo rsync --delete --exclude VirtualBox\ VMs -auv $HOME $1
+    sudo rsync --delete --exclude=VirtualBox\ VMs --exclude=.Trash --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
 }
