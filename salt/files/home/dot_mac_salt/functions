@@ -360,3 +360,16 @@ function clear_cache_files() {
     sudo find ~/Library/Caches -type f -print0 | xargs -0 rm
     sudo find /Library/Caches -type f -print0 | xargs -0 rm
 }
+
+#   backup_home_dir:  rsync home dir to location of choice, excluding 'VirtualBox VMs' dir
+#   -------------------------------------------------------------------
+function backup_home_dir() {
+    if [ -z "$1" ]; then
+        echo "you must pass a destination directory in \$1"
+        echo
+        echo "backup_home_dir /Volumes/WD"
+        return 1
+    fi
+
+    sudo rsync --delete --exclude VirtualBox\ VMs -auv $HOME $1
+}
