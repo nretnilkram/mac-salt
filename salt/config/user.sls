@@ -1,10 +1,10 @@
 home_dot_ssh_dir:
   file.directory:
     - name: {{grains['homedir']}}/.ssh
-    - user: mlintern
+    - user: {{grains['user']}}
     - group: staff
     - mode: 700
-    - unless: [[ $(stat -f "%Su %Sg %A" {{grains['homedir']}}/.ssh == "mlintern staff 700" ]]
+    - unless: [[ $(stat -f "%Su %Sg %A" {{grains['homedir']}}/.ssh == "{{grains['user']}} staff 700" ]]
 
 /usr/local:
   file.directory:
