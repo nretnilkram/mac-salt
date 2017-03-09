@@ -3,5 +3,6 @@
 {{n}}_brew_install:
   pkg.installed:
     - name: {{n}}
+    - user: {{grains['user']}}
 
 {% endfor %}

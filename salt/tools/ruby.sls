@@ -3,6 +3,7 @@
 {{n}}_brew_install:
   pkg.installed:
     - name: {{n}}
+    - user: {{grains['user']}}
 
 {% endfor %}
 
@@ -35,5 +36,6 @@ current-ruby:
   gem.installed:
     - name: {{n}}
     - ruby: {{ pillar.get("ruby_version") }}
+    - user: {{grains['user']}}
 
 {% endfor %}
