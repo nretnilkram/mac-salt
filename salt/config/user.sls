@@ -4,7 +4,7 @@ home_dot_ssh_dir:
     - user: {{grains['user']}}
     - group: staff
     - mode: 700
-    - unless: [[ $(stat -f "%Su %Sg %A" {{grains['homedir']}}/.ssh == "{{grains['user']}} staff 700" ]]
+    - unless: [[ $(stat -f "%Su %Sg %A" {{grains['homedir']}}/.ssh) == "{{grains['user']}} staff 700" ]]
 
 dropbox_dir_permissions:
   file.directory:
@@ -12,7 +12,7 @@ dropbox_dir_permissions:
     - user: {{grains['user']}}
     - group: staff
     - mode: 755
-    - unless: [[ $(stat -f "%Su %Sg %A" {{grains['homedir']}}/Dropbox == "{{grains['user']}} staff 755" ]]
+    - unless: [[ $(stat -f "%Su %Sg %A" {{grains['homedir']}}/Dropbox) == "{{grains['user']}} staff 755" ]]
 
 /usr/local:
   file.directory:

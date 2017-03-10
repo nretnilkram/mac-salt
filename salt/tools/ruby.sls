@@ -1,3 +1,11 @@
+dot_gemrc:
+  file.managed:
+    - name: {{grains['homedir']}}/.gemrc
+    - source: salt://files/home/dot_gemrc
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+
 {% for n in pillar.get("ruby_pkgs") %}
 
 {{n}}_brew_install:
