@@ -6,6 +6,14 @@ dot_gemrc:
     - group: staff
     - mode: 644
 
+dot_rubocop.yml:
+  file.managed:
+    - name: {{grains['homedir']}}/.rubocop.yml
+    - source: salt://files/home/dot_rubocop.yml
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+
 {% for n in pillar.get("ruby_pkgs") %}
 
 {{n}}_brew_install:

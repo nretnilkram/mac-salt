@@ -1,0 +1,31 @@
+# This is the configuration used to check the rubocop source code.
+
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+
+Metrics/LineLength:
+  Max: 300
+
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/MethodLength:
+  Max: 150
+
+Metrics/BlockLength:
+  CountComments: false  # count full line comments?
+  Max: 150
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+Style/Encoding:
+  EnforcedStyle: always
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always
