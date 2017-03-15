@@ -382,5 +382,5 @@ function backup_home_dir() {
         return 1
     fi
 
-    sudo rsync --delete --exclude=VirtualBox\ VMs --exclude=.Trash --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
+    sudo rsync --delete --exclude=VirtualBox\ VMs --exclude=.Trash --exclude=.vagrant.d --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
 }
