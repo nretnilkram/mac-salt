@@ -19,6 +19,13 @@ git_stash_pop_alias:
     - value: stash pop
     - user: {{grains['user']}}
 
+git_stash_diff_alias:
+  git.config_set:
+    - global: True
+    - name: alias.diffws
+    - value: diff --ws-error-highlight=all
+    - user: {{grains['user']}}
+
 git_branch_alias:
   git.config_set:
     - global: True
