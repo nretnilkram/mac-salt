@@ -40,6 +40,7 @@ node_pkgs:
   - grunt-cli
   - jshint
   - webpack
+  - sass-lint
 
 ruby_version: 2.2.3
 vagrant_version: 1.9.2

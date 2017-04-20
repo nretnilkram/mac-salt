@@ -12,3 +12,11 @@ install_node:
       - pkg: node
 
 {% endfor %}
+
+dot_sass-lint.yml:
+  file.managed:
+    - name: {{grains['homedir']}}/.sass-lint.yml
+    - source: salt://files/home/dot_sass-lint.yml
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
