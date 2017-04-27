@@ -42,7 +42,7 @@ ARGS=`echo $@ | sed -e 's/--verbose//g'`
 case $ARGS in
 	alias|aliases)
 		echo -e "aliases:"
-		cat ~/.mac_salt/aliases | grep "^alias" | awk '{ $1=""; print $0 }' | sort -n 
+		cat ~/.mac_salt/aliases | grep "^alias" | awk '{ $1=""; print $0 }' | sort -n
 		echo -e "\nprofile:"
 		cat ~/.mac_salt/profile | grep "^alias" | awk '{ $1=""; print $0 }' | sort -n
 		;;

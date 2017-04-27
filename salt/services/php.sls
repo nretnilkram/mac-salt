@@ -1,8 +1,8 @@
 php56:
   pkg.installed:
-    - taps: 
+    - taps:
       - homebrew/php
-    - options: 
+    - options:
       - --with-fpm
       - --with-debug
 

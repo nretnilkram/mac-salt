@@ -11,8 +11,8 @@ h2o_plist:
 
 h2o_conf:
   file.managed:
-    - name: /usr/local/etc/h2o/h2o.conf 
-    - source: salt://files/usr/local/etc/h2o/h2o.conf 
+    - name: /usr/local/etc/h2o/h2o.conf
+    - source: salt://files/usr/local/etc/h2o/h2o.conf
     - user: root
     - group: admin
     - mode: 644

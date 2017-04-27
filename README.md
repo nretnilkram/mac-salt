@@ -87,7 +87,7 @@ mac-salt do.update
 You will want to put your * host with the ProxyCommand at the Bottom and seperate the actual ProxyCommand with a comment like what you see below.
 
 ```
-Host * 
+Host *
 	KeepAlive yes
 	ServerAliveInterval 30
 ###### Do not place anything below this line.  It will be updated frequently by the proxy update functions.

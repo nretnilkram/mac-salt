@@ -1,10 +1,10 @@
 # Handy functions for CPDM deployments and mgmt
 
-# open up port forwards for 
+# open up port forwards for
 # 1. graylog  (9000)
 # 2. m/monit  (9443)
 # 3. graphite (8080)
-##  cpdm_managment:  open up port forwards for 
+##  cpdm_managment:  open up port forwards for
 #   -------------------------------------------------------------------
 function cpdm_mgmt {
   if [ -z "$1" ]; then
@@ -35,7 +35,7 @@ function salt_sync {
     echo "You must specify an environment"
     return 1
   fi
-  
+
   host="salt01-$1"
   if [ "$1" == "slc1" ]; then
     host="jenkins"

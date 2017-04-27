@@ -15,7 +15,7 @@ nginx_plist:
 nginx_conf:
   file.managed:
     - name: /usr/local/etc/nginx/nginx.conf
-    - source: salt://files/usr/local/etc/nginx/nginx.conf 
+    - source: salt://files/usr/local/etc/nginx/nginx.conf
     - user: root
     - group: admin
     - mode: 644
