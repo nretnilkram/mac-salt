@@ -84,7 +84,7 @@ mac-salt do.update
 
 ### SSH Config and Proxy Functions
 
-You will want to put your * host with the ProxyCommand at the Bottom and seperate the actual ProxyCommand with a comment like what you see below.
+You will want to put your * host with the ProxyCommand at the Bottom and separate the actual ProxyCommand with a comment like what you see below.
 
 ```
 Host *
@@ -107,3 +107,18 @@ sudo chmod -R o+rwx /usr/local/var/mysql
 ```
 xcode-select --install
 ```
+
+
+### Web Server Details
+
+#### NGINX
+* config: `/etc/apache2/httpd.conf`
+* urls: http://localhost (php), http://foo.bar.com (html)
+
+#### H20
+* config: `/usr/local/etc/h2o/h2o.conf`
+* url: http://localhost:8080 (html)
+
+#### NGINX
+* config: `/usr/local/etc/nginx/nginx.conf`
+* urls: http://localhost:8081 (php), http://localhost:8082 (php)
