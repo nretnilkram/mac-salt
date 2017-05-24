@@ -9,378 +9,378 @@
 ##  port <port to check>:  check what is using a specific port
 #   -------------------------------------------------------------------
 function port() {
-    if [ "$1" -eq "$1" ] 2>/dev/null ; then
-        lsof -i :$1
-    else
-        lsof -i
-    fi
+  if [ "$1" -eq "$1" ] 2>/dev/null ; then
+    lsof -i :$1
+  else
+    lsof -i
+  fi
 }
 
 
 ##  restart_dnsmasq:  restart dnsmasq service
 #   -------------------------------------------------------------------
 function restart_dnsmasq() {
-    sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
-    sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+  sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
+  sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
 }
 
 
 ##  internal_ip:  list current internal IP address
 #   -------------------------------------------------------------------
 function internal_ip() {
-    ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172'
+  ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172'
 }
 
 
 ##  delete_ds:  recursivly delete all .DS_STORE files from current dir
 #   -------------------------------------------------------------------
 function delete_ds() {
-    sudo find . -iname "*.DS_Store*" -depth -type f -exec rm -v {} \;
+  sudo find . -iname "*.DS_Store*" -depth -type f -exec rm -v {} \;
 }
 
 
 ##  delete_all_ds:  recursivly delete all .DS_STORE files
 #   -------------------------------------------------------------------
 function delete_all_ds() {
-    sudo find / -iname "*.DS_Store*" -depth -type f -exec rm -v {} \;
+  sudo find / -iname "*.DS_Store*" -depth -type f -exec rm -v {} \;
 }
 
 
 ##  update:  Update brew packages and gems
 #   -------------------------------------------------------------------
 function update() {
-    echo "Gem Updates..."
-    gem update
-    echo "Brew Updates..."
-    brew update
-    brew upgrade
-    echo "Cleaning Up Brew Packages..."
-    brew cleanup
+  echo "Gem Updates..."
+  gem update
+  echo "Brew Updates..."
+  brew update
+  brew upgrade
+  echo "Cleaning Up Brew Packages..."
+  brew cleanup
 }
 
 
 #   _unset_ssh_proxy:  remove ProxyCommand line from Host *
 #   -------------------------------------------------------------------
 function _unset_ssh_proxy() {
-    FILE=$HOME/.ssh/config
-    LASTLINE=`tail -1 $FILE`
-    if [[ $(echo $LASTLINE | head -c 1) != '#' ]] ; then
-        # Remove the last line from ssh/config if it's a ProxyCommand
-        FIRSTWORD=`echo $LASTLINE | cut -d " " -f 1`
-        if [[ $FIRSTWORD == 'ProxyCommand' ]] ; then
-            cp $FILE $FILE.tmp &> /dev/null
-            sed '$ d' $FILE.tmp > $FILE
-            command rm -f $FILE.tmp
-        fi
+  FILE=$HOME/.ssh/config
+  LASTLINE=`tail -1 $FILE`
+  if [[ $(echo $LASTLINE | head -c 1) != '#' ]] ; then
+    # Remove the last line from ssh/config if it's a ProxyCommand
+    FIRSTWORD=`echo $LASTLINE | cut -d " " -f 1`
+    if [[ $FIRSTWORD == 'ProxyCommand' ]] ; then
+      cp $FILE $FILE.tmp &> /dev/null
+      sed '$ d' $FILE.tmp > $FILE
+      command rm -f $FILE.tmp
     fi
+  fi
 }
 
 
 #   _set_ssh_proxy:  add ProxyCommand line to Host * in ssh/config
 #   -------------------------------------------------------------------
 function _set_ssh_proxy() {
-    FILE=$HOME/.ssh/config
-    if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "you must pass a proxy host in \$1 and port in \$2"
-        echo
-        echo "_set_ssh_proxy adc-proxy.oracle.com 80"
-        return 1
-    fi
+  FILE=$HOME/.ssh/config
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "you must pass a proxy host in \$1 and port in \$2"
+    echo
+    echo "_set_ssh_proxy adc-proxy.oracle.com 80"
+    return 1
+  fi
 
-    echo "Setting SSH Proxy Settings: $1:$2"
-    _unset_ssh_proxy
-    echo -e "\tProxyCommand /usr/local/bin/corkscrew $1 $2 %h %p" >> $FILE
+  echo "Setting SSH Proxy Settings: $1:$2"
+  _unset_ssh_proxy
+  echo -e "\tProxyCommand /usr/local/bin/corkscrew $1 $2 %h %p" >> $FILE
 }
 
 
 #   _unset_gem_proxy:  remove proxy setting from gemrc
 #   -------------------------------------------------------------------
 function _unset_gem_proxy() {
-    FILE=$HOME/.gemrc
-    LASTLINE=`tail -1 $FILE`
-    if [[ $(echo $LASTLINE | head -c 1) != '#' ]] ; then
-        FIRSTWORD=`echo $LASTLINE | cut -d " " -f 1`
-        if [[ $FIRSTWORD == 'http-proxy:' ]] ; then
-            cp $FILE $FILE.tmp &> /dev/null
-            sed '$ d' $FILE.tmp > $FILE
-            command rm -f $FILE.tmp
-        fi
+  FILE=$HOME/.gemrc
+  LASTLINE=`tail -1 $FILE`
+  if [[ $(echo $LASTLINE | head -c 1) != '#' ]] ; then
+    FIRSTWORD=`echo $LASTLINE | cut -d " " -f 1`
+    if [[ $FIRSTWORD == 'http-proxy:' ]] ; then
+      cp $FILE $FILE.tmp &> /dev/null
+      sed '$ d' $FILE.tmp > $FILE
+      command rm -f $FILE.tmp
     fi
+  fi
 }
 
 
 #   _set_gem_proxy: add proxy setting to gemrc
 #   -------------------------------------------------------------------
 function _set_gem_proxy() {
-    FILE=$HOME/.gemrc
-    if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "you must pass a proxy host in \$1 and port in \$2"
-        echo
-        echo "_set_ssh_proxy adc-proxy.oracle.com 80"
-        return 1
-    fi
+  FILE=$HOME/.gemrc
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "you must pass a proxy host in \$1 and port in \$2"
+    echo
+    echo "_set_ssh_proxy adc-proxy.oracle.com 80"
+    return 1
+  fi
 
-    echo "Setting Gem Proxy Settings: http://$1:$2"
-    _unset_gem_proxy
-    echo -e "http-proxy: http://$1:$2" >> $FILE
+  echo "Setting Gem Proxy Settings: http://$1:$2"
+  _unset_gem_proxy
+  echo -e "http-proxy: http://$1:$2" >> $FILE
 }
 
 
 #   _set_proxy:  setup proxy settings for env, ssh, gem, and git
 #   -------------------------------------------------------------------
 function _set_proxy() {
-    if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "you must pass a proxy host in \$1 and port in \$2"
-        echo
-        echo "_set_proxy adc-proxy.oracle.com 80"
-        return 1
-    fi
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "you must pass a proxy host in \$1 and port in \$2"
+    echo
+    echo "_set_proxy adc-proxy.oracle.com 80"
+    return 1
+  fi
 
-    echo "Setting Environment Proxy Settings: http://$1:$2"
-    export http_proxy=http://$1:$2;
-    export HTTP_PROXY=http://$1:$2;
-    export https_proxy=http://$1:$2;
-    export HTTPS_PROXY=http://$1:$2;
-    git config --global http.proxy http://$1:$2;
-    git config --global https.proxy http://$1:$2;
-    _set_ssh_proxy $1 $2
-    _set_gem_proxy $1 $2
+  echo "Setting Environment Proxy Settings: http://$1:$2"
+  export http_proxy=http://$1:$2;
+  export HTTP_PROXY=http://$1:$2;
+  export https_proxy=http://$1:$2;
+  export HTTPS_PROXY=http://$1:$2;
+  git config --global http.proxy http://$1:$2;
+  git config --global https.proxy http://$1:$2;
+  _set_ssh_proxy $1 $2
+  _set_gem_proxy $1 $2
 }
 
 
 ##  disable_proxy:  removes all proxy settings from terminal (env, git, ssh, gem)
 #   -------------------------------------------------------------------
 function disable_proxy() {
-    echo "Unsetting Environment Proxy"
-    unset http_proxy;
-    unset https_proxy;
-    unset HTTP_PROXY;
-    unset HTTPS_PROXY;
-    git config --global --replace-all http.proxy "";
-    git config --global --replace-all https.proxy "";
-    echo "Unsetting SSH Proxy"
-    _unset_ssh_proxy
-    echo "Unsetting Gem Proxy"
-    _unset_gem_proxy
+  echo "Unsetting Environment Proxy"
+  unset http_proxy;
+  unset https_proxy;
+  unset HTTP_PROXY;
+  unset HTTPS_PROXY;
+  git config --global --replace-all http.proxy "";
+  git config --global --replace-all https.proxy "";
+  echo "Unsetting SSH Proxy"
+  _unset_ssh_proxy
+  echo "Unsetting Gem Proxy"
+  _unset_gem_proxy
 }
 
 
 ##  local_proxy_enable:  set proxy settings to use 127.0.0.1 8840
 #   -------------------------------------------------------------------
 function local_proxy_enable() {
-    _set_proxy 127.0.0.1 8840
+  _set_proxy 127.0.0.1 8840
 }
 
 
 ##  www_proxy_enable:  set proxy settings to use www-proxy.us.oracle.com 80
 #   -------------------------------------------------------------------
 function www_proxy_enable() {
-    _set_proxy www-proxy.us.oracle.com 80
+  _set_proxy www-proxy.us.oracle.com 80
 }
 
 
 ##  rmdc_proxy_enable:  set proxy settings to use rmdc-proxy.oracle.com 80
 #   -------------------------------------------------------------------
 function rmdc_proxy_enable() {
-    _set_proxy rmdc-proxy.oracle.com 80
+  _set_proxy rmdc-proxy.oracle.com 80
 }
 
 
 ##  adc_proxy_enable:  set proxy settings to use adc-proxy.oracle.com 80
 #   -------------------------------------------------------------------
 function adc_proxy_enable() {
-    _set_proxy adc-proxy.oracle.com 80
+  _set_proxy adc-proxy.oracle.com 80
 }
 
 
 ##  eject <disk to eject>:  eject mounted disk
 #   -------------------------------------------------------------------
 function eject() {
-    if [ -z "$1" ]; then
-        echo "eject
+  if [ -z "$1" ]; then
+    echo "eject
 Usage:
-    eject /dev/disk_to_eject
-        "
-        return 1
-    fi
-    diskutil eject $1
+  eject /dev/disk_to_eject
+    "
+    return 1
+  fi
+  diskutil eject $1
 }
 
 
 ##  drive_list:  list connected drives
 #   -------------------------------------------------------------------
 function drive_list() {
-    diskutil list
+  diskutil list
 }
 
 
 ##  iso_to_usb <iso file> <disk to use>:  convert iso file to UDRW to use on bootable USB stick
 #   -------------------------------------------------------------------
 function iso_to_usb() {
-    if [ -z "$1" ] && [ -z "$2" ]; then
-        echo "convert iso file to UDRW to use on bootable USB stick
+  if [ -z "$1" ] && [ -z "$2" ]; then
+    echo "convert iso file to UDRW to use on bootable USB stick
 Usage:
-    iso_to_usb iso_file /dev/disk_to_use
-        "
-        return 1
-    fi
-    TIMESTAMP=$(sudo date +%s)
-    TMP_FILE="/tmp/__"$TIMESTAMP"__file.img"
-    echo "Converting ISO file to UDRW format"
-    hdiutil convert -format UDRW -o "$TMP_FILE" $1
-    if [ $? -eq 0 ]; then
-        echo "Erasing USB"
-        diskutil unmountDisk force $2
-        diskutil partitionDisk $2 1 "Free Space" "unused" "100%"
-    else
-        command rm $TMP_FILE.dmg
-    fi
+  iso_to_usb iso_file /dev/disk_to_use
+    "
+    return 1
+  fi
+  TIMESTAMP=$(sudo date +%s)
+  TMP_FILE="/tmp/__"$TIMESTAMP"__file.img"
+  echo "Converting ISO file to UDRW format"
+  hdiutil convert -format UDRW -o "$TMP_FILE" $1
+  if [ $? -eq 0 ]; then
+    echo "Erasing USB"
+    diskutil unmountDisk force $2
+    diskutil partitionDisk $2 1 "Free Space" "unused" "100%"
+  else
+    command rm $TMP_FILE.dmg
+  fi
 
-    img_to_usb $TMP_FILE.dmg $2
+  img_to_usb $TMP_FILE.dmg $2
 
-    if [ $? -eq 0 ]; then
-        echo "Removing tmp file"
-        command rm $TMP_FILE.dmg
-    fi
+  if [ $? -eq 0 ]; then
+    echo "Removing tmp file"
+    command rm $TMP_FILE.dmg
+  fi
 }
 
 
 ##  img_to_usb <img file> <disk to use>:  import img file onto a USB
 #   -------------------------------------------------------------------
 function img_to_usb() {
-    if [ -z "$1" ] && [ -z "$2" ]; then
-        echo "import img file onto a USB
+  if [ -z "$1" ] && [ -z "$2" ]; then
+    echo "import img file onto a USB
 Usage:
-    img_to_usb img_file /dev/disk_to_use
-        "
-        return 1
-    fi
-    if [ $? -eq 0 ]; then
-        diskutil unmountDisk force $2
-        echo "Copying Image to USB"
-        sudo dd if=$1 of=$2 bs=1m
-    fi
-    if [ $? -eq 0 ]; then
-        echo "Ejecting Disk"
-        diskutil eject $2
-    fi
-    echo "Finished"
+  img_to_usb img_file /dev/disk_to_use
+    "
+    return 1
+  fi
+  if [ $? -eq 0 ]; then
+    diskutil unmountDisk force $2
+    echo "Copying Image to USB"
+    sudo dd if=$1 of=$2 bs=1m
+  fi
+  if [ $? -eq 0 ]; then
+    echo "Ejecting Disk"
+    diskutil eject $2
+  fi
+  echo "Finished"
 }
 
 
 ##  fat_usb <disk name> <disk to use>:  Initialze USB with FAT32 file system
 #   -------------------------------------------------------------------
 function fat_usb() {
-    if [ -z "$1" ] && [ -z "$2" ]; then
-        echo "Initialze USB with FAT32 file system
+  if [ -z "$1" ] && [ -z "$2" ]; then
+    echo "Initialze USB with FAT32 file system
 Usage:
-    exfat_usb disk_name /dev/disk_to_use
-        "
-        return 1
-    fi
-    diskutil unmountDisk $2
-    diskutil partitionDisk $2 MBR FAT32 $1 0b
+  exfat_usb disk_name /dev/disk_to_use
+    "
+    return 1
+  fi
+  diskutil unmountDisk $2
+  diskutil partitionDisk $2 MBR FAT32 $1 0b
 }
 
 
 ##  exfat_usb <disk name> <disk to use>:  Initialze USB with ExFat file system
 #   -------------------------------------------------------------------
 function exfat_usb() {
-    if [ -z "$1" ] && [ -z "$2" ]; then
-        echo "Initialze USB with ExFat file system
+  if [ -z "$1" ] && [ -z "$2" ]; then
+    echo "Initialze USB with ExFat file system
 Usage:
-    exfat_usb disk_name /dev/disk_to_use
-        "
-        return 1
-    fi
-    diskutil unmountDisk $2
-    diskutil partitionDisk $2 MBR ExFat $1 0b
+  exfat_usb disk_name /dev/disk_to_use
+    "
+    return 1
+  fi
+  diskutil unmountDisk $2
+  diskutil partitionDisk $2 MBR ExFat $1 0b
 }
 
 
 ##  journaled_usb <disk name> <disk to use>:  Initialze USB with Journaled file system
 #   -------------------------------------------------------------------
 function journaled_usb() {
-    if [ -z "$1" ] && [ -z "$2" ]; then
-        echo "Initialze USB with Journaled file system
+  if [ -z "$1" ] && [ -z "$2" ]; then
+    echo "Initialze USB with Journaled file system
 Usage:
-    journaled_usb disk_name /dev/disk_to_use
-        "
-        return 1
-    fi
-    diskutil unmountDisk $2
-    diskutil partitionDisk $2 GPT JHFS+ $1 0b
+  journaled_usb disk_name /dev/disk_to_use
+    "
+    return 1
+  fi
+  diskutil unmountDisk $2
+  diskutil partitionDisk $2 GPT JHFS+ $1 0b
 }
 
 
 ##  fix_brew_permissions:  sets ownership to current user on brew directories
 #   -------------------------------------------------------------------
 function fix_brew_permissions() {
-    sudo chown -R $(whoami) /usr/local/bin
-    sudo chown -R $(whoami) /usr/local/lib
+  sudo chown -R $(whoami) /usr/local/bin
+  sudo chown -R $(whoami) /usr/local/lib
 }
 
 
 ##  fix_sudo_bundle:  fixes isssues caused by doing sudo bundle install
 #   -------------------------------------------------------------------
 function fix_sudo_bundle() {
-    sudo bundle install --system
-    bundle install --path ~/.gem
+  sudo bundle install --system
+  bundle install --path ~/.gem
 }
 
 
 ##  create_file <file_name> <size in MB>:  create file from /dev/zero
 #   -------------------------------------------------------------------
 function create_file() {
-    if [ -z "$1" ] && [ -z "$2" ]; then
-        echo "Create file for texting
+  if [ -z "$1" ] && [ -z "$2" ]; then
+    echo "Create file for texting
 Usage:
-    create_file large_text_file.txt 300
-        "
-        return 1
-    fi
-    dd if=/dev/zero of=$1 bs=1000*1000 count=$2
+  create_file large_text_file.txt 300
+    "
+    return 1
+  fi
+  dd if=/dev/zero of=$1 bs=1000*1000 count=$2
 }
 
 
 ##  fix_pf_rules:  initializes pf anchor rules
 #   -------------------------------------------------------------------
 function fix_pf_rules() {
-    sudo /sbin/pfctl -evf /etc/pf.anchors/dev
+  sudo /sbin/pfctl -evf /etc/pf.anchors/dev
 }
 
 
 ##  create_file_binary <file_name> <size in MB>:  create file from /dev/zero
 #   -------------------------------------------------------------------
 function create_file_binary() {
-    if [ -z "$1" ] && [ -z "$2" ]; then
-        echo "Create file for texting
+  if [ -z "$1" ] && [ -z "$2" ]; then
+    echo "Create file for texting
 Usage:
-    create_file_decimal large_text_file.txt 300
-        "
-        return 1
-    fi
-    dd if=/dev/zero of=$1 bs=1024*1024 count=$2
+  create_file_decimal large_text_file.txt 300
+    "
+    return 1
+  fi
+  dd if=/dev/zero of=$1 bs=1024*1024 count=$2
 }
 
 
 ##  clear_cache_files:  clear all files from ~/Library/Caches
 #   -------------------------------------------------------------------
 function clear_cache_files() {
-    sudo find ~/Library/Caches -type f -print0 | xargs -0 rm
-    sudo find /Library/Caches -type f -print0 | xargs -0 rm
+  sudo find ~/Library/Caches -type f -print0 | xargs -0 rm
+  sudo find /Library/Caches -type f -print0 | xargs -0 rm
 }
 
 
 #   backup_home_dir:  rsync home dir to location of choice, excluding 'VirtualBox VMs', Library, Applications, .rbenv and .nodenv dirs.
 #   -------------------------------------------------------------------
 function backup_home_dir() {
-    if [ -z "$1" ]; then
-        echo "you must pass a destination directory in \$1"
-        echo
-        echo "backup_home_dir /Volumes/WD"
-        return 1
-    fi
+  if [ -z "$1" ]; then
+    echo "you must pass a destination directory in \$1"
+    echo
+    echo "backup_home_dir /Volumes/WD"
+    return 1
+  fi
 
-    sudo rsync --delete --exclude=VirtualBox\ VMs --exclude=.Trash --exclude=.vagrant.d --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
+  sudo rsync --delete --exclude=VirtualBox\ VMs --exclude=.Trash --exclude=.vagrant.d --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
 }
