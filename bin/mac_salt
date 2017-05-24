@@ -8,7 +8,7 @@ fi
 MACSALT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 function help_function () {
-	echo -e "
+  echo -e "
 options:
 
 alias
@@ -20,17 +20,17 @@ source
 update
 
 do:
-	update
+  update
 
 go:
-	big
+  big
 
 pillar:
-	raw
+  raw
 
 state:
-	highstate
-	sls <sls>
+  highstate
+  sls <sls>
 
 
 If you are running into issues running mac_salt then you should try running: 'mac_salt' doctor to see if there are any issues with the setup.
@@ -40,48 +40,55 @@ If you are running into issues running mac_salt then you should try running: 'ma
 ARGS=`echo $@ | sed -e 's/--verbose//g'`
 
 case $ARGS in
-	alias|aliases)
-		echo -e "aliases:"
-		cat ~/.mac_salt/aliases | grep "^alias" | awk '{ $1=""; print $0 }' | sort -n
-		echo -e "\nprofile:"
-		cat ~/.mac_salt/profile | grep "^alias" | awk '{ $1=""; print $0 }' | sort -n
-		;;
-	bootstrap)
-		$MACSALT/../bootstrap.sh
-		;;
-	doctor)
-		$MACSALT/ms_doctor.sh
-		;;
-	function|functions)
-		echo -e "cpdm:"
-		cat ~/.mac_salt/cpdm | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
-		echo -e "\nfunctions:"
-		cat ~/.mac_salt/functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
-		echo -e "\nhistory:"
-		cat ~/.mac_salt/history | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
-		echo -e "\ngit_functions:"
-		cat ~/.mac_salt/git_functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
-		echo -e "\nprofile:"
-		cat ~/.mac_salt/profile | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
-		;;
-	help)
-		help_function
-		;;
-	source)
-		echo -e "source ~/.mac_salt/bash_config" | tr -d '\n' | pbcopy
-		echo -e "paste clipboard into terminal."
-		;;
-	update)
-		cd $MACSALT/..
-		git pull
-		;;
-	state.*|do.*|pillar.*|go.*)
-		$MACSALT/grains.sh
-		OPTIONS="--local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar"
-		# echo "sudo -H -E salt-call $OPTIONS $OUTPUT $ARGS"
-		sudo -H -E salt-call $OPTIONS $OUTPUT $ARGS
-		;;
-	*)
-		echo "Did not find a matching option."
-		help_function
+  alias|aliases)
+    echo -e "aliases:"
+    cat ~/.mac_salt/aliases | grep "^alias" | awk '{ $1=""; print $0 }' | sort -n
+    echo -e "\nprofile:"
+    cat ~/.mac_salt/profile | grep "^alias" | awk '{ $1=""; print $0 }' | sort -n
+    ;;
+  bootstrap)
+    $MACSALT/../bootstrap.sh
+    ;;
+  doctor)
+    $MACSALT/ms_doctor.sh
+    ;;
+  function|functions)
+    echo -e "cpdm:"
+    cat ~/.mac_salt/cpdm | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
+    echo -e "\nfunctions:"
+    cat ~/.mac_salt/functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
+    echo -e "\nhistory:"
+    cat ~/.mac_salt/history | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
+    echo -e "\ngit_functions:"
+    cat ~/.mac_salt/git_functions | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
+    echo -e "\nprofile:"
+    cat ~/.mac_salt/profile | grep "^##" | awk '{ $1=""; print $0 }' | grep -v '^-' | sort -n
+    ;;
+  help)
+    help_function
+    ;;
+  source)
+    echo -e "source ~/.mac_salt/bash_config" | tr -d '\n' | pbcopy
+    echo -e "paste clipboard into terminal."
+    ;;
+  test)
+    open http://localhost
+    open http://foo.bar.com
+    open http://localhost:8080
+    open http://localhost:8081
+    open http://localhost:8082
+    ;;
+  update)
+    cd $MACSALT/..
+    git pull
+    ;;
+  state.*|do.*|pillar.*|go.*)
+    $MACSALT/grains.sh
+    OPTIONS="--local --file-root=$MACSALT/../salt --pillar-root=$MACSALT/../pillar"
+    # echo "sudo -H -E salt-call $OPTIONS $OUTPUT $ARGS"
+    sudo -H -E salt-call $OPTIONS $OUTPUT $ARGS
+    ;;
+  *)
+    echo "Did not find a matching option."
+    help_function
 esac
