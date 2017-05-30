@@ -29,3 +29,6 @@ Style/Encoding:
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
+
+Lint/ScriptPermission:
+  Enabled: false
