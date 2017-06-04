@@ -36,6 +36,7 @@ gems:
 
 node_pkgs:
   - npm-check-updates
+  - npm-check
   - coffee-script
   - grunt-cli
   - jshint
