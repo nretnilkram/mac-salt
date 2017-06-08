@@ -20,3 +20,11 @@ dot_sass-lint.yml:
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
+
+dot_jshintrc:
+  file.managed:
+    - name: {{grains['homedir']}}/.jshintrc
+    - source: salt://files/home/dot_jshintrc
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
