@@ -108,6 +108,13 @@ sudo chmod -R o+rwx /usr/local/var/mysql
 xcode-select --install
 ```
 
+npm behind a proxy:
+```
+npm config set proxy http://www-proxy.us.oracle.com:80
+npm config set https-proxy http://www-proxy.us.oracle.com:80
+export npm_config_proxy http://www-proxy.us.oracle.com:80
+export npm_config_https_proxy http://www-proxy.us.oracle.com:80
+```
 
 ### Web Server Details
 

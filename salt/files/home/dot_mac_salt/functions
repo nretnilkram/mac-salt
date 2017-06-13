@@ -141,6 +141,10 @@ function _set_proxy() {
   export HTTP_PROXY=http://$1:$2;
   export https_proxy=http://$1:$2;
   export HTTPS_PROXY=http://$1:$2;
+  echo "Setting npm Proxy Settings: $1:$2"
+  npm config set proxy http://www-proxy.us.oracle.com:80
+  npm config set https-proxy http://www-proxy.us.oracle.com:80
+  echo "Setting git Proxy Settings: $1:$2"
   git config --global http.proxy http://$1:$2;
   git config --global https.proxy http://$1:$2;
   _set_ssh_proxy $1 $2
@@ -156,6 +160,10 @@ function disable_proxy() {
   unset https_proxy;
   unset HTTP_PROXY;
   unset HTTPS_PROXY;
+  echo "Unetting npm Proxy"
+  npm config delete proxy
+  npm config delete https-proxy
+  echo "Unetting git Proxy"
   git config --global --replace-all http.proxy "";
   git config --global --replace-all https.proxy "";
   echo "Unsetting SSH Proxy"

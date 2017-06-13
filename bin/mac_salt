@@ -69,7 +69,7 @@ case $ARGS in
     ;;
   source)
     echo -e "source ~/.mac_salt/bash_config" | tr -d '\n' | pbcopy
-    echo -e "paste clipboard into terminal."
+    echo -e "Copied 'source ~/.mac_salt/bash_config' to clipboard. Paste into terminal."
     ;;
   test)
     open http://localhost
