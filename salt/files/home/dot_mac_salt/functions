@@ -160,10 +160,10 @@ function disable_proxy() {
   unset https_proxy;
   unset HTTP_PROXY;
   unset HTTPS_PROXY;
-  echo "Unetting npm Proxy"
+  echo "Unsetting npm Proxy"
   npm config delete proxy
   npm config delete https-proxy
-  echo "Unetting git Proxy"
+  echo "Unsetting git Proxy"
   git config --global --replace-all http.proxy "";
   git config --global --replace-all https.proxy "";
   echo "Unsetting SSH Proxy"
@@ -391,4 +391,16 @@ function backup_home_dir() {
   fi
 
   sudo rsync --delete --exclude=VirtualBox\ VMs --exclude=.Trash --exclude=.vagrant.d --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
+}
+
+#   remove_gem_docs:  remove gem documentation from system
+#   -------------------------------------------------------------------
+function remove_gem_docs() {
+  DOCDIR="$(gem env gemdir)"/doc
+
+  if [ "$(ls -A $DOCDIR)" ]; then
+    rm $DOCDIR/*
+  else
+    echo "There are no docs to remove."
+  fi
 }
