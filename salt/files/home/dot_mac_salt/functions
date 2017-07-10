@@ -51,6 +51,8 @@ function delete_all_ds() {
 function update() {
   echo "Gem Updates..."
   gem update
+  echo "cleaning Up Old Gems..."
+  gem cleanup
   echo "Brew Updates..."
   brew update
   brew upgrade
