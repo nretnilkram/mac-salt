@@ -47,6 +47,13 @@ bin/mac_salt state.sls services.dns
 ```
 
 
+### Test Local Web Servers
+
+```
+mac-salt test
+```
+
+
 ### Update Bash Profile
 
 MAC SALT will add the files to your home directory, but you will need to tell your bash_profile to source .mac_salt, which sources all the others.
