@@ -17,8 +17,8 @@ doctor
 function
 help
 source
-update
 test
+update
 
 do:
   update
@@ -73,6 +73,7 @@ case $ARGS in
     echo -e "Copied 'source ~/.mac_salt/bash_config' to clipboard. Paste into terminal."
     ;;
   test)
+    echo -e "Opening local webservers for testing \n"
     open http://localhost
     open http://foo.bar.com
     open http://localhost:8080

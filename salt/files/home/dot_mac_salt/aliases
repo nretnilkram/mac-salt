@@ -58,3 +58,6 @@ alias hide_hidden='defaults write com.apple.finder AppleShowAllFiles NO; killall
 
 # rm to trash
 alias rm='rmtrash'
+
+# test aliases
+alias test1='echo "Hello"'

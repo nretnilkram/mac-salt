@@ -168,6 +168,6 @@ if !( $found_issue )
 	echo -e "
 Ready to Go!
 
-mac_salt stat.highstate
+mac_salt state.highstate
 	"
 fi
