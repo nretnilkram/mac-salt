@@ -9,6 +9,7 @@ brew_pkgs:
   - rmtrash
   - nodenv
   - node-build
+  - tidy-html5
 
 dns_masq_domains:
   - dev
