@@ -52,5 +52,7 @@ apache_foo_bar_com_dir: {{grains['homedir']}}/Dropbox/var-www-html
 
 h2o_localhost_8080_dir: {{grains['homedir']}}/Dropbox/Website/dev/bootstrap4-start
 
-nginx_localhost_8081_dir: {{grains['homedir']}}/Dropbox/Website/dev/avatar
-nginx_localhost_8082_dir: {{grains['homedir']}}/dev_mlintern/lintern-us
+nginx_sites:
+  - [{{grains['homedir']}}/Dropbox/Website/dev/avatar, 8081]
+  - [{{grains['homedir']}}/dev_mlintern/lintern-us, 8082]
+  - [{{grains['homedir']}}/dev_mlintern/nretnil-com, 8083]

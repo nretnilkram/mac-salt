@@ -125,7 +125,7 @@ export npm_config_https_proxy http://www-proxy.us.oracle.com:80
 
 ### Web Server Details
 
-#### NGINX
+#### APACHE
 * config: `/etc/apache2/httpd.conf`
 * urls: http://localhost (php), http://foo.bar.com (html)
 
@@ -135,4 +135,4 @@ export npm_config_https_proxy http://www-proxy.us.oracle.com:80
 
 #### NGINX
 * config: `/usr/local/etc/nginx/nginx.conf`
-* urls: http://localhost:8081 (php), http://localhost:8082 (php)
+* urls: http://localhost:8081 (php), http://localhost:8082 (php), http://localhost:8083 (html/php)
