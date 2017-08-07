@@ -185,7 +185,7 @@ function local_proxy_enable() {
 ##  www_proxy_enable:  set proxy settings to use www-proxy.us.oracle.com 80
 #   -------------------------------------------------------------------
 function www_proxy_enable() {
-  _set_proxy www-proxy.us.oracle.com 80
+  _set_proxy www-proxy-adcq7-new.us.oracle.com 80
 }
 
 
