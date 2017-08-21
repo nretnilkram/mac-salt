@@ -16,7 +16,7 @@ dns_masq_domains:
   - dev.com
   - h2o.dev.com
   - nginx.dev.com
-  - foo.bar.com
+  - nretnil.local
 
 oracle_dns_masq_domains:
   - cpdm.oraclecorp.com
@@ -45,10 +45,10 @@ node_pkgs:
   - sass-lint
 
 ruby_version: 2.2.3
-vagrant_version: 1.9.2
+vagrant_version: 1.9.7
 
 apache_localhost_dir: {{grains['homedir']}}/Dropbox/Website
-apache_foo_bar_com_dir: {{grains['homedir']}}/Dropbox/var-www-html
+apache_nretnil_local_dir: {{grains['homedir']}}/Dropbox/var-www-html
 
 h2o_localhost_8080_dir: {{grains['homedir']}}/Dropbox/Website/dev/bootstrap4-start
 

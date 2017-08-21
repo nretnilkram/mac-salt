@@ -1,6 +1,6 @@
 vagrant_download:
   cmd.run:
-    - name: curl -L -o /tmp/vagrant_{{ pillar.get("vagrant_version") }}.dmg https://releases.hashicorp.com/vagrant/{{ pillar.get("vagrant_version") }}/vagrant_{{ pillar.get("vagrant_version") }}.dmg
+    - name: curl -L -o /tmp/vagrant_{{ pillar.get("vagrant_version") }}.dmg https://releases.hashicorp.com/vagrant/{{ pillar.get("vagrant_version") }}/vagrant_{{ pillar.get("vagrant_version") }}_x86_64.dmg
     - creates: /tmp/vagrant_{{ pillar.get("vagrant_version") }}.dmg
     - unless:  /usr/local/bin/vagrant -v | grep '{{ pillar.get("vagrant_version") }}'
 

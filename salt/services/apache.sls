@@ -4,10 +4,10 @@ httpd_conf:
     - source: salt://files/etc/apache2/httpd.conf
     - mode: 644
 
-foo_bar_conf:
+nretnil_local_conf:
   file.managed:
-    - name: /etc/apache2/other/foo.bar.com.conf
-    - source: salt://files/etc/apache2/other/foo.bar.com.conf
+    - name: /etc/apache2/other/nretnil.local.conf
+    - source: salt://files/etc/apache2/other/nretnil.local.conf
     - mode: 644
     - template: jinja
 
@@ -29,5 +29,5 @@ apache_restart_service:
     - unless: ps aux | grep httpd | grep -v grep
     - watch:
       - file: httpd_conf
-      - file: foo_bar_conf
+      - file: nretnil_local_conf
       - file: localhost_conf
