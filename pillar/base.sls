@@ -56,3 +56,4 @@ nginx_sites:
   - [{{grains['homedir']}}/Dropbox/Website/dev/avatar, 8081]
   - [{{grains['homedir']}}/dev_mlintern/lintern-us, 8082]
   - [{{grains['homedir']}}/dev_mlintern/nretnil-com, 8083]
+  - [{{grains['homedir']}}/dev_mlintern/sandybox, 8084]

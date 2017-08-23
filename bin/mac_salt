@@ -75,11 +75,12 @@ case $ARGS in
   test)
     echo -e "Opening local webservers for testing \n"
     open http://localhost
-    open http://foo.bar.com
+    open http://nretnil.local
     open http://localhost:8080
     open http://localhost:8081
     open http://localhost:8082
     open http://localhost:8083
+    open http://localhost:8084
     ;;
   update)
     cd $MACSALT/..
