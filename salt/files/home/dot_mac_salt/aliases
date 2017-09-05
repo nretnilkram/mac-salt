@@ -59,7 +59,7 @@ alias hide_hidden="defaults write com.apple.finder AppleShowAllFiles NO; killall
 # rm to trash
 alias rm=rmtrash
 
-#Editor
+# Editor
 alias edit='atom'
 
 # test aliases

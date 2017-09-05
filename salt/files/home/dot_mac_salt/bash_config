@@ -32,12 +32,14 @@ if [ -f $CONFIGDIR/cpdm ]; then
 	source $CONFIGDIR/cpdm
 fi
 
+# Initialize RBENV
 if [[ -d "$HOME/.rbenv" ]]; then
 	export PATH="$HOME/.rbenv/bin:$PATH"
 	eval "$(rbenv init -)";
 	export RBENV_ROOT=$(rbenv root)
 fi
 
+# Intialize NodeEnv
 if [[ -d "$HOME/.nodenv" ]]; then
 	eval "$(nodenv init -)"
 fi

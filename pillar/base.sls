@@ -45,9 +45,12 @@ node_pkgs:
   - sass-lint
 
 ruby_version: 2.2.3
-vagrant_version: 1.9.7
+vagrant_version: 1.9.8
 
-apache_localhost_dir: {{grains['homedir']}}/Dropbox/Website
+apache_localhost_sites:
+  - [{{grains['homedir']}}/Dropbox/Website, 80]
+  - [{{grains['homedir']}}/dev_mlintern/marklintern-com, 8085]
+
 apache_nretnil_local_dir: {{grains['homedir']}}/Dropbox/var-www-html
 
 h2o_localhost_8080_dir: {{grains['homedir']}}/Dropbox/Website/dev/bootstrap4-start

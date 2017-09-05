@@ -81,6 +81,7 @@ case $ARGS in
     open http://localhost:8082
     open http://localhost:8083
     open http://localhost:8084
+    open http://localhost:8085
     ;;
   update)
     cd $MACSALT/..
