@@ -14,19 +14,6 @@ dropbox_dir_permissions:
     - mode: 755
     - unless: [[ $(stat -f "%Su %Sg %A" {{grains['homedir']}}/Dropbox) == "{{grains['user']}} staff 755" ]]
 
-/usr/local:
-  file.directory:
-    - user : {{grains['user']}}
-    - group: admin
-    - mode: 755
-    - makedirs: False
-
-{% if grains['mac_salt_file_exists'] %}
-remove_mac_salt_file:
-  file.absent:
-    - name: {{grains['homedir']}}/.macsalt
-{% endif %}
-
 create_mac_salt_dir:
   file.directory:
     - name: {{grains['homedir']}}/.mac_salt
