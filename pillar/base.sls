@@ -1,7 +1,7 @@
 brew_pkgs:
   - corkscrew
   - git
-  - htop-osx
+  - htop
   - wget
   - bash-completion
   - heroku

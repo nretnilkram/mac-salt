@@ -23,10 +23,6 @@ Metrics/BlockLength:
     - '**/*.rake'
     - 'spec/**/*.rb'
 
-Style/Encoding:
-  EnforcedStyle: always
-  Enabled: true
-
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
 
