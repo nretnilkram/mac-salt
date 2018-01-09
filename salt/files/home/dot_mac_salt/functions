@@ -46,18 +46,36 @@ function delete_all_ds() {
 }
 
 
-##  update:  Update brew packages and gems
+#  _cleanup:  clean up brew packages and old gems
+#   -------------------------------------------------------------------
+function _cleanup() {
+  echo -e "\nCleaning Up Old Gems..."
+  gem cleanup
+  echo -e "\nCleaning Up Brew Packages..."
+  brew cleanup
+}
+
+
+##  update:  Update brew packages and gems. -c --cleanup
 #   -------------------------------------------------------------------
 function update() {
-  echo "Gem Updates..."
+  echo -e "Gem Updates..."
   gem update
-  echo "cleaning Up Old Gems..."
-  gem cleanup
-  echo "Brew Updates..."
+  echo -e "\nBrew Updates..."
   brew update
   brew upgrade
-  echo "Cleaning Up Brew Packages..."
-  brew cleanup
+
+  while [ ! $# -eq 0 ]; do
+    case "$1" in
+      --cleanup | -c)
+        _cleanup
+        shift
+        ;;
+      *)
+        shift
+        ;;
+    esac
+  done
 }
 
 
