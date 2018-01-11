@@ -112,20 +112,24 @@ function merge_upstream() {
   if (( $# < 2 )); then
     echo "Merge git branches upstream
 Usage:
-  merge_upstream master stage 18a.02qa 18a.01qa 17d.01mp
+  merge_upstream master 17d.01mp 18a.01qa 18a.02qa 4800-sweet-feature
     "
     return 1
   fi
 
+  echo "Fetch from origin" # git fetch
+
+
   SOURCE="$1"
   shift
 
+  echo "Checkout $SOURCE" # git checkout $SOURCE
+  echo "Fast Forward $SOURCE to HEAD" # git merge --ff-only origin/$SOURCE
+
   while (( "$#" )); do
-    echo "Checkout $SOURCE"
-    echo "Fetch Origin $SOURCE"
-    echo "Checkout $1"
-    echo "Fetch Origin $1"
-    echo "Merge $SOURCE into $1"
+    echo "Checkout $1" # git checkout $1
+    echo "Fast Forward $1 to HEAD" # git merge --ff-only origin/$1
+    echo "Pull $SOURCE into $1" # git pull $SOURCE
     SOURCE="$1"
     shift
   done
