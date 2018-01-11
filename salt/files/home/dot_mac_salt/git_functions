@@ -65,12 +65,18 @@ function clean_branches() {
     echo "This is not a Git repo."
     return 1
   fi
-  _clean_remote_branches
+  _clean_merged_remote_branches
 }
 
-#  _clean_remote_branches:  loops through the branches of a git repository and deletes all that are not master or current
+#  _clean_merged_remote_branches:  loops through the branches of a git repository and deletes all that are not master or current
 #   -------------------------------------------------------------------
-function _clean_remote_branches() {
+function _clean_merged_remote_branches() {
+  git branch | grep -v "master" | grep -v "*" | xargs git branch -d
+}
+
+#  _force_delete_remote_branches:  loops through the branches of a git repository and deletes all that are not master or current
+#   -------------------------------------------------------------------
+function _force_delete_remote_branches() {
   git branch | grep -v "master" | grep -v "*" | xargs git branch -D
 }
 
