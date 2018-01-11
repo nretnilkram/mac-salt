@@ -98,3 +98,29 @@ Usage:
   done
   cd $curdir
 }
+
+
+##  merge_upstream x y z:  Takes a list of branches and merges the first into the second, then second in the third and so on.
+#   -------------------------------------------------------------------
+function merge_upstream() {
+  if (( $# < 2 )); then
+    echo "Merge git branches upstream
+Usage:
+  merge_upstream master stage 18a.02qa 18a.01qa 17d.01mp
+    "
+    return 1
+  fi
+
+  SOURCE="$1"
+  shift
+
+  while (( "$#" )); do
+    echo "Checkout $SOURCE"
+    echo "Fetch Origin $SOURCE"
+    echo "Checkout $1"
+    echo "Fetch Origin $1"
+    echo "Merge $SOURCE into $1"
+    SOURCE="$1"
+    shift
+  done
+}
