@@ -84,7 +84,7 @@ function _force_delete_remote_branches() {
 #   -------------------------------------------------------------------
 function pull_all_projects() {
   if [ $# -eq 0 ]; then
-    echo "Clean up git branches locally
+    echo "Pull all branches from all projects in directory
 Usage:
   pull_all_branches ~/dev
     "
@@ -99,12 +99,36 @@ Usage:
     echo "$repo"
     cd $repo
     if [ -d ".git" ]; then
-      git pull
+      git pull --all
     fi
   done
   cd $curdir
 }
 
+##  fetch_all_projects <dir>:  Loop through first level directories of given dir and fetch new data from each repo.
+#   -------------------------------------------------------------------
+function fetch_all_projects() {
+  if [ $# -eq 0 ]; then
+    echo "Fetch all branches from all projects in directory
+Usage:
+  fetch_all_branches ~/dev
+    "
+    return 1
+  fi
+
+  curdir=`pwd`
+  cd $1
+  dir=`pwd`
+  for d in */ ; do
+    repo=$dir/$d
+    echo "$repo"
+    cd $repo
+    if [ -d ".git" ]; then
+      git fetch --all
+    fi
+  done
+  cd $curdir
+}
 
 ##  merge_upstream x y z:  Takes a list of branches and merges the first into the second, then second in the third and so on.
 #   -------------------------------------------------------------------
@@ -118,7 +142,6 @@ Usage:
   fi
 
   echo "Fetch from origin" # git fetch
-
 
   SOURCE="$1"
   shift
