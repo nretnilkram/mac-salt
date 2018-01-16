@@ -158,7 +158,7 @@ Usage:
     echo "Fast Forward $1 to HEAD"
     git merge --ff-only origin/$1
     echo "Pull $SOURCE into $1"
-    git pull $SOURCE
+    git merge --no-edit $SOURCE
     echo "Diff of new changes"
     git diff origin/$1
     SOURCE="$1"
