@@ -305,11 +305,10 @@ alias screensaverDesktop='/System/Library/Frameworks/ScreenSaver.framework/Resou
 #   9.  WEB DEVELOPMENT
 #   ---------------------------------------
 
-alias apacheEdit='sudo edit /etc/httpd/httpd.conf'      # apacheEdit:       Edit httpd.conf
-alias apacheRestart='sudo apachectl graceful'           # apacheRestart:    Restart Apache
-alias editHosts='sudo edit /etc/hosts'                  # editHosts:        Edit /etc/hosts file
-alias herr='tail /var/log/httpd/error_log'              # herr:             Tails HTTP error logs
-alias apacheLogs="less +F /var/log/apache2/error_log"   # Apachelogs:   Shows apache error logs
+alias apacheEdit="sudo $EDITOR /etc/apache2/httpd.conf"      # apacheEdit:       Edit httpd.conf
+alias apacheRestart='sudo apachectl graceful'                # apacheRestart:    Restart Apache
+alias apacheLogs="less +F /var/log/apache2/error_log"        # Apachelogs:   Shows apache error logs
+alias editHosts='sudo $EDITOR /etc/hosts'                    # editHosts:        Edit /etc/hosts file
 
 ##  httpHeaders <website>:      Grabs headers from web page
 #   -----------------------------------------------------------------------------------

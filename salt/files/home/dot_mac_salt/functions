@@ -28,23 +28,8 @@ function restart_dnsmasq() {
 ##  internal_ip:  list current internal IP address
 #   -------------------------------------------------------------------
 function internal_ip() {
-  ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172'
+  ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172' | grep -v ':'
 }
-
-
-##  delete_ds:  recursivly delete all .DS_STORE files from current dir
-#   -------------------------------------------------------------------
-function delete_ds() {
-  sudo find . -iname "*.DS_Store*" -depth -type f -exec rm -v {} \;
-}
-
-
-##  delete_all_ds:  recursivly delete all .DS_STORE files
-#   -------------------------------------------------------------------
-function delete_all_ds() {
-  sudo find / -iname "*.DS_Store*" -depth -type f -exec rm -v {} \;
-}
-
 
 #  _cleanup:  clean up brew packages and old gems
 #   -------------------------------------------------------------------
