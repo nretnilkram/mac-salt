@@ -141,19 +141,26 @@ Usage:
     return 1
   fi
 
-  echo "Fetch from origin" # git fetch
+  echo "Fetch from origin"
+  git fetch
 
   SOURCE="$1"
   shift
 
-  echo "Checkout $SOURCE" # git checkout $SOURCE
-  echo "Fast Forward $SOURCE to HEAD" # git merge --ff-only origin/$SOURCE
+  echo "Checkout $SOURCE"
+  git checkout $SOURCE
+  echo "Fast Forward $SOURCE to HEAD"
+  git merge --ff-only origin/$SOURCE
 
   while (( "$#" )); do
-    echo "Checkout $1" # git checkout $1
-    echo "Fast Forward $1 to HEAD" # git merge --ff-only origin/$1
-    echo "Pull $SOURCE into $1" # git pull $SOURCE
-    echo "Diff of new changes" # git diff origin/$1
+    echo "Checkout $1"
+    git checkout $1
+    echo "Fast Forward $1 to HEAD"
+    git merge --ff-only origin/$1
+    echo "Pull $SOURCE into $1"
+    git pull $SOURCE
+    echo "Diff of new changes"
+    git diff origin/$1
     SOURCE="$1"
     shift
   done
