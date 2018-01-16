@@ -30,7 +30,7 @@ git_diffc_alias:
   git.config_set:
     - global: True
     - name: alias.diffc
-    - value: diff --cached
+    - value: diff --staged
     - user: {{grains['user']}}
 
 git_branchv_alias:
