@@ -160,7 +160,7 @@ Usage:
     echo "Merge $SOURCE into $1"
     git merge --no-edit $SOURCE
     echo "Diff of new changes"
-    git diff origin/$1
+    git diff HEAD^1
     SOURCE="$1"
     shift
   done
