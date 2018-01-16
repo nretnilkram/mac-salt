@@ -28,36 +28,39 @@ function restart_dnsmasq() {
 ##  internal_ip:  list current internal IP address
 #   -------------------------------------------------------------------
 function internal_ip() {
-  ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172'
+  ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172' | grep -v ':'
 }
 
-
-##  delete_ds:  recursivly delete all .DS_STORE files from current dir
+#  _cleanup:  clean up brew packages and old gems
 #   -------------------------------------------------------------------
-function delete_ds() {
-  sudo find . -iname "*.DS_Store*" -depth -type f -exec rm -v {} \;
+function _cleanup() {
+  echo -e "\nCleaning Up Old Gems..."
+  gem cleanup
+  echo -e "\nCleaning Up Brew Packages..."
+  brew cleanup
 }
 
 
-##  delete_all_ds:  recursivly delete all .DS_STORE files
-#   -------------------------------------------------------------------
-function delete_all_ds() {
-  sudo find / -iname "*.DS_Store*" -depth -type f -exec rm -v {} \;
-}
-
-
-##  update:  Update brew packages and gems
+##  update:  Update brew packages and gems. -c --cleanup
 #   -------------------------------------------------------------------
 function update() {
-  echo "Gem Updates..."
+  echo -e "Gem Updates..."
   gem update
-  echo "cleaning Up Old Gems..."
-  gem cleanup
-  echo "Brew Updates..."
+  echo -e "\nBrew Updates..."
   brew update
   brew upgrade
-  echo "Cleaning Up Brew Packages..."
-  brew cleanup
+
+  while [ ! $# -eq 0 ]; do
+    case "$1" in
+      --cleanup | -c)
+        _cleanup
+        shift
+        ;;
+      *)
+        shift
+        ;;
+    esac
+  done
 }
 
 

@@ -26,5 +26,8 @@ Metrics/BlockLength:
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
 
+Style/Encoding:
+  Enabled: true
+
 Lint/ScriptPermission:
   Enabled: false
