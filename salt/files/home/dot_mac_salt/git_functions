@@ -65,12 +65,18 @@ function clean_branches() {
     echo "This is not a Git repo."
     return 1
   fi
-  _clean_remote_branches
+  _clean_merged_branches
 }
 
-#  _clean_remote_branches:  loops through the branches of a git repository and deletes all that are not master or current
+#  _clean_merged_branches:  loops through the branches of a git repository and deletes all that are not master or current
 #   -------------------------------------------------------------------
-function _clean_remote_branches() {
+function _clean_merged_branches() {
+  git branch | grep -v "master" | grep -v "*" | xargs git branch -d
+}
+
+#  _force_delete_remote_branches:  loops through the branches of a git repository and deletes all that are not master or current
+#   -------------------------------------------------------------------
+function _force_delete_branches() {
   git branch | grep -v "master" | grep -v "*" | xargs git branch -D
 }
 
@@ -78,7 +84,7 @@ function _clean_remote_branches() {
 #   -------------------------------------------------------------------
 function pull_all_projects() {
   if [ $# -eq 0 ]; then
-    echo "Clean up git branches locally
+    echo "Pull all branches from all projects in directory
 Usage:
   pull_all_branches ~/dev
     "
@@ -93,8 +99,69 @@ Usage:
     echo "$repo"
     cd $repo
     if [ -d ".git" ]; then
-      git pull
+      git pull --all
     fi
   done
   cd $curdir
+}
+
+##  fetch_all_projects <dir>:  Loop through first level directories of given dir and fetch new data from each repo.
+#   -------------------------------------------------------------------
+function fetch_all_projects() {
+  if [ $# -eq 0 ]; then
+    echo "Fetch all branches from all projects in directory
+Usage:
+  fetch_all_branches ~/dev
+    "
+    return 1
+  fi
+
+  curdir=`pwd`
+  cd $1
+  dir=`pwd`
+  for d in */ ; do
+    repo=$dir/$d
+    echo "$repo"
+    cd $repo
+    if [ -d ".git" ]; then
+      git fetch --all
+    fi
+  done
+  cd $curdir
+}
+
+##  merge_upstream x y z:  Takes a list of branches and merges the first into the second, then second in the third and so on.
+#   -------------------------------------------------------------------
+function merge_upstream() {
+  if (( $# < 2 )); then
+    echo "Merge git branches upstream
+Usage:
+  merge_upstream master 17d.01mp 18a.01qa 18a.02qa 4800-sweet-feature
+    "
+    return 1
+  fi
+
+  echo "Fetch from origin"
+  git fetch
+
+  SOURCE="$1"
+  shift
+
+  echo "Checkout $SOURCE"
+  git checkout $SOURCE
+  echo "Fast Forward $SOURCE to HEAD"
+  git merge --ff-only origin/$SOURCE
+
+  while (( "$#" )); do
+    echo "Checkout $1"
+    git checkout $1
+    echo "Fast Forward $1 to HEAD"
+    git merge --ff-only origin/$1
+    echo "Merge $SOURCE into $1"
+    git merge --no-edit $SOURCE
+    echo "Diff of new changes"
+    git diff HEAD^1
+    SOURCE="$1"
+    shift
+  done
 }
