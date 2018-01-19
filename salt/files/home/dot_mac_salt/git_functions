@@ -159,16 +159,9 @@ Usage:
   # Do the actual merge or nothing
   if [ "$DIRTY" -eq "0" ]
   then
-  	printf "\r\nThe following changes were detected:\r\n$MERGE_CHANGES\r\n\r\n"
-  	printf "Perform merge (Y/N)? "
-  	read -e go_for_it
-
-  	if [ "$go_for_it" == "Y" -o "$go_for_it" == "y" ]
-  	then
-  		git merge $REMOTE_BRANCH
-  	fi
+    git merge $REMOTE_BRANCH
   else
-  	echo "No changes detected, aborting merge!"
+    echo "No changes detected, aborting merge!"
   fi
 }
 
@@ -200,7 +193,6 @@ Usage:
     echo "Fast Forward $1 to HEAD"
     git merge --ff-only origin/$1
     echo "Merge $SOURCE into $1"
-    # git merge --no-edit $SOURCE
     git_merge_with_check $SOURCE
     echo "Diff of new changes"
     git diff HEAD^1
