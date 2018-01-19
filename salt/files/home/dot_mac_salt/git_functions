@@ -130,47 +130,20 @@ Usage:
   cd $curdir
 }
 
-# Usage: git-up
-#        git-reup
-#
-# Like git-pull but show a short and sexy log of changes
-# immediately after merging (git-up) or rebasing (git-reup).
-#
-# Inspired by Kyle Neath's `git up' alias:
-# http://gist.github.com/249223
-#
-# Stolen from Ryan Tomayko
-# http://github.com/rtomayko/dotfiles/blob/rtomayko/bin/git-up
-##  git-up <optional args>:  git pull with extra logging.
+##  git_merge_with_check <branch>:  merge in specified branch and test to see if there are any changes.
 #   -------------------------------------------------------------------
-function git-up () {
-  set -e
-
-  git pull $@
-
-  # show an abbreviated commit log of stuff that was just merged.
-  echo "Log:"
-  git log --color --pretty=format:"%C(yellow)%ci %C(cyan)%h %Cgreen%an %Creset%s" HEAD@{1}.. |
-  sed 's/^/  /'
-}
-
-##  git_merge_with_test <branch>:  merge in specified branch and test to see if there are any changes.
-#   -------------------------------------------------------------------
-function git_merge_with_test () {
-  if [ $1 -eq 0 ]; then
-    echo "Fetch all branches from all projects in directory
+function git_merge_with_check() {
+  if [ $# -ne 1 ] || [ ! -d ".git" ]; then
+    echo "You must provide a branch to merge and be in a git directory.
 Usage:
-  merge_with_test 18a.03mp
+  git_merge_with_test 18a.03mp
     "
     return 1
   fi
 
   REMOTE_BRANCH="$1"
 
-  # Fetch and test merge
-  echo "Fetching and testing merge"
-  git-up >/dev/null
-  git fetch >/dev/null
+  # Test Merge
   git merge --no-ff --no-commit $REMOTE_BRANCH >/dev/null
 
   # Get changes
@@ -195,7 +168,7 @@ Usage:
   		git merge $REMOTE_BRANCH
   	fi
   else
-  	echo "No changes detected, aborting merge"
+  	echo "No changes detected, aborting merge!"
   fi
 }
 
@@ -227,7 +200,8 @@ Usage:
     echo "Fast Forward $1 to HEAD"
     git merge --ff-only origin/$1
     echo "Merge $SOURCE into $1"
-    git merge --no-edit $SOURCE
+    # git merge --no-edit $SOURCE
+    git_merge_with_check $SOURCE
     echo "Diff of new changes"
     git diff HEAD^1
     SOURCE="$1"
