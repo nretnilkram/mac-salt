@@ -130,6 +130,75 @@ Usage:
   cd $curdir
 }
 
+# Usage: git-up
+#        git-reup
+#
+# Like git-pull but show a short and sexy log of changes
+# immediately after merging (git-up) or rebasing (git-reup).
+#
+# Inspired by Kyle Neath's `git up' alias:
+# http://gist.github.com/249223
+#
+# Stolen from Ryan Tomayko
+# http://github.com/rtomayko/dotfiles/blob/rtomayko/bin/git-up
+##  git-up <optional args>:  git pull with extra logging.
+#   -------------------------------------------------------------------
+function git-up () {
+  set -e
+
+  git pull $@
+
+  # show an abbreviated commit log of stuff that was just merged.
+  echo "Log:"
+  git log --color --pretty=format:"%C(yellow)%ci %C(cyan)%h %Cgreen%an %Creset%s" HEAD@{1}.. |
+  sed 's/^/  /'
+}
+
+##  git_merge_with_test <branch>:  merge in specified branch and test to see if there are any changes.
+#   -------------------------------------------------------------------
+function git_merge_with_test () {
+  if [ $1 -eq 0 ]; then
+    echo "Fetch all branches from all projects in directory
+Usage:
+  merge_with_test 18a.03mp
+    "
+    return 1
+  fi
+
+  REMOTE_BRANCH="$1"
+
+  # Fetch and test merge
+  echo "Fetching and testing merge"
+  git-up >/dev/null
+  git fetch >/dev/null
+  git merge --no-ff --no-commit $REMOTE_BRANCH >/dev/null
+
+  # Get changes
+  MERGE_CHANGES=$(git status)
+
+  # Store in variable whether it was actually dirty
+  git status --porcelain | grep "^M" >/dev/null
+  DIRTY="$?"
+
+  # Abort the merge either way to get back to a clean state
+  git merge --abort >/dev/null 2>/dev/null
+
+  # Do the actual merge or nothing
+  if [ "$DIRTY" -eq "0" ]
+  then
+  	printf "\r\nThe following changes were detected:\r\n$MERGE_CHANGES\r\n\r\n"
+  	printf "Perform merge (Y/N)? "
+  	read -e go_for_it
+
+  	if [ "$go_for_it" == "Y" -o "$go_for_it" == "y" ]
+  	then
+  		git merge $REMOTE_BRANCH
+  	fi
+  else
+  	echo "No changes detected, aborting merge"
+  fi
+}
+
 ##  merge_upstream x y z:  Takes a list of branches and merges the first into the second, then second in the third and so on.
 #   -------------------------------------------------------------------
 function merge_upstream() {
