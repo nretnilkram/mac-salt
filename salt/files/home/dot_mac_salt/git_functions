@@ -130,6 +130,41 @@ Usage:
   cd $curdir
 }
 
+##  git_merge_with_check <branch>:  merge in specified branch and test to see if there are any changes.
+#   -------------------------------------------------------------------
+function git_merge_with_check() {
+  if [ $# -ne 1 ] || [ ! -d ".git" ]; then
+    echo "You must provide a branch to merge and be in a git directory.
+Usage:
+  git_merge_with_test 18a.03mp
+    "
+    return 1
+  fi
+
+  REMOTE_BRANCH="$1"
+
+  # Test Merge
+  git merge --no-ff --no-commit $REMOTE_BRANCH >/dev/null
+
+  # Get changes
+  MERGE_CHANGES=$(git status)
+
+  # Store in variable whether it was actually dirty
+  git status --porcelain | grep "^M" >/dev/null
+  DIRTY="$?"
+
+  # Abort the merge either way to get back to a clean state
+  git merge --abort >/dev/null 2>/dev/null
+
+  # Do the actual merge or nothing
+  if [ "$DIRTY" -eq "0" ]
+  then
+    git merge $REMOTE_BRANCH
+  else
+    echo "No changes detected, aborting merge!"
+  fi
+}
+
 ##  merge_upstream x y z:  Takes a list of branches and merges the first into the second, then second in the third and so on.
 #   -------------------------------------------------------------------
 function merge_upstream() {
@@ -158,7 +193,7 @@ Usage:
     echo "Fast Forward $1 to HEAD"
     git merge --ff-only origin/$1
     echo "Merge $SOURCE into $1"
-    git merge --no-edit $SOURCE
+    git_merge_with_check $SOURCE
     echo "Diff of new changes"
     git diff HEAD^1
     SOURCE="$1"

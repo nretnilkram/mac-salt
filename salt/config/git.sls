@@ -1,3 +1,22 @@
+include:
+  - config.user
+
+bash_git_prompt:
+  file.managed:
+    - name: {{grains['homedir']}}/.mac_salt/git-prompt.sh
+    - source: salt://files/home/dot_mac_salt/git-prompt.sh
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+
+bash_git_functions:
+  file.managed:
+    - name: {{grains['homedir']}}/.mac_salt/git_functions
+    - source: salt://files/home/dot_mac_salt/git_functions
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+
 git_push:
   git.config_set:
     - global: True
@@ -115,6 +134,13 @@ git_unstage_alias:
     - global: True
     - name: alias.unstage
     - value: reset HEAD
+    - user: {{grains['user']}}
+
+git_up_alias:
+  git.config_set:
+    - global: True
+    - name: alias.up
+    - value: "!sh -c 'git pull --rebase --prune && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'"
     - user: {{grains['user']}}
 
 git_lg_alias:

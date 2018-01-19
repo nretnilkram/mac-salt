@@ -55,14 +55,6 @@ bash_git_completion:
     - group: staff
     - mode: 644
 
-bash_git_prompt:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/git-prompt.sh
-    - source: salt://files/home/dot_mac_salt/git-prompt.sh
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
-
 bash_functions:
   file.managed:
     - name: {{grains['homedir']}}/.mac_salt/functions
@@ -71,14 +63,6 @@ bash_functions:
     - group: staff
     - mode: 644
     - template: jinja
-
-bash_git_functions:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/git_functions
-    - source: salt://files/home/dot_mac_salt/git_functions
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
 
 bash_history:
   file.managed:
