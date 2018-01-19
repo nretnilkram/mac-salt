@@ -156,10 +156,10 @@ Usage:
   # Abort the merge either way to get back to a clean state
   git merge --abort >/dev/null 2>/dev/null
 
-  # Do the actual merge or nothing
+  # Do the actual merge if dirty
   if [ "$DIRTY" -eq "0" ]
   then
-    git merge $REMOTE_BRANCH
+    git merge --no-edit $REMOTE_BRANCH
   else
     echo "No changes detected, aborting merge!"
   fi
