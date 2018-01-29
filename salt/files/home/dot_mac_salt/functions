@@ -25,12 +25,6 @@ function restart_dnsmasq() {
 }
 
 
-##  internal_ip:  list current internal IP address
-#   -------------------------------------------------------------------
-function internal_ip() {
-  ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172' | grep -v ':'
-}
-
 #  _cleanup:  clean up brew packages and old gems
 #   -------------------------------------------------------------------
 function _cleanup() {
@@ -220,13 +214,6 @@ Usage:
 }
 
 
-##  drive_list:  list connected drives
-#   -------------------------------------------------------------------
-function drive_list() {
-  diskutil list
-}
-
-
 ##  iso_to_usb <iso file> <disk to use>:  convert iso file to UDRW to use on bootable USB stick
 #   -------------------------------------------------------------------
 function iso_to_usb() {
@@ -353,13 +340,6 @@ Usage:
     return 1
   fi
   dd if=/dev/zero of=$1 bs=1000*1000 count=$2
-}
-
-
-##  fix_pf_rules:  initializes pf anchor rules
-#   -------------------------------------------------------------------
-function fix_pf_rules() {
-  sudo /sbin/pfctl -evf /etc/pf.anchors/dev
 }
 
 
