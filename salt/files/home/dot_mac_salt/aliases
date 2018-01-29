@@ -33,6 +33,7 @@ alias sel="cd $HOME/dev/selenium-ruby"
 alias sys="cd $HOME/dev/systems"
 alias t="cd $HOME/dev/task_scheduling_service"
 alias u="cd $HOME/dev/utilities"
+alias e="cd $HOME/Dropbox/Sandbox/ECMCS-Tickets"
 
 # csshX Shortcuts
 alias csshx="csshX"
