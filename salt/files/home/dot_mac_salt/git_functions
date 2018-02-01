@@ -160,6 +160,7 @@ Usage:
   if [ "$DIRTY" -eq "0" ]
   then
     git merge --no-edit $REMOTE_BRANCH
+    git log --color --pretty=format:"%C(yellow)%ci %C(cyan)%h %Cgreen%an %Creset%s" HEAD@{1}.. | sed 's/^/  /'
   else
     echo "No changes detected, aborting merge!"
   fi
@@ -171,31 +172,29 @@ function merge_upstream() {
   if (( $# < 2 )); then
     echo "Merge git branches upstream
 Usage:
-  merge_upstream master 17d.01mp 18a.01qa 18a.02qa 4800-sweet-feature
+  merge_upstream master 18a.03mp 18b.03qa 8XXX-sweet-feature
     "
     return 1
   fi
 
-  echo "Fetch from origin"
+  echo -e "Fetch from origin"
   git fetch
 
   SOURCE="$1"
   shift
 
-  echo "Checkout $SOURCE"
+  echo -e "\nCheckout $SOURCE"
   git checkout $SOURCE
-  echo "Fast Forward $SOURCE to HEAD"
+  echo -e "\nFast Forward $SOURCE to HEAD"
   git merge --ff-only origin/$SOURCE
 
   while (( "$#" )); do
-    echo "Checkout $1"
+    echo -e "\nCheckout $1"
     git checkout $1
-    echo "Fast Forward $1 to HEAD"
+    echo -e "\nFast Forward $1 to HEAD"
     git merge --ff-only origin/$1
-    echo "Merge $SOURCE into $1 with git_merge_with_check"
+    echo -e "\nMerge $SOURCE into $1 with git_merge_with_check"
     git_merge_with_check $SOURCE
-    echo "Diff of new changes"
-    git diff HEAD^1
     SOURCE="$1"
     shift
   done
