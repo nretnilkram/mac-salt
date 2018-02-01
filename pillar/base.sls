@@ -10,6 +10,7 @@ brew_pkgs:
   - nodenv
   - node-build
   - tidy-html5
+  - php72
 
 dns_masq_domains:
   - dev
