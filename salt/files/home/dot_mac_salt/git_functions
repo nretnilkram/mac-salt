@@ -160,6 +160,7 @@ Usage:
   if [ "$DIRTY" -eq "0" ]
   then
     git merge --no-edit $REMOTE_BRANCH
+    git log --color --pretty=format:"%C(yellow)%ci %C(cyan)%h %Cgreen%an %Creset%s" HEAD@{1}.. | sed 's/^/  /'
   else
     echo "No changes detected, aborting merge!"
   fi
@@ -194,8 +195,6 @@ Usage:
     git merge --ff-only origin/$1
     echo -e "\nMerge $SOURCE into $1 with git_merge_with_check"
     git_merge_with_check $SOURCE
-    echo -e "\nDiff of new changes"
-    git --no-pager diff HEAD^1
     SOURCE="$1"
     shift
   done
