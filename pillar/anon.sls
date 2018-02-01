@@ -1,9 +1,11 @@
-web_dirs:
+html_web_dirs:
   - one
   - two
-  - three
   - four
   - five
+
+php_web_dirs:
+  - three
   - six
   - seven
   - eight
