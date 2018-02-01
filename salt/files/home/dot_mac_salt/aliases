@@ -33,6 +33,7 @@ alias sel="cd $HOME/dev/selenium-ruby"
 alias sys="cd $HOME/dev/systems"
 alias t="cd $HOME/dev/task_scheduling_service"
 alias u="cd $HOME/dev/utilities"
+alias e="cd $HOME/Dropbox/Sandbox/ECMCS-Tickets"
 
 # csshX Shortcuts
 alias csshx="csshX"
@@ -57,15 +58,16 @@ alias ducks="du -cks * | sort -rn | head"
 alias dush="sudo du -sh .[!.]* *"
 alias show_hidden="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app"
 alias hide_hidden="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app"
+alias fix_pf_rules="sudo /sbin/pfctl -evf /etc/pf.anchors/dev"
+alias fpf="fix_pf_rules"
+alias drive_list="diskutil list"
+alias internal_ip="ifconfig | awk '/inet/ {print $2}' | grep '192\|10\|172' | grep -v ':'"
 
 # rm to trash
 alias rm=rmtrash
 
 # Editor
 alias edit='atom'
-
-# test aliases
-alias test1="echo 'Hello'"
 
 # force /usr/local/bin/tidy instead of mac built in version
 alias tidy='/usr/local/bin/tidy'

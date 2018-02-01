@@ -24,6 +24,13 @@ git_push:
     - value: current
     - user: {{grains['user']}}
 
+git_remote_prune:
+  git.config_set:
+    - global: true
+    - name: remote.origin.prune
+    - value: true
+    - user: {{grains['user']}}
+
 git_checkout_alias:
   git.config_set:
     - global: True
