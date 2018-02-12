@@ -45,7 +45,7 @@ node_pkgs:
   - sass-lint
 
 ruby_version: 2.2.3
-vagrant_version: 1.9.8
+vagrant_version: 2.0.2
 
 apache_localhost_sites:
   - [{{grains['homedir']}}/Dropbox/Website, 80]
