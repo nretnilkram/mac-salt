@@ -1,6 +1,6 @@
 include:
   - services.oracle.networking
-  - services.dnsmasq
+  - services.oracle.dnsmasq
   - services.apache
   - services.mysql
   - services.h2o
