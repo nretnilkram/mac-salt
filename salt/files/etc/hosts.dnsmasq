@@ -1,5 +1,5 @@
-### 
-# CNSR
-10.143.17.174 srv2008r2 cnsr
+###
+# Testing
+127.0.0.1 extra.dnsmasq-hosts.com
 #
 ###
