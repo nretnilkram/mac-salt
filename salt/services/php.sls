@@ -1,4 +1,4 @@
-php56:
+php72:
   pkg.installed:
     - taps:
       - homebrew/php
@@ -8,25 +8,25 @@ php56:
 
 php_plist:
   file.copy:
-    - name: {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.php56.plist
-    - source: /usr/local/opt/php56/homebrew.mxcl.php56.plist
+    - name: {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.php72.plist
+    - source: /usr/local/opt/php72/homebrew.mxcl.php72.plist
     - user: {{grains['user']}}
     - require:
-      - pkg: php56
+      - pkg: php72
 
 php_setup_service:
   cmd.run:
-    - name: launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.php56.plist
+    - name: launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.php72.plist
     - runas: {{grains['user']}}
-    - unless: launchctl list | grep homebrew.mxcl.php56
+    - unless: launchctl list | grep homebrew.mxcl.php72
     - require:
       - file: php_plist
-      - pkg: php56
+      - pkg: php72
 
 php_restart_service:
   cmd.wait:
-    - name: launchctl unload {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.php56.plist && launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.php56.plist
+    - name: launchctl unload {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.php72.plist && launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.php72.plist
     - runas: {{grains['user']}}
     - watch:
       - file: php_plist
-      - pkg: php56
+      - pkg: php72
