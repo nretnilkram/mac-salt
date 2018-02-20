@@ -15,7 +15,11 @@ nginx_plist:
 nginx_conf:
   file.managed:
     - name: /usr/local/etc/nginx/nginx.conf
+    {% if pillar.get("oracle") %}
+    - source: salt://files/usr/local/etc/nginx/oracle-nginx.conf
+    {% else %}
     - source: salt://files/usr/local/etc/nginx/nginx.conf
+    {% endif %}
     - user: root
     - group: admin
     - mode: 644

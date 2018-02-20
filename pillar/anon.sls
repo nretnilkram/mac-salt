@@ -25,3 +25,5 @@ nginx_sites:
   - [{{grains['homedir']}}/web/seven, 8082]
   - [{{grains['homedir']}}/web/eight, 8083]
   - [{{grains['homedir']}}/web/nine, 8084]
+
+oracle: false
