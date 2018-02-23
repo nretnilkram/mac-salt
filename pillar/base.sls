@@ -19,10 +19,6 @@ dns_masq_domains:
   - nginx.dev.com
   - nretnil.local
 
-eloqua_dns_masq_domains:
-
-oracle_dns_masq_domains:
-
 ruby_pkgs:
   - libyaml
   - libffi
@@ -46,7 +42,6 @@ node_pkgs:
   - sass-lint
 
 ruby_version: 2.2.3
-vagrant_version: 2.0.2
 
 apache_localhost_sites:
   - [{{grains['homedir']}}/Dropbox/Website, 80]

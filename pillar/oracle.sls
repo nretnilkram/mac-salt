@@ -23,3 +23,5 @@ apache_localhost_sites:
   - [{{grains['homedir']}}/dev_mlintern/Twig Website, 8086]
 
 nginx_sites:
+
+vagrant_version: 2.0.2
