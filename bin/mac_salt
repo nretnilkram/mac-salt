@@ -76,8 +76,6 @@ case $ARGS in
     echo -e "Opening local webservers for testing \n"
     open http://localhost
     open http://nretnil.local
-    open http://localhost:8888
-    open http://localhost:8880
     open http://localhost:8080
     open http://localhost:8081
     open http://localhost:8082
