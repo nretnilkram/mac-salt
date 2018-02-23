@@ -17,11 +17,4 @@ oracle_dnsmasq_domains:
   - cpdm.oraclecorp.com
   - test-cpdm.oraclecorp.com
 
-apache_localhost_sites:
-  - [{{grains['homedir']}}/Dropbox/Website, 8888]
-  - [{{grains['homedir']}}/dev_mlintern/marklintern-com, 8085]
-  - [{{grains['homedir']}}/dev_mlintern/Twig Website, 8086]
-
-nginx_sites:
-
 vagrant_version: 2.0.2
