@@ -46,7 +46,7 @@ ruby_version: 2.2.3
 apache_localhost_sites:
   - [{{grains['homedir']}}/Dropbox/Website, 80]
   - [{{grains['homedir']}}/dev_mlintern/marklintern-com, 8085]
-  - [{{grains['homedir']}}/dev_mlintern/Twig Website, 8086]
+  - [{{grains['homedir']}}/dev_mlintern/Twig-Website, 8086]
 
 apache_nretnil_local_dir: {{grains['homedir']}}/Dropbox/var-www-html
 
