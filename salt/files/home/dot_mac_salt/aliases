@@ -63,6 +63,7 @@ alias fpf="fix_pf_rules"
 alias drive_list="diskutil list"
 alias internal_ip="ifconfig | awk '/inet/ {print \$2}' | grep '192\|10\|172' | grep -v ':'"
 alias ocna_ip="ifconfig | grep '\-->' | awk '{print \$2}'"
+alias restart_nginx="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.nginx.plist && sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
 
 # rm to trash
 alias rm=rmtrash
