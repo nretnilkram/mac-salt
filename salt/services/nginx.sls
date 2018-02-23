@@ -15,7 +15,7 @@ nginx_conf:
   file.managed:
     - name: /usr/local/etc/nginx/nginx.conf
     {% if pillar.get("oracle") %}
-    - source: salt://files/usr/local/etc/nginx/oracle-nginx.conf
+    - source: salt://files/oracle/usr/local/etc/nginx/nginx.conf
     {% else %}
     - source: salt://files/usr/local/etc/nginx/nginx.conf
     {% endif %}
@@ -30,9 +30,7 @@ nginx_conf:
 nginx_tmp_dir:
   file.directory:
     - name: /usr/local/cache/nginx/tmp
-    - user: {{grains['user']}}
     - makedirs: True
-    - group: staff
     - mode: 755
 {% endif %}
 

@@ -1,6 +1,6 @@
 oracle: true
 
-eloqua_dns_masq_domains:
+eloqua_dnsmasq_domains:
   - elqdev19.com
   - appcloudqa.eloqua.com
   - dev.eloquacorp.com
@@ -13,7 +13,7 @@ eloqua_dns_masq_domains:
   - devlogin.eloquacorp.com
   - eloquatesting.com
 
-oracle_dns_masq_domains:
+oracle_dnsmasq_domains:
   - cpdm.oraclecorp.com
   - test-cpdm.oraclecorp.com
 

@@ -23,7 +23,7 @@ resolver_dir:
 
 {% if pillar.get("oracle") %}
 
-{% for n in pillar.get("eloqua_dns_masq_domains") %}
+{% for n in pillar.get("eloqua_dnsmasq_domains") %}
 
 {{n}}_resolver_conf:
   file.managed:
@@ -34,7 +34,7 @@ resolver_dir:
 
 {% endfor %}
 
-{% for n in pillar.get("oracle_dns_masq_domains") %}
+{% for n in pillar.get("oracle_dnsmasq_domains") %}
 
 {{n}}_resolver_conf:
   file.managed:
@@ -50,7 +50,11 @@ resolver_dir:
 dnsmasq_conf:
   file.managed:
     - name: /usr/local/etc/dnsmasq.conf
+    {% if pillar.get("oracle") %}
+    - source: salt://files/oracle/usr/local/etc/dnsmasq.conf
+    {% else %}
     - source: salt://files/usr/local/etc/dnsmasq.conf
+    {% endif %}
     - user: root
     - group: admin
     - mode: 644
