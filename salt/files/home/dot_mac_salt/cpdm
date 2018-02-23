@@ -95,3 +95,17 @@ function validate_md5 {
     return 0
   fi
 }
+
+
+##  update_slc_proxy:  Set ocna IP address on SLC1 box
+#   -------------------------------------------------------------------
+function update_slc_proxy {
+  if [ -z "$1" ]; then
+    echo "You must specify an IP address"
+    return 1
+  fi
+  IP=$1
+  USER="mlintern"
+  SERVER="slc08uul.us.oracle.com"
+  ssh -t $USER@$SERVER "echo 'set \$REMOTE_IP $IP;' > ~/.nginx/proxy_ip; sudo systemctl restart nginx"
+}
