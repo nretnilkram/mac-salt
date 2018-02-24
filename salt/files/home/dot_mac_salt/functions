@@ -17,14 +17,6 @@ function port() {
 }
 
 
-##  restart_dnsmasq:  restart dnsmasq service
-#   -------------------------------------------------------------------
-function restart_dnsmasq() {
-  sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
-  sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
-}
-
-
 #  _cleanup:  clean up brew packages and old gems
 #   -------------------------------------------------------------------
 function _cleanup() {

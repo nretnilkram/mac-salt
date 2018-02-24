@@ -63,7 +63,6 @@ alias fpf="fix_pf_rules"
 alias drive_list="diskutil list"
 alias internal_ip="ifconfig | awk '/inet/ {print \$2}' | grep '192\|10\|172' | grep -v ':'"
 alias ocna_ip="ifconfig | grep '\-->' | awk '{print \$2}'"
-alias restart_nginx="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.nginx.plist && sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
 
 # rm to trash
 alias rm=rmtrash
@@ -73,3 +72,17 @@ alias edit='atom'
 
 # force /usr/local/bin/tidy instead of mac built in version
 alias tidy='/usr/local/bin/tidy'
+
+
+# Service Helpers
+alias nginx_stop="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
+alias nginx_start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
+alias nginx_restart="nginx_stop && nginx_start"
+
+alias h2o_stop="launchctl unload /Library/LaunchDaemons/homebrew.mxcl.h2o.plist"
+alias h2o_start="launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.h2o.plist"
+alias h2o_restart="h2o_stop && h2o_start"
+
+alias dnsmaq_stop="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist"
+alias dnsmaq_start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist"
+alias dnsmaq_restart="dnsmaq_stop && dnsmaq_start"

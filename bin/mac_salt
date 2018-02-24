@@ -76,13 +76,13 @@ case $ARGS in
     echo -e "Opening local webservers for testing \n"
     open http://localhost
     open http://nretnil.local:8880
-    open http://localhost:8080
     open http://localhost:8081
     open http://localhost:8082
     open http://localhost:8083
     open http://localhost:8084
     open http://localhost:8085
     open http://localhost:8086
+    open http://localhost:8881
     ;;
   update)
     cd $MACSALT/..

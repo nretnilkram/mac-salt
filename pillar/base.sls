@@ -51,7 +51,7 @@ apache_localhost_sites:
 
 apache_nretnil_local_dir: {{grains['homedir']}}/Dropbox/var-www-html
 
-h2o_localhost_8080_dir: {{grains['homedir']}}/Dropbox/Website/dev/bootstrap4-start
+h2o_localhost_8881_dir: {{grains['homedir']}}/Dropbox/Website/dev/bootstrap4-start
 
 nginx_sites:
   - [{{grains['homedir']}}/Dropbox/Website/dev/avatar, 8081]

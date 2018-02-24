@@ -3,7 +3,7 @@ h2o:
 
 h2o_plist:
   file.copy:
-    - name: {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist
+    - name: /Library/LaunchDaemons/homebrew.mxcl.h2o.plist
     - source: /usr/local/opt/h2o/homebrew.mxcl.h2o.plist
     - user: {{grains['user']}}
     - require:
@@ -22,8 +22,7 @@ h2o_conf:
 
 h2o_setup_service:
   cmd.run:
-    - name: launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist
-    - runas: {{grains['user']}}
+    - name: launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.h2o.plist
     - unless: launchctl list | grep homebrew.mxcl.h2o
     - require:
       - pkg: h2o
@@ -32,8 +31,7 @@ h2o_setup_service:
 
 h2o_restart_service:
   cmd.wait:
-    - name: launchctl unload {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist && launchctl load -w {{grains['homedir']}}/Library/LaunchAgents/homebrew.mxcl.h2o.plist
-    - runas: {{grains['user']}}
+    - name: launchctl unload /Library/LaunchDaemons/homebrew.mxcl.h2o.plist && launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.h2o.plist
     - watch:
       - pkg: h2o
       - file: h2o_conf
