@@ -17,3 +17,5 @@ function _bash_history_sync () {
 }
 
 export PROMPT_COMMAND="_bash_history_sync; $PROMPT_COMMAND"
+
+alias clean_history="builtin history | sort -k2 -k 1,1nr | uniq -f 1 | sort -n | cut -c 8- > ~/.bash_history"
