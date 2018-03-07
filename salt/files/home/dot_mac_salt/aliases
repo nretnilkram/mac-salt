@@ -63,6 +63,7 @@ alias fpf="fix_pf_rules"
 alias drive_list="diskutil list"
 alias internal_ip="ifconfig | awk '/inet/ {print \$2}' | grep '192\|10\|172' | grep -v ':'"
 alias ocna_ip="ifconfig | grep '\-->' | awk '{print \$2}'"
+alias stop_oas="sudo /usr/local/McAfee/AntiMalware/VSControl stopoas"
 
 # rm to trash
 alias rm=rmtrash
