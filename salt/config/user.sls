@@ -74,8 +74,8 @@ bash_history:
 
 bash_cpdm:
   file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/cpdm
-    - source: salt://files/home/dot_mac_salt/cpdm
+    - name: {{grains['homedir']}}/.mac_salt/oracle
+    - source: salt://files/home/dot_mac_salt/oracle
     - user: {{grains['user']}}
     - group: staff
     - mode: 644

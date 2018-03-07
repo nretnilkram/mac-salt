@@ -97,6 +97,34 @@ function validate_md5 {
 }
 
 
+##  local_proxy_enable:  set proxy settings to use 127.0.0.1 8840
+#   -------------------------------------------------------------------
+function local_proxy_enable() {
+  _set_proxy 127.0.0.1 8840
+}
+
+
+##  www_proxy_enable:  set proxy settings to use www-proxy.us.oracle.com 80
+#   -------------------------------------------------------------------
+function www_proxy_enable() {
+  _set_proxy www-proxy-adcq7-new.us.oracle.com 80
+}
+
+
+##  rmdc_proxy_enable:  set proxy settings to use rmdc-proxy.oracle.com 80
+#   -------------------------------------------------------------------
+function rmdc_proxy_enable() {
+  _set_proxy rmdc-proxy.oracle.com 80
+}
+
+
+##  adc_proxy_enable:  set proxy settings to use adc-proxy.oracle.com 80
+#   -------------------------------------------------------------------
+function adc_proxy_enable() {
+  _set_proxy adc-proxy.oracle.com 80
+}
+
+
 ##  update_slc_proxy:  Set ocna IP address on SLC1 box
 #   -------------------------------------------------------------------
 function update_slc_proxy {
