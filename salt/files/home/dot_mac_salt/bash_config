@@ -28,8 +28,8 @@ if [ -f $CONFIGDIR/history ]; then
 	source $CONFIGDIR/history
 fi
 
-if [ -f $CONFIGDIR/cpdm ]; then
-	source $CONFIGDIR/cpdm
+if [ -f $CONFIGDIR/oracle ]; then
+	source $CONFIGDIR/oracle
 fi
 
 # Initialize RBENV
