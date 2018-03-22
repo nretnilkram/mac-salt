@@ -1,3 +1,5 @@
+oracle: true
+
 brew_pkgs:
   - corkscrew
   - git

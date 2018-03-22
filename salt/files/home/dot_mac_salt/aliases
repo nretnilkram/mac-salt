@@ -10,14 +10,18 @@ alias salt-local=$MACSALTPATH
 # Sudo keep environment
 alias sudo="sudo -E"
 
+{% if pillar.get("oracle") %}
 # Proxy Shortcuts
 alias lpe=local_proxy_enable
 alias rmdc=rmdc_proxy_enable
 alias adc=adc_proxy_enable
 alias dp=disable_proxy
 alias wpe=www_proxy_enable
+{% endif %}
 
 # Directory Shortcuts
+alias sand="cd $HOME/Dropbox/Sandbox"
+{% if pillar.get("oracle") %}
 alias app="cd $HOME/dev_mlintern/padrino_app"
 alias a="app"
 alias b="cd $HOME/dev/blog/application/trunk"
@@ -28,12 +32,13 @@ alias m="cd $MACSALTHOME"
 alias n="cd $HOME/dev/network_clone"
 alias p="cd $HOME/dev/padrino_api"
 alias s="cd $HOME/dev/shared"
-alias sand="cd $HOME/Dropbox/Sandbox"
+alias o="cd $HOME/AMS/omcd"
 alias sel="cd $HOME/dev/selenium-ruby"
 alias sys="cd $HOME/dev/systems"
 alias t="cd $HOME/dev/task_scheduling_service"
 alias u="cd $HOME/dev/utilities"
 alias e="cd $HOME/Dropbox/Sandbox/ECMCS-Tickets"
+{% endif %}
 
 # csshX Shortcuts
 alias csshx="csshX"
@@ -73,7 +78,6 @@ alias edit='atom'
 
 # force /usr/local/bin/tidy instead of mac built in version
 alias tidy='/usr/local/bin/tidy'
-
 
 # Service Helpers
 alias nginx_stop="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"

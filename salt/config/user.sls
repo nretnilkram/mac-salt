@@ -72,13 +72,15 @@ bash_history:
     - group: staff
     - mode: 644
 
-bash_cpdm:
+{% if pillar.get("oracle") %}
+bash_oracle:
   file.managed:
     - name: {{grains['homedir']}}/.mac_salt/oracle
     - source: salt://files/home/dot_mac_salt/oracle
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
+{% endif %}
 
 bash_config:
   file.managed:

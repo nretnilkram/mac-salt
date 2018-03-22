@@ -28,9 +28,11 @@ if [ -f $CONFIGDIR/history ]; then
 	source $CONFIGDIR/history
 fi
 
+{% if pillar.get("oracle") %}
 if [ -f $CONFIGDIR/oracle ]; then
 	source $CONFIGDIR/oracle
 fi
+{% endif %}
 
 # Initialize RBENV
 if [[ -d "$HOME/.rbenv" ]]; then
