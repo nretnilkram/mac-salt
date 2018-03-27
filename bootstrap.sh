@@ -34,7 +34,7 @@ if [ ! -d "/etc/salt" ]; then
 	sudo mkdir /etc/salt
 fi
 
-sudo sh -c "echo $(whoami)-dev-host > /etc/salt/minion_id"
+sudo sh -c "echo $(whoami)-$(hostname) > /etc/salt/minion_id"
 sudo sh -c "echo file_client: local > /etc/salt/minion"
 
 #####

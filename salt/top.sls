@@ -4,7 +4,7 @@ base:
     - tools
     - services
 
-  '*ANON':
+  '*anon*':
     - anon
 
   '*oracle*':
