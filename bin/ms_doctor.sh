@@ -93,6 +93,41 @@ to fix this.
 	found_issue=true
 fi
 
+#   Check to see if /usr/local/Frameworks dir exists
+#   ---------------------------------------
+frameworks=true
+if [ ! -d /usr/local/Frameworks ]
+	then
+	echo "
+You need to create a /usr/local/Frameworks.
+
+run:
+
+sudo mkdir /usr/local/Frameworks && chown -R $(whoami) /usr/local/Frameworks
+	"
+	found_issue=true
+	frameworks=false
+fi
+
+#   Check permissions on /usr/local/Frameworks
+#   ---------------------------------------
+if [[ ! frameworks ]]
+	then
+	if [[ ! "$(whoami)" == "$(stat /usr/local/Frameworks/ | awk '{print $5}')" ]]
+		then
+		echo "
+/usr/local/Frameworks does not have $(whoami) as the owner which could cause issues with brew installs and updates.
+
+run:
+
+sudo chown -R $(whoami) /usr/local/Frameworks
+
+to resolve this issue.
+		"
+		found_issue=true
+	fi
+fi
+
 #   Check that bash_config is being sourced
 #   ---------------------------------------
 if !( grep -Fq "source ~/.mac_salt/bash_config" ~/.bash_profile ~/.bashrc &> /dev/null )

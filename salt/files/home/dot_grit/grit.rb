@@ -81,7 +81,6 @@ class Grit
     end
   end
 
-  # opting to not remove the directory
   def remove_repository(names)
     config = load_config
     puts config.inspect
@@ -128,7 +127,6 @@ class Grit
   end
 end
 
-# TODO: ... this better
 project = Grit.new
 case ARGV[0]
 when 'init'
