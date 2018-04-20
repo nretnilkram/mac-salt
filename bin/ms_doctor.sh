@@ -103,7 +103,7 @@ You need to create a /usr/local/Frameworks.
 
 run:
 
-sudo mkdir /usr/local/Frameworks && chown -R $(whoami) /usr/local/Frameworks
+sudo mkdir /usr/local/Frameworks && sudo chown -R $(whoami) /usr/local/Frameworks
 	"
 	found_issue=true
 	frameworks=false

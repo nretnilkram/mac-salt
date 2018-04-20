@@ -1,3 +1,5 @@
+oracle: true
+
 eloqua_dnsmasq_domains:
   - elqdev19.com
   - appcloudqa.eloqua.com

@@ -1,4 +1,4 @@
-oracle: true
+oracle: false
 
 brew_pkgs:
   - corkscrew
