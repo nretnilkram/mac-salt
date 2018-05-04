@@ -47,15 +47,15 @@ ruby_version: 2.2.3
 
 apache_localhost_sites:
   - [{{grains['homedir']}}/Dropbox/Website, 80]
-  - [{{grains['homedir']}}/dev_mlintern/marklintern-com, 8085]
-  - [{{grains['homedir']}}/dev_mlintern/Twig-Website, 8086]
+  - [{{grains['homedir']}}/dev_mlintern/marklintern-com, 8885]
+  - [{{grains['homedir']}}/dev_mlintern/Twig-Website, 8886]
 
 apache_nretnil_local_dir: {{grains['homedir']}}/Dropbox/var-www-html
 
 h2o_localhost_8888_dir: {{grains['homedir']}}/Dropbox/Website/dev/bootstrap4-start
 
 nginx_sites:
-  - [{{grains['homedir']}}/Dropbox/Website/dev/avatar, 8081]
-  - [{{grains['homedir']}}/dev_mlintern/lintern-us, 8082]
-  - [{{grains['homedir']}}/dev_mlintern/nretnil-com, 8083]
-  - [{{grains['homedir']}}/dev_mlintern/sandybox, 8084]
+  - [{{grains['homedir']}}/Dropbox/Website/dev/avatar, 8881]
+  - [{{grains['homedir']}}/dev_mlintern/lintern-us, 8882]
+  - [{{grains['homedir']}}/dev_mlintern/nretnil-com, 8883]
+  - [{{grains['homedir']}}/dev_mlintern/sandybox, 8884]
