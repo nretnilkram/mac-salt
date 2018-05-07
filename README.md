@@ -1,6 +1,6 @@
 # MAC SALT
 
-Sets up and configures tools and services such as bash, mysql, node, dnsmasq, ruby, vagrant, and git.
+Sets up and configures useful tools and services such as bash, mysql, node, dnsmasq, ruby, vagrant, and git.
 
 ## Installation
 
@@ -117,22 +117,22 @@ xcode-select --install
 
 npm behind a proxy:
 ```
-npm config set proxy http://www-proxy.us.oracle.com:80
-npm config set https-proxy http://www-proxy.us.oracle.com:80
-export npm_config_proxy http://www-proxy.us.oracle.com:80
-export npm_config_https_proxy http://www-proxy.us.oracle.com:80
+npm config set proxy <proxy_url_and_port>
+npm config set https-proxy proxy <proxy_url_and_port>
+export npm_config_proxy proxy <proxy_url_and_port>
+export npm_config_https_proxy proxy <proxy_url_and_port>
 ```
 
 ### Web Server Details
 
 #### APACHE
-* config: `/etc/apache2/httpd.conf`
-* urls: http://localhost (php), http://foo.bar.com (html)
+* config: `/etc/apache2/other/localhost.conf`
+* urls: http://localhost (php), http://localhost:8885 (html), http://localhost:8886 (php), http://nretnil.local:8887 (html)
 
 #### H20
 * config: `/usr/local/etc/h2o/h2o.conf`
-* url: http://localhost:8080 (html)
+* url: http://localhost:8888 (html)
 
 #### NGINX
 * config: `/usr/local/etc/nginx/nginx.conf`
-* urls: http://localhost:8081 (php), http://localhost:8082 (php), http://localhost:8083 (html/php)
+* urls: http://localhost:8881 (php), http://localhost:8882 (php), http://localhost:8883 (html/php), http://localhost:8884 (html)

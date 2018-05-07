@@ -27,3 +27,5 @@ apache_localhost_sites:
   - [{{grains['homedir']}}/dev_mlintern/sandybox, 8884]
   - [{{grains['homedir']}}/dev_mlintern/marklintern-com, 8885]
   - [{{grains['homedir']}}/dev_mlintern/Twig-Website, 8886]
+
+nginx_sites:
