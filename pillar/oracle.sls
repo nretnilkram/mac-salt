@@ -17,7 +17,7 @@ oracle_dnsmasq_domains:
   - cpdm.oraclecorp.com
   - test-cpdm.oraclecorp.com
 
-vagrant_version: 2.0.4
+vagrant_version: 2.1.1
 
 apache_localhost_sites:
   - [{{grains['homedir']}}/Dropbox/Website, 8880]
