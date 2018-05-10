@@ -5,3 +5,4 @@ include:
   - services.nginx
   - services.redis
   - services.dnsmasq
+  - services.postgresql
