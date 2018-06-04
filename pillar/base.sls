@@ -13,6 +13,7 @@ brew_pkgs:
   - node-build
   - tidy-html5
   - composer
+  - telnet
 
 dns_masq_domains:
   - dev

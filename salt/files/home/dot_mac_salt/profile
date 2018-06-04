@@ -67,7 +67,20 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GIT_PS1_SHOWDIRTYSTATE=true
 # export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_STATESEPARATOR=' '
-export PS1="\n${Green}---------------------------------------------------\n${White}| \d \t \n| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n|${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}"
+
+# Timer Functions
+function timer_start {
+  timer=${timer:-$SECONDS}
+}
+
+function timer_stop {
+  timer_show=$(($SECONDS - $timer))
+  unset timer
+}
+
+trap 'timer_start' DEBUG
+
+export PS1="\n${Green}--------------------[${timer_show}s]------------------\n${White}| \d \t \n| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n|${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}"
 # export PS1="\n${Green}---------------------------------------------------\n${White}| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n|${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}"
 # export PS1="\n${Red}\u${White}@${Cyan}\h ${Purple}\w\n${Yellow}\$(__git_ps1 "[%s]")${White}=> ${NC}"
 # export PS1="\n${Red}\u${White}@${Cyan}\h ${Purple}\W ${Yellow}\$(__git_ps1 "[%s]")${White}=> ${NC}"

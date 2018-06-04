@@ -95,3 +95,5 @@ dnsmasq_restart_service:
       - file: dnsmasq_conf
       - file: dev_dnsmasq_plist
       - pkg: dnsmasq
+    - require:
+      - pkg: dnsmasq

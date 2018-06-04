@@ -8,10 +8,6 @@ if [ -f $CONFIGDIR/git-prompt.sh ]; then
 	source $CONFIGDIR/git-prompt.sh
 fi
 
-if [ -f $CONFIGDIR/profile ]; then
-	source $CONFIGDIR/profile
-fi
-
 if [ -f $CONFIGDIR/aliases ]; then
 	source $CONFIGDIR/aliases
 fi
@@ -26,6 +22,14 @@ fi
 
 if [ -f $CONFIGDIR/history ]; then
 	source $CONFIGDIR/history
+fi
+
+if [ -f $CONFIGDIR/profile ]; then
+	source $CONFIGDIR/profile
+fi
+
+if [ -f $CONFIGDIR/command_prompt ]; then
+	source $CONFIGDIR/command_prompt
 fi
 
 {% if pillar.get("oracle") %}

@@ -1,0 +1,1 @@
+export PROMPT_COMMAND="_bash_history_sync; timer_stop;"

@@ -72,6 +72,14 @@ bash_history:
     - group: staff
     - mode: 644
 
+command_prompt:
+  file.managed:
+    - name: {{grains['homedir']}}/.mac_salt/command_prompt
+    - source: salt://files/home/dot_mac_salt/command_prompt
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+
 {% if pillar.get("oracle") %}
 bash_oracle:
   file.managed:
