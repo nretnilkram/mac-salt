@@ -24,36 +24,36 @@
 #   ---------------------------------------
 
 # Normal Colors
-Black='\033[0;30m'        # Black
-Red='\033[0;31m'          # Red
-Green='\033[0;32m'        # Green
-Yellow='\033[0;33m'       # Yellow
-Blue='\033[0;34m'         # Blue
-Purple='\033[0;35m'       # Purple
-Cyan='\033[0;36m'         # Cyan
-White='\033[0;37m'        # White
+Black='\[\033[0;30m\]'        # Black
+Red='\[\033[0;31m\]'          # Red
+Green='\[\033[0;32m\]'        # Green
+Yellow='\[\033[0;33m\]'       # Yellow
+Blue='\[\033[0;34m\]'         # Blue
+Purple='\[\033[0;35m\]'       # Purple
+Cyan='\[\033[0;36m\]'         # Cyan
+White='\[\033[0;37m\]'        # White
 
 # Bold
-BBlack='\033[1;30m'       # Black
-BRed='\033[1;31m'         # Red
-BGreen='\033[1;32m'       # Green
-BYellow='\033[1;33m'      # Yellow
-BBlue='\033[1;34m'        # Blue
-BPurple='\033[1;35m'      # Purple
-BCyan='\033[1;36m'        # Cyan
-BWhite='\033[1;37m'       # White
+BBlack='\[\033[1;30m\]'       # Black
+BRed='\[\033[1;31m\]'         # Red
+BGreen='\[\033[1;32m\]'       # Green
+BYellow='\[\033[1;33m\]'      # Yellow
+BBlue='\[\033[1;34m\]'        # Blue
+BPurple='\[\033[1;35m\]'      # Purple
+BCyan='\[\033[1;36m\]'        # Cyan
+BWhite='\[\033[1;37m\]'       # White
 
 # Background
-On_Black='\033[40m'       # Black
-On_Red='\033[41m'         # Red
-On_Green='\033[42m'       # Green
-On_Yellow='\033[43m'      # Yellow
-On_Blue='\033[44m'        # Blue
-On_Purple='\033[45m'      # Purple
-On_Cyan='\033[46m'        # Cyan
-On_White='\033[47m'       # White
+On_Black='\[\033[40m\]'       # Black
+On_Red='\[\033[41m\]'         # Red
+On_Green='\[\033[42m\]'       # Green
+On_Yellow='\[\033[43m\]'      # Yellow
+On_Blue='\[\033[44m\]'        # Blue
+On_Purple='\[\033[45m\]'      # Purple
+On_Cyan='\[\033[46m\]'        # Cyan
+On_White='\[\033[47m\]'       # White
 
-NC='\033[m'               # Color Reset
+NC='\[\033[m\]'               # Color Reset
 
 
 #   -------------------------------
@@ -68,24 +68,29 @@ export GIT_PS1_SHOWDIRTYSTATE=true
 # export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_STATESEPARATOR=' '
 
+# Display unsuccessful exit codes
+function exit_status {
+  LAST_STATUS=$?
+  echo $LAST_STATUS
+  if [[ $LAST_STATUS != 0 ]]; then
+    echo "${Red}[Exit: $LAST_STATUS]"
+  fi
+}
+
 # Timer Functions
 function timer_start {
   timer=${timer:-$SECONDS}
 }
 
 function timer_stop {
-  timer_show=$(($SECONDS - $timer))
+  TIMER_SHOW=$(($SECONDS - $timer))
   unset timer
 }
 
 trap 'timer_start' DEBUG
 
-export PS1="\n${Green}--------------------[${timer_show}s]------------------\n${White}| \d \t \n| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n|${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}"
-# export PS1="\n${Green}---------------------------------------------------\n${White}| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White}\n|${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}"
-# export PS1="\n${Red}\u${White}@${Cyan}\h ${Purple}\w\n${Yellow}\$(__git_ps1 "[%s]")${White}=> ${NC}"
-# export PS1="\n${Red}\u${White}@${Cyan}\h ${Purple}\W ${Yellow}\$(__git_ps1 "[%s]")${White}=> ${NC}"
-export PS2="| => ${NC}"
-# export PS2="=> ${NC}"
+PS1="\n${exit_status}${Green}--------------------[${TIMER_SHOW}s]------------------ \n${White}| \d \t \n| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White} \n| ${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}"
+PS2="| => ${NC}"
 
 #   Set Paths
 #   ------------------------------------------------------------
