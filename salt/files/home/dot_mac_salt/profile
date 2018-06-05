@@ -81,15 +81,29 @@ function timer_start {
   timer=${timer:-$SECONDS}
 }
 
+function displaytime {
+  local T=$1
+  local D=$((T/60/60/24))
+  local H=$((T/60/60%24))
+  local M=$((T/60%60))
+  local S=$((T%60))
+  (( $D > 0 )) && printf '%d days ' $D
+  (( $H > 0 )) && printf '%d hrs ' $H
+  (( $M > 0 )) && printf '%d min ' $M
+  (( $D > 0 || $H > 0 || $M > 0 )) && printf 'and '
+  printf '%d sec\n' $S
+}
+
 function timer_stop {
   TIMER_SHOW=$(($SECONDS - $timer))
+  HUMAN_TIME=$(displaytime $TIMER_SHOW)
   unset timer
 }
 
 trap 'timer_start' DEBUG
 
 # PS1="\n${Red}\$(exit_status)${Green}--------------------[\${TIMER_SHOW}s]------------------ \n${White}| \d \t \n| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White} \n| ${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}"
-PS1="\n${Red}\$(exit_status)${Green}--------------------[\${TIMER_SHOW}s]------------------ \n${White}| \d \t ${Red}\u${White}@${Cyan}\h ${White}\n| ${Purple}\w ${Yellow}\$(__git_ps1 "[%s]") ${White}\n| => ${NC}"
+PS1="\n${Red}\$(exit_status)${Green}--------------------[\${HUMAN_TIME}]------------------ \n${White}| \d \t ${Red}\u${White}@${Cyan}\h ${White}\n| ${Purple}\w ${Yellow}\$(__git_ps1 "[%s]") ${White}\n| => ${NC}"
 PS2="| => ${NC}"
 
 #   Set Paths
