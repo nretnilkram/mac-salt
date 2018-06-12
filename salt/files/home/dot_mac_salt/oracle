@@ -1,4 +1,4 @@
-# Handy functions for CPDM deployments and mgmt
+# Handy functions for CPDM and Oracle specific items
 
 # open up port forwards for
 # 1. graylog  (9000)
@@ -136,4 +136,23 @@ function update_slc_proxy {
   USER="mlintern"
   SERVER="slc08uul.us.oracle.com"
   ssh -t $USER@$SERVER "echo 'set \$REMOTE_IP $IP;' > ~/.nginx/proxy_ip; sudo systemctl restart nginx"
+}
+
+
+##  start_oracle_db:  starts oracle database and activemq docker containers
+#   -------------------------------------------------------------------
+function start_oracle_db {
+        pushd $HOME/AMS
+        trap popd INT
+        docker-compose start
+        popd
+}
+
+##  stop_oracle_db:  stops oracle database and activemq docker containers
+#   -------------------------------------------------------------------
+function stop_oracle_db {
+        pushd $HOME/AMS
+        trap popd INT
+        docker-compose stop
+        popd
 }
