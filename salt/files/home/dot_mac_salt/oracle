@@ -156,3 +156,21 @@ function stop_oracle_db {
         docker-compose stop
         popd
 }
+
+##  run_ams_clean_node:  removes all cache, JS files, and node before rebuilding and running ams
+#   -------------------------------------------------------------------
+function run_ams_clean_node {
+  rm src/main/resources/.cache
+  rm src/main/resources/node
+  rm src/main/resources/node_modules
+  rm src/main/resources/static/js/app-p
+  ./mvnw spring-boot:run
+}
+
+##  run_ams:  removes all cache and JS files before rebuilding and running ams
+#   -------------------------------------------------------------------
+function run_ams {
+  rm src/main/resources/.cache
+  rm src/main/resources/static/js/app-p
+  ./mvnw spring-boot:run
+}
