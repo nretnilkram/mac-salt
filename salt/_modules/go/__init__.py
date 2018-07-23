@@ -1,6 +1,8 @@
 import logging
 import os
 
+__version__ = '0.0.1'
+
 log = logging.getLogger(__name__)
 
 def test():
