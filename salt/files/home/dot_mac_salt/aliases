@@ -84,10 +84,14 @@ alias nginx_stop="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.ngi
 alias nginx_start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
 alias nginx_restart="nginx_stop && nginx_start"
 
-alias h2o_stop="launchctl unload /Library/LaunchDaemons/homebrew.mxcl.h2o.plist"
-alias h2o_start="launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.h2o.plist"
+alias h2o_stop="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.h2o.plist"
+alias h2o_start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.h2o.plist"
 alias h2o_restart="h2o_stop && h2o_start"
 
 alias dnsmaq_stop="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist"
 alias dnsmaq_start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist"
 alias dnsmaq_restart="dnsmaq_stop && dnsmaq_start"
+
+alias mysql_stop="launchctl unload $HOME/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
+alias mysql_start="launchctl load -w $HOME/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
+alias mysql_restart="mysql_stop && mysql_start"
