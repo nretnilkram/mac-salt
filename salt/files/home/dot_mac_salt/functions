@@ -286,7 +286,7 @@ function fix_brew_permissions() {
 }
 
 
-##  fix_sudo_bundle:  fixes isssues caused by doing sudo bundle install
+##  fix_sudo_bundle:  fixes issues caused by doing sudo bundle install
 #   -------------------------------------------------------------------
 function fix_sudo_bundle() {
   sudo bundle install --system
@@ -297,7 +297,7 @@ function fix_sudo_bundle() {
 ##  create_file <file_name> <size in MB>:  create file from /dev/zero
 #   -------------------------------------------------------------------
 function create_file() {
-  if [ -z "$1" ] && [ -z "$2" ]; then
+  if [ -z "$1" ] || [ -z "$2" ]; then
     echo "Create file for texting
 Usage:
   create_file large_text_file.txt 300
@@ -340,7 +340,20 @@ function backup_home_dir() {
     return 1
   fi
 
-  sudo rsync --delete --exclude=VirtualBox\ VMs --exclude=.local --exclude=.npm --exclude=.gem --exclude=AMS --exclude=.Trash --exclude=.vagrant.d --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
+  sudo rsync --delete --exclude=VirtualBox\ VMs --exclude=.local --exclude=.npm --exclude=node_modules --exclude=.m2 --exclude=.p2 --exclude=.gem --exclude=AMS --exclude=.Trash --exclude=.vagrant.d --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
+}
+
+#   backup:  rsync one location to second location
+#   -------------------------------------------------------------------
+function backup() {
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "You must pass a source and destination directory"
+    echo
+    echo "clone /Volumes/Ultra /Volumes/2TB"
+    return 1
+  fi
+
+  rsync --delete -auv $1 $2
 }
 
 #   remove_gem_docs:  remove gem documentation from system
