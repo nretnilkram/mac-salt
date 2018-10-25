@@ -349,7 +349,7 @@ function backup() {
   if [ -z "$1" ] || [ -z "$2" ]; then
     echo "You must pass a source and destination directory"
     echo
-    echo "clone /Volumes/Ultra /Volumes/2TB"
+    echo "backup /Volumes/Ultra /Volumes/2TB"
     return 1
   fi
 
