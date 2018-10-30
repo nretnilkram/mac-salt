@@ -353,7 +353,7 @@ function backup() {
     return 1
   fi
 
-  rsync --delete -auv $1 $2
+  rsync --delete --exclude=.DS_Store -auv $1 $2
 }
 
 #   remove_gem_docs:  remove gem documentation from system
