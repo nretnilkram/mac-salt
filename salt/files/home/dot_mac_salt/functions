@@ -340,7 +340,7 @@ function backup_home_dir() {
     return 1
   fi
 
-  sudo rsync --delete --exclude=VirtualBox\ VMs --exclude=.local --exclude=.npm --exclude=node_modules --exclude=.m2 --exclude=.p2 --exclude=.gem --exclude=AMS --exclude=.Trash --exclude=.vagrant.d --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
+  sudo rsync --delete --progress --exclude=VirtualBox\ VMs --exclude=.local --exclude=.npm --exclude=node_modules --exclude=.m2 --exclude=.p2 --exclude=.gem --exclude=AMS --exclude=.Trash --exclude=.vagrant.d --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
 }
 
 #   backup:  rsync one location to second location
@@ -353,7 +353,7 @@ function backup() {
     return 1
   fi
 
-  rsync --delete --exclude=.DS_Store -auv $1 $2
+  rsync --delete --progress --exclude=.DS_Store -auv $1 $2
 }
 
 #   remove_gem_docs:  remove gem documentation from system
