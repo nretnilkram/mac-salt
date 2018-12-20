@@ -95,3 +95,7 @@ alias dnsmaq_restart="dnsmaq_stop && dnsmaq_start"
 alias mysql_stop="launchctl unload $HOME/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
 alias mysql_start="launchctl load -w $HOME/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
 alias mysql_restart="mysql_stop && mysql_start"
+
+alias postgres_stop="launchctl unload $HOME/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+alias postgres_start="launchctl load -w $HOME/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+alias postgres_restart="postgres_stop && postgres_start"
