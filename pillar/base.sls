@@ -34,6 +34,7 @@ ruby_pkgs:
 gems:
   - bundler
   - rubocop
+  - scss_lint
 
 node_pkgs:
   - npm-check-updates
@@ -42,9 +43,8 @@ node_pkgs:
   - grunt-cli
   - jshint
   - webpack
-  - sass-lint
 
-ruby_version: 2.2.3
+ruby_version: 2.5.1
 
 apache_localhost_sites:
   - [{{grains['homedir']}}/Dropbox/Website, 80]

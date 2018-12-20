@@ -14,6 +14,14 @@ dot_rubocop.yml:
     - group: staff
     - mode: 644
 
+dot_scss-lint.yml:
+  file.managed:
+    - name: {{grains['homedir']}}/.scss-lint.yml
+    - source: salt://files/home/dot_scss-lint.yml
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+
 {% for n in pillar.get("ruby_pkgs") %}
 
 {{n}}_brew_install:
