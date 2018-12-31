@@ -60,6 +60,5 @@ current-ruby:
   gem.installed:
     - name: {{n}}
     - ruby: {{ pillar.get("ruby_version") }}
-    - user: {{grains['user']}}
 
 {% endfor %}
