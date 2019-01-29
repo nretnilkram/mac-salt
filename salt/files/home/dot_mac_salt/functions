@@ -367,3 +367,29 @@ function remove_gem_docs() {
     echo "There are no docs to remove."
   fi
 }
+
+#   kubernetes:  kubernetes the next word or phrase.
+#   -------------------------------------------------------------------
+function kubernetes() {
+  if [ -z "$1" ]; then
+    echo "You must pass a word or phrase \$1"
+    echo
+    echo "kubernetes mark"
+    return 1
+  fi
+
+  RESULT=()
+
+  for WORD in $@; do
+    FIRST="$(echo $WORD | head -c 1)"
+    LENGTH=$(printf "%s" "$WORD" | wc -c)
+    LAST="$(echo -n $WORD | tail -c 1)"
+    if (( LENGTH > 2 )); then
+      RESULT+=("$FIRST$((LENGTH - 2))$LAST")
+    else
+      RESULT+=("$WORD")
+    fi
+  done
+
+  echo ${RESULT[*]}
+}
