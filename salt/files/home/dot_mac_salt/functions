@@ -343,17 +343,17 @@ function backup_home_dir() {
   sudo rsync --delete --progress --exclude=VirtualBox\ VMs --exclude=.local --exclude=.npm --exclude=node_modules --exclude=.m2 --exclude=.p2 --exclude=.gem --exclude=AMS --exclude=.Trash --exclude=.vagrant.d --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
 }
 
-#   backup:  rsync one location to second location
+#   sync:  rsync one location to second location
 #   -------------------------------------------------------------------
-function backup() {
+function sync() {
   if [ -z "$1" ] || [ -z "$2" ]; then
     echo "You must pass a source and destination directory"
     echo
-    echo "backup /Volumes/Ultra /Volumes/2TB"
+    echo "sync /Volumes/Ultra /Volumes/2TB"
     return 1
   fi
 
-  rsync --delete --progress --exclude=.DS_Store -auv $1 $2
+  rsync --delete --progress --exclude=.DS_Store --exclude=.Trashes --exclude=.TemporaryItems --exclude=.Spotlight* --exclude=.DocumentRevisions* -auv $1 $2
 }
 
 #   remove_gem_docs:  remove gem documentation from system
