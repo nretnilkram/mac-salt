@@ -353,7 +353,7 @@ function sync() {
     return 1
   fi
 
-  rsync --delete --progress --exclude=.DS_Store --exclude=.Trashes --exclude=.TemporaryItems --exclude=.Spotlight* --exclude=.DocumentRevisions* -auv $1 $2
+  rsync --delete --progress --exclude=.* -auv $1 $2
 }
 
 #   remove_gem_docs:  remove gem documentation from system
