@@ -283,6 +283,7 @@ function fix_brew_permissions() {
   sudo chown -R $(whoami) /usr/local/bin
   sudo chown -R $(whoami) /usr/local/lib
   sudo chown -R $(whoami) /usr/local/Frameworks
+  sudo chown -R $(whoami) /usr/local/Cellar
 }
 
 
