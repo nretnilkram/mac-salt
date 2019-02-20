@@ -394,3 +394,33 @@ function kubernetes() {
 
   echo ${RESULT[*]}
 }
+
+#   update_dat:  update to the latest dat file
+#   -------------------------------------------------------------------
+function update_dat() {
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "You must pass a location and version"
+    echo
+    echo "update_dat /Users/mlintern/Downloads/avvepo9172dat/avvdat-9172 9172"
+    return 1
+  fi
+
+  /usr/local/McAfee/fmp/bin/fmp stop
+
+  sudo mkdir /usr/local/McAfee/AntiMalware/dats/$2
+
+  sudo cp $1/*.dat  /usr/local/McAfee/AntiMalware/dats/$2
+  cd /usr/local/McAfee/AntiMalware/dats/$2
+  sudo chmod 644 *.dat
+  cd /usr/local/McAfee/AntiMalware/dats/
+  sudo chmod 755 $2
+  chown root:Virex /usr/local/McAfee/AntiMalware/dats/$2/avv*
+  sudo defaults write /Library/Preferences/com.mcafee.ssm.antimalware.plist Update_DATVersion -string $2.0000
+
+  /usr/local/McAfee/fmp/bin/fmp start
+
+  sudo launchctl unload /Library/LaunchDaemons/com.mcafee.ssm.ScanManager.plist
+  sudo launchctl load /Library/LaunchDaemons/com.mcafee.ssm.ScanManager.plist
+  sudo launchctl unload /Library/LaunchDaemons/com.mcafee.ssm.ScanFactory.plist
+  sudo launchctl load /Library/LaunchDaemons/com.mcafee.ssm.ScanFactory.plist
+}
