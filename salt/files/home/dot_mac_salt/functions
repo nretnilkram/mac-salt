@@ -341,6 +341,11 @@ function backup_home_dir() {
     return 1
   fi
 
+  if [ ! -d "$1" ]; then
+    echo "$1 does not exist."
+    return 1
+  fi
+
   sudo rsync --delete --progress --exclude=VirtualBox\ VMs --exclude=.local --exclude=.npm --exclude=node_modules --exclude=.m2 --exclude=.p2 --exclude=.gem --exclude=AMS --exclude=.Trash --exclude=.vagrant.d --exclude=Library --exclude=Applications --exclude=.rbenv --exclude=.nodenv -auv $HOME $1
 }
 
@@ -351,6 +356,16 @@ function sync() {
     echo "You must pass a source and destination directory"
     echo
     echo "sync /Volumes/Ultra /Volumes/2TB"
+    return 1
+  fi
+
+  if [ ! -d "$1" ]; then
+    echo "$1 does not exist."
+    return 1
+  fi
+
+  if [ ! -d "$2" ]; then
+    echo "$2 does not exist."
     return 1
   fi
 
