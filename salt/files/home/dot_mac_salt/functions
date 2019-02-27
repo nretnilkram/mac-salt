@@ -287,6 +287,13 @@ function fix_brew_permissions() {
 }
 
 
+##  fix_ruby_permissions:  sets ownership to current user on rbenv directories
+#   -------------------------------------------------------------------
+function fix_ruby_permissions() {
+  sudo chown -R $(whoami) $HOME/.rbenv
+}
+
+
 ##  fix_sudo_bundle:  fixes issues caused by doing sudo bundle install
 #   -------------------------------------------------------------------
 function fix_sudo_bundle() {
