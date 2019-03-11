@@ -26,3 +26,10 @@ unmount_vagrant_volume:
     - require:
       - cmd: mount_vagrant_volume
       - cmd: vagrant_install
+
+delete_vagrant_file:
+  cmd.run:
+    - name: rm /tmp/vagrant_{{ pillar.get("vagrant_version") }}.dmg
+    - onlyif: stat /tmp/vagrant_{{ pillar.get("vagrant_version") }}.dmg
+    - require:
+      - cmd: unmount_vagrant_volume
