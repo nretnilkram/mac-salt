@@ -100,3 +100,7 @@ alias mysql_restart="mysql_stop && mysql_start"
 alias postgres_stop="launchctl unload $HOME/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias postgres_start="launchctl load -w $HOME/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias postgres_restart="postgres_stop && postgres_start"
+
+alias mongodb_stop="launchctl unload $HOME/Library/LaunchAgents/homebrew.mxcl.mongodb.plist"
+alias mongodb_start="launchctl load -w $HOME/Library/LaunchAgents/homebrew.mxcl.mongodb.plist"
+alias mongodb_restart="mongodb_stop && mongodb_start"

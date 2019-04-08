@@ -6,6 +6,3 @@ base:
 
   '*anon*':
     - anon
-
-  '*oracle*':
-    - oracle
