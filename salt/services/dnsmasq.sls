@@ -11,40 +11,32 @@ resolver_dir:
       - pkg: dnsmasq
 
 {% for n in pillar.get("dns_masq_domains") %}
-
 {{n}}_resolver_conf:
   file.managed:
     - name: /etc/resolver/{{n}}
     - source: salt://files/etc/resolver/resolver.template
     - require:
       - file: resolver_dir
-
 {% endfor %}
 
 {% if pillar.get("oracle") %}
-
 {% for n in pillar.get("eloqua_dnsmasq_domains") %}
-
 {{n}}_resolver_conf:
   file.managed:
     - name: /etc/resolver/{{n}}
     - source: salt://files/etc/resolver/resolver.template
     - require:
       - file: resolver_dir
-
 {% endfor %}
 
 {% for n in pillar.get("oracle_dnsmasq_domains") %}
-
 {{n}}_resolver_conf:
   file.managed:
     - name: /etc/resolver/{{n}}
     - source: salt://files/etc/resolver/resolver.template
     - require:
       - file: resolver_dir
-
 {% endfor %}
-
 {% endif %}
 
 dnsmasq_conf:

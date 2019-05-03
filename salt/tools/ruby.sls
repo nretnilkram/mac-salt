@@ -23,12 +23,10 @@ dot_scss-lint.yml:
     - mode: 644
 
 {% for n in pillar.get("ruby_pkgs") %}
-
 {{n}}_brew_install:
   pkg.installed:
     - name: {{n}}
     - user: {{grains['user']}}
-
 {% endfor %}
 
 default-gems:
@@ -55,10 +53,8 @@ current-ruby:
       - pkg: readline
 
 {% for n in pillar.get("gems") %}
-
 {{n}}_gem_install:
   gem.installed:
     - name: {{n}}
     - ruby: {{ pillar.get("ruby_version") }}
-
 {% endfor %}

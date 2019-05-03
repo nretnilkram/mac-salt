@@ -4,13 +4,11 @@ install_node:
     - user: {{grains['user']}}
 
 {% for n in pillar.get("node_pkgs") %}
-
 {{n}}:
   npm.installed:
     - user: {{grains['user']}}
     - require:
       - pkg: node
-
 {% endfor %}
 
 dot_sass-lint.yml:

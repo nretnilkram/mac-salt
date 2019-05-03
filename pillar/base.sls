@@ -50,7 +50,9 @@ apache_localhost_sites:
   - [{{grains['homedir']}}/Dropbox/Website, 80]
   - [{{grains['homedir']}}/dev_mlintern/marklintern-com, 8885]
   - [{{grains['homedir']}}/dev_mlintern/Twig-Website, 8886]
+  - [{{grains['homedir']}}/dev_mlintern/album, 8890]
 
+# 8887
 apache_nretnil_local_dir: {{grains['homedir']}}/Dropbox/var-www-html
 
 h2o_sites:

@@ -4,7 +4,6 @@ home_web_dir:
     - user: {{grains['user']}}
 
 {% for dir in pillar['html_web_dirs'] %}
-
 home_web_{{dir}}_dir:
   file.directory:
     - name: {{grains['homedir']}}/web/{{dir}}
@@ -21,11 +20,9 @@ home_web_{{dir}}_index:
       - home_web_{{dir}}_dir
     - context:
       title: {{grains['homedir']}}/web/{{dir}}
-
 {% endfor %}
 
 {% for dir in pillar['php_web_dirs'] %}
-
 home_web_{{dir}}_dir:
   file.directory:
     - name: {{grains['homedir']}}/web/{{dir}}
@@ -42,5 +39,4 @@ home_web_{{dir}}_index:
       - home_web_{{dir}}_dir
     - context:
       title: {{grains['homedir']}}/web/{{dir}}
-
 {% endfor %}

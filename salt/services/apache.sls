@@ -25,8 +25,7 @@ apache_start_service:
 
 apache_restart_service:
   cmd.wait:
-    - name: apachectl restart
-    - unless: ps aux | grep httpd | grep -v grep
+    - name: apacheRestart
     - watch:
       - file: httpd_conf
       - file: nretnil_local_conf

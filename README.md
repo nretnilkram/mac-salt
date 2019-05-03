@@ -123,15 +123,15 @@ export npm_config_proxy proxy <proxy_url_and_port>
 export npm_config_https_proxy proxy <proxy_url_and_port>
 ```
 
-### Web Server Details
+### Web Servers Details
 
 #### APACHE
 * config: `/etc/apache2/other/localhost.conf`
-* urls: http://localhost (php), http://localhost:8885 (html), http://localhost:8886 (php), http://nretnil.local:8887 (html)
+* urls: http://localhost (php), http://localhost:8885 (html), http://localhost:8886 (php), http://nretnil.local:8887 (html), http://nretnil.local:8890 (html)
 
 #### H20
 * config: `/usr/local/etc/h2o/h2o.conf`
-* url: http://localhost:8888 (html)
+* urls: http://localhost:8888 (html), http://localhost:8889 (html)
 
 #### NGINX
 * config: `/usr/local/etc/nginx/nginx.conf`
