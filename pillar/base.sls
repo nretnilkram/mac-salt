@@ -48,6 +48,7 @@ ruby_version: 2.5.1
 
 apache_localhost_sites:
   - [{{grains['homedir']}}/Dropbox/Website, 80]
+  - [{{grains['homedir']}}/dev_mlintern/nretnil-com, 8883]
   - [{{grains['homedir']}}/dev_mlintern/marklintern-com, 8885]
   - [{{grains['homedir']}}/dev_mlintern/Twig-Website, 8886]
   - [{{grains['homedir']}}/dev_mlintern/album, 8890]
@@ -62,5 +63,4 @@ h2o_sites:
 nginx_sites:
   - [{{grains['homedir']}}/Dropbox/Website/dev/avatar, 8881]
   - [{{grains['homedir']}}/dev_mlintern/lintern-us, 8882]
-  - [{{grains['homedir']}}/dev_mlintern/nretnil-com, 8883]
   - [{{grains['homedir']}}/dev_mlintern/sandybox, 8884]
