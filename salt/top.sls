@@ -1,8 +1,13 @@
 base:
   '*':
     - core
+
+  '*anon*':
+    - anon
+
+  '*personal*':
     - tools
     - services
 
-  '*anon*':
+  '*gg*':
     - anon

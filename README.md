@@ -43,7 +43,7 @@ or
 
 ```
 cd ~/mac-salt
-bin/mac_salt state.sls services.dns
+bin/mac_salt state.sls core
 ```
 
 
@@ -121,6 +121,11 @@ npm config set proxy <proxy_url_and_port>
 npm config set https-proxy proxy <proxy_url_and_port>
 export npm_config_proxy proxy <proxy_url_and_port>
 export npm_config_https_proxy proxy <proxy_url_and_port>
+```
+
+Installing heroku-cli does not always work with salt
+```
+brew tap heroku/brew && brew install heroku
 ```
 
 ### Web Servers Details

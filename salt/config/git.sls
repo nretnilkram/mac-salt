@@ -122,37 +122,9 @@ git_unpublish_alias:
     - value: "!git push origin :$(git branch-name)"
     - user: {{grains['user']}}
 
-git_recreate_alias:
-  git.config_set:
-    - global: True
-    - name: alias.recreate
-    - value: "!f() { [[ -n $@ ]] && git checkout \"$@\" && git unpublish && git checkout master && git branch -D \"$@\" && git checkout -b \"$@\" && git publish; }; f"
-    - user: {{grains['user']}}
-
-git_delete-merged-branches_alias:
-  git.config_set:
-    - global: True
-    - name: alias.delete-merged-branches
-    - value: "!git co master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-    - user: {{grains['user']}}
-
 git_unstage_alias:
   git.config_set:
     - global: True
     - name: alias.unstage
     - value: reset HEAD
-    - user: {{grains['user']}}
-
-git_up_alias:
-  git.config_set:
-    - global: True
-    - name: alias.up
-    - value: "!sh -c 'git pull --rebase --prune && git log --pretty=format:\"%Cred%ae %Creset- %C(yellow)%s %Creset(%ar)\" HEAD@{1}..'"
-    - user: {{grains['user']}}
-
-git_lg_alias:
-  git.config_set:
-    - global: True
-    - name: alias.lg
-    - value: "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative --all"
     - user: {{grains['user']}}
