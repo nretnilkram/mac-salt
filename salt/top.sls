@@ -8,5 +8,3 @@ base:
   '*personal*':
     - tools
     - services
-
-  '*gg*':
