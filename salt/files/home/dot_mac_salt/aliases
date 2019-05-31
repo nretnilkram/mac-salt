@@ -23,12 +23,13 @@ alias wpe=www_proxy_enable
 alias sand="cd $HOME/Dropbox/Sandbox"
 alias m="cd $MACSALTHOME"
 
+alias d="cd $HOME/dev"
+
 {% if pillar.get("oracle") %}
 alias app="cd $HOME/dev_mlintern/padrino_app"
 alias a="app"
 alias b="cd $HOME/dev/blog/application/trunk"
 alias c="cd $HOME/dev/content_router"
-alias d="cd $HOME/dev"
 alias i="cd $HOME/dev/image_manager"
 alias n="cd $HOME/dev/network_clone"
 alias p="cd $HOME/dev/padrino_api"

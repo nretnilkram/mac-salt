@@ -3,7 +3,7 @@ include:
 
 install_grit_repo:
   git.latest:
-    - name: git@github.com:mlintern/grit.git
+    - name: https://github.com/nretnilkram/mac-salt.git
     - target: {{grains['homedir']}}/.grit
     - user: {{grains['user']}}
     - require:
