@@ -1,23 +1,17 @@
-home_dot_grit_dir:
-  file.directory:
-    - name: {{grains['homedir']}}/.grit
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 755
+include:
+  - config.git
 
-bash_grit_file:
-  file.managed:
-    - name: {{grains['homedir']}}/.grit/grit.rb
-    - source: salt://files/home/dot_grit/grit.rb
+install_grit_repo:
+  git.latest:
+    - name: git://github.com/mlintern/grit.git
+    - target: {{grains['homedir']}}/.grit
     - user: {{grains['user']}}
-    - group: staff
-    - mode: 755
     - require:
-      - file: home_dot_grit_dir
+      - pkg: git
 
 bash_grit_symlink:
   file.symlink:
     - name: /usr/local/bin/grit
     - target: {{grains['homedir']}}/.grit/grit.rb
-    - require:
-      - file: bash_grit_file
+    - onlyif:
+      - test -d {{grains['homedir']}}/.grit

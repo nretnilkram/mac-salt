@@ -1,6 +1,10 @@
 include:
   - config.user
 
+install_git:
+  pkg.installed:
+    - name: git
+
 bash_git_prompt:
   file.managed:
     - name: {{grains['homedir']}}/.mac_salt/git-prompt.sh

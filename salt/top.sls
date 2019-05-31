@@ -10,4 +10,3 @@ base:
     - services
 
   '*gg*':
-    - anon
