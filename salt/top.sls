@@ -4,6 +4,8 @@ base:
 
   '*anon*':
     - anon
+    - tools
+    - services
 
   '*personal*':
     - tools
