@@ -1,5 +1,3 @@
-oracle: false
-
 brew_pkgs:
   - corkscrew
   - htop

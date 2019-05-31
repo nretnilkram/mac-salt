@@ -3,7 +3,7 @@ include:
 
 install_grit_repo:
   git.latest:
-    - name: git://github.com/mlintern/grit.git
+    - name: git@github.com:mlintern/grit.git
     - target: {{grains['homedir']}}/.grit
     - user: {{grains['user']}}
     - require:

@@ -41,6 +41,12 @@ alias u="cd $HOME/dev/utilities"
 alias e="cd $HOME/Dropbox/Sandbox/ECMCS-Tickets"
 {% endif %}
 
+{% if pillar.get("gg") %}
+alias gg="cd $HOME/dev/GG"
+alias gc="cd $HOME/dev/GreenLight-Client"
+alias gs="cd $HOME/dev/Greenlight-Server"
+{% endif %}
+
 # csshX Shortcuts
 alias csshx="csshX"
 alias csshx1="csshX -screen 1"

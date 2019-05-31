@@ -1,3 +1,5 @@
+gg: true
+
 apache_localhost_sites:
   - [{{grains['homedir']}}/Dropbox/Website, 80]
 
