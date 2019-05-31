@@ -1,3 +1,43 @@
+brew_pkgs:
+  - heroku
+  - tmux
+  - nodenv
+  - node-build
+  - tidy-html5
+  - composer
+  - telnet
+
+dns_masq_domains:
+  - dev
+  - dev.com
+  - h2o.dev.com
+  - nginx.dev.com
+  - nretnil.local
+
+ruby_pkgs:
+  - libyaml
+  - libffi
+  - readline
+  - openssl
+  - rbenv
+  - ruby-build
+  - rbenv-default-gems
+
+gems:
+  - bundler
+  - rubocop
+  - scss_lint
+
+node_pkgs:
+  - npm-check-updates
+  - npm-check
+  - coffee-script
+  - grunt-cli
+  - jshint
+  - webpack
+
+ruby_version: 2.5.1
+
 html_web_dirs:
   - one
   - two
