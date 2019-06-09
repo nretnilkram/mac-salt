@@ -489,8 +489,8 @@ function _set_ps1_help() {
 ##   set_ps1:  set PS1 to complex layout
 #   -------------------------------------------------------------------
 function set_ps1() {
-  SIMPLE=false
-  COLOR=true
+  SIMPLE=true
+  COLOR=false
 
   while test $# != 0
   do
@@ -518,9 +518,6 @@ function set_ps1() {
     esac
     shift
   done
-
-  echo $COLOR
-  echo $SIMPLE
 
   if [ "$COLOR" = true ]; then
     _set_color_vars
