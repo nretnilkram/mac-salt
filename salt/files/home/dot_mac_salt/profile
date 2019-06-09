@@ -102,9 +102,8 @@ function timer_stop {
 
 trap 'timer_start' DEBUG
 
-# PS1="\n${Red}\$(exit_status)${Green}--------------------[\${TIMER_SHOW}s]------------------ \n${White}| \d \t \n| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White} \n| ${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}"
-PS1="\n${Red}\$(exit_status)${Green}--------------------[\${HUMAN_TIME}]------------------ \n${White}| \d \t ${Red}\u${White}@${Cyan}\h ${White}\n| ${Purple}\w ${Yellow}\$(__git_ps1 "[%s]") ${White}\n| => ${NC}"
-PS2="| => ${NC}"
+PS1="{{ pillar.get("base_ps1") }}"
+PS2="{{ pillar.get("base_ps2") }}"
 
 #   Set Paths
 #   ------------------------------------------------------------
