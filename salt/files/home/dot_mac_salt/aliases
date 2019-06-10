@@ -51,6 +51,11 @@ alias ggc="gc"
 alias ggs="gs"
 alias ggup="pushd $REPO_DIR/gg_server/postgresql && vagrant up && popd"
 alias ggdown="pushd $REPO_DIR/gg_server/postgresql && vagrant halt && popd"
+
+alias build_server="pushd $REPO_DIR/gg_server && mvn clean install -Dmaven.test.skip=true --batch-mode && popd"
+alias start_repo='cd $REPO_DIR/gg_server/RepoSvc/target && java -cp ".:conf/:lib/*:/greenlight-repo-services.jar" "-Dderby.stream.error.file=RepositoryRoot/log/derby.log" "-Dfile.encoding=UTF-8" com.greenlight.camel.CamelMain'
+alias start_history='cd $REPO_DIR/gg_server/ActivityHistory/target && java -cp "resources:lib/*:/greenlight-activity-history-services.jar" com.greenlight.camel.CamelMain'
+alias start_auth='cd $REPO_DIR/gg_server/AuthZ/target && java -cp "resources:lib/*:/greenlight-authz-services.jar" com.greenlight.idm.CamelMain'
 {% endif %}
 
 # csshX Shortcuts
@@ -64,6 +69,7 @@ alias tarup="tar -cvzf"
 alias untar="tar -xvf"
 
 # Helpful Shortcuts
+alias sp="set_ps1"
 alias pjt="python -mjson.tool"
 alias unset_proxy="unset http_proxy && unset https_proxy && unset HTTP_PROXY && unset HTTPS_PROXY"
 alias up=unset_proxy
