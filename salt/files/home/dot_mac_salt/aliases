@@ -43,9 +43,14 @@ alias e="cd $HOME/Dropbox/Sandbox/ECMCS-Tickets"
 {% endif %}
 
 {% if pillar.get("gg") %}
-alias gg="cd $HOME/dev/GG"
-alias gc="cd $HOME/dev/GreenLight-Client"
-alias gs="cd $HOME/dev/Greenlight-Server"
+REPO_DIR="$HOME/dev"
+alias gg="cd $REPO_DIR/gg"
+alias gc="cd $REPO_DIR/gg_client"
+alias gs="cd $REPO_DIR/gg_server"
+alias ggc="gc"
+alias ggs="gs"
+alias ggup="pushd $REPO_DIR/gg_server/postgresql && vagrant up && popd"
+alias ggdown="pushd $REPO_DIR/gg_server/postgresql && vagrant halt && popd"
 {% endif %}
 
 # csshX Shortcuts
