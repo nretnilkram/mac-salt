@@ -44,9 +44,11 @@ alias e="cd $HOME/Dropbox/Sandbox/ECMCS-Tickets"
 
 {% if pillar.get("gg") %}
 REPO_DIR="$HOME/dev"
+SERVER_DIR="$REPO_DIR/gg_server"
+CLIENT_DIR="$REPO_DIR/gg_client"
 alias gg="cd $REPO_DIR/gg"
-alias gc="cd $REPO_DIR/gg_client"
-alias gs="cd $REPO_DIR/gg_server"
+alias gc="cd $SERVER_DIR"
+alias gs="cd $CLIENT_DIR"
 alias ggc="gc"
 alias ggs="gs"
 alias ggup="(cd $REPO_DIR/gg_server/postgresql && vagrant up)"
@@ -54,10 +56,11 @@ alias ggdown="(cd $REPO_DIR/gg_server/postgresql && vagrant halt)"
 
 alias build_server="(cd $REPO_DIR/gg_server && mvn clean install -Dmaven.test.skip=true --batch-mode)"
 alias populate_data="(cd $REPO_DIR/gg_client && npm run buildOrg)"
-COMMON_OPTIONS="-Xdebug -Dgreenlight.application.properties=conf/application-dev.properties -Dlogback.configurationFile=./logback.xml"
-alias start_repo="cd $REPO_DIR/gg_server/RepoSvc/target && java $COMMON_OPTIONS -classpath .:conf/:lib/*:greenlight-repo-services.jar -Dderby.stream.error.file=RepositoryRoot/log/derby.log -Dpermissions.policy.directory=../../AuthZ/resources -Dfile.encoding=UTF-8 com.greenlight.camel.CamelMain"
-alias start_history="cd $REPO_DIR/gg_server/ActivityHistory/target && java $COMMON_OPTIONS -classpath resources:lib/*:greenlight-activity-history-services.jar com.greenlight.camel.CamelMain"
-alias start_auth="cd $REPO_DIR/gg_server/AuthZ/target && java $COMMON_OPTIONS -classpath resources:lib/*:greenlight-authz-services.jar  com.greenlight.idm.CamelMain"
+COMMON_OPTIONS="-classpath 'target/*:target/lib/*' -Dgreenlight.application.properties=conf/application-dev.properties -Dlogback.configurationFile=target/logback.xml"
+
+alias start_repo="(cd $SERVER_DIR/RepoSvc && java $COMMON_OPTIONS -Dderby.stream.error.file=RepositoryRoot/log/derby.log -Dfile.encoding=UTF-8 com.greenlight.camel.CamelMain)"
+alias start_history="(cd $SERVER_DIR/ActivityHistory && java $COMMON_OPTIONS com.greenlight.camel.CamelMain)"
+alias start_auth="(cd $SERVER_DIR/AuthZ && java $COMMON_OPTIONS com.greenlight.idm.CamelMain)"
 {% endif %}
 
 # csshX Shortcuts
