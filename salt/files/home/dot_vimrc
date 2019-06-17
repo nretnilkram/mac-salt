@@ -253,5 +253,10 @@ so ~/.vim/plugins.vim
 
 " Open NERDTree
 map <C-o> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 
 autocmd VimEnter * NERDTree
+
+" Split sizing
+nnoremap <S-h> :vertical resize -5<cr>
+nnoremap <S-l> :vertical resize +5<cr>

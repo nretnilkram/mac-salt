@@ -291,6 +291,7 @@ function fix_brew_permissions() {
 #   -------------------------------------------------------------------
 function fix_ruby_permissions() {
   sudo chown -R $(whoami) $HOME/.rbenv
+  sudo chown -R $(whoami) /Library/Ruby/Gems
 }
 
 
