@@ -45,15 +45,16 @@ alias e="cd $HOME/Dropbox/Sandbox/ECMCS-Tickets"
 
 {% if pillar.get("gg") %}
 REPO_DIR="$HOME/dev"
-SERVER_DIR="$REPO_DIR/gg_server"
+GG_DIR="$REPO_DIR/gg"
 CLIENT_DIR="$REPO_DIR/gg_client"
-alias gg="cd $REPO_DIR/gg"
+SERVER_DIR="$REPO_DIR/gg_server"
+alias gg="cd $GG_DIR"
 alias gc="cd $CLIENT_DIR"
 alias gs="cd $SERVER_DIR"
 alias ggc="gc"
 alias ggs="gs"
-alias ggup="(cd $REPO_DIR/gg_server/postgresql && vagrant up)"
-alias ggdown="(cd $REPO_DIR/gg_server/postgresql && vagrant halt)"
+alias ggup="(cd $GG_DIR/gg-local-infrastructure && vagrant up)"
+alias ggdown="(cd $GG_DIR/gg-local-infrastructure && vagrant halt)"
 
 alias build_server="(cd $REPO_DIR/gg_server && mvn clean install -Dmaven.test.skip=true --batch-mode)"
 alias populate_data="(cd $REPO_DIR/gg_client && npm run buildOrg)"
@@ -64,6 +65,7 @@ alias start_history="(cd $SERVER_DIR/ActivityHistory && java $COMMON_OPTIONS com
 alias start_auth="(cd $SERVER_DIR/AuthZ && java $COMMON_OPTIONS com.greenlight.idm.CamelMain)"
 
 ## For My Proxy Tunnel
+alias bats='ssh bastion'
 alias proxy-on='ssh -fN bats'
 alias proxy-check='ssh -O check bats'
 alias proxy-off='ssh -O exit bats'
