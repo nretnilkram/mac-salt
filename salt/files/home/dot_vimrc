@@ -255,8 +255,13 @@ so ~/.vim/plugins.vim
 map <C-o> :NERDTreeToggle<CR>
 map <C-n> :NERDTreeToggle<CR>
 
-autocmd VimEnter * NERDTree
+" Open NERDTree when vim opens
+" autocmd VimEnter * NERDTree
 
 " Split sizing
 nnoremap <S-h> :vertical resize -5<cr>
 nnoremap <S-l> :vertical resize +5<cr>
+
+:hi CursorLine   cterm=NONE ctermbg=blue ctermfg=white guibg=blue guifg=white
+:hi CursorColumn cterm=NONE ctermbg=blue ctermfg=white guibg=blue guifg=white
+:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>

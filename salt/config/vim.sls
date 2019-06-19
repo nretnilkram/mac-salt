@@ -11,7 +11,7 @@ install_vim_plug:
     - target: {{grains['homedir']}}/.vim/plug
     - user: {{grains['user']}}
 
-bash_grit_symlink:
+vim_plug_symlink:
   file.symlink:
     - name: {{grains['homedir']}}/.vim/autoload/plug.vim
     - target: {{grains['homedir']}}/.vim/plug/plug.vim
