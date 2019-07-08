@@ -24,7 +24,8 @@ alias sand="cd $HOME/Dropbox/Sandbox"
 alias notes="cd $HOME/Dropbox/99/notes"
 alias m="cd $MACSALTHOME"
 
-alias d="cd $HOME/dev"
+alias dev="cd $HOME/dev"
+alias d="dev"
 
 {% if pillar.get("oracle") %}
 alias app="cd $HOME/dev_mlintern/padrino_app"
@@ -63,9 +64,10 @@ COMMON_OPTIONS="-classpath 'target/*:target/lib/*' -Dgreenlight.application.prop
 alias start_repo="(cd $SERVER_DIR/RepoSvc && java $COMMON_OPTIONS -Dderby.stream.error.file=RepositoryRoot/log/derby.log -Dfile.encoding=UTF-8 com.greenlight.camel.CamelMain)"
 alias start_history="(cd $SERVER_DIR/ActivityHistory && java $COMMON_OPTIONS com.greenlight.camel.CamelMain)"
 alias start_auth="(cd $SERVER_DIR/AuthZ && java $COMMON_OPTIONS com.greenlight.idm.CamelMain)"
+alias start_client="(cd $CLIENT_DIR && npm start)"
 
 ## For My Proxy Tunnel
-alias bats='ssh bastion'
+alias bats='ssh ci-bastion'
 alias proxy-on='ssh -fN bats'
 alias proxy-check='ssh -O check bats'
 alias proxy-off='ssh -O exit bats'
