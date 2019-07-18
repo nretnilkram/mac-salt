@@ -60,7 +60,7 @@ alias populate_data="(cd $CLIENT_DIR && npm run buildOrg)"
 
 COMMON_OPTIONS="-classpath 'target/*:target/lib/*' -Dgreenlight.application.properties=conf/application-dev.properties -Dlogback.configurationFile=target/logback.xml"
 alias start_repo="(cd $SERVER_DIR/RepoSvc && java $COMMON_OPTIONS -Dderby.stream.error.file=RepositoryRoot/log/derby.log -Dfile.encoding=UTF-8 com.greenlight.camel.CamelMain)"
-alias start_history="(cd $SERVER_DIR/ActivityHistory && java $COMMON_OPTIONS com.greenlight.camel.CamelMain)"
+alias start_history="(cd $SERVER_DIR/ActivityHistory && \cp -vf logback.xml target/ && java $COMMON_OPTIONS com.greenlight.camel.CamelMain)"
 alias start_auth="(cd $SERVER_DIR/AuthZ && java $COMMON_OPTIONS com.greenlight.idm.CamelMain)"
 alias start_client="(cd $CLIENT_DIR && npm start)"
 
