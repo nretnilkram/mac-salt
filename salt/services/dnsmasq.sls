@@ -53,16 +53,6 @@ dnsmasq_conf:
     - require:
       - pkg: dnsmasq
 
-dev_dnsmasq_plist:
-  file.copy:
-    - name: /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
-    - source: /usr/local/opt/dnsmasq/homebrew.mxcl.dnsmasq.plist
-    - user: root
-    - group: admin
-    - mode: 644
-    - require:
-      - pkg: dnsmasq
-
 hosts_dnsmasq:
   file.managed:
     - name: /etc/hosts.dnsmasq
@@ -70,22 +60,3 @@ hosts_dnsmasq:
     - user: root
     - group: admin
     - mode: 644
-
-dnsmasq_setup_service:
-  cmd.run:
-    - name: launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
-    - unless: launchctl list | grep homebrew.mxcl.dnsmasq
-    - require:
-      - file: dnsmasq_conf
-      - file: dev_dnsmasq_plist
-
-dnsmasq_restart_service:
-  cmd.wait:
-    - name: launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist && launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist
-    - watch:
-      - file: hosts_dnsmasq
-      - file: dnsmasq_conf
-      - file: dev_dnsmasq_plist
-      - pkg: dnsmasq
-    - require:
-      - pkg: dnsmasq

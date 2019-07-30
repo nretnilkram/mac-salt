@@ -4,13 +4,6 @@ include:
 nginx:
   pkg.installed
 
-nginx_plist:
-  file.copy:
-    - name: /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
-    - source: /usr/local/opt/nginx/homebrew.mxcl.nginx.plist
-    - require:
-      - pkg: nginx
-
 nginx_conf:
   file.managed:
     - name: /usr/local/etc/nginx/nginx.conf
@@ -33,20 +26,3 @@ nginx_tmp_dir:
     - makedirs: True
     - mode: 755
 {% endif %}
-
-nginx_setup_service:
-  cmd.run:
-    - name: launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
-    - unless: launchctl list | grep homebrew.mxcl.nginx
-    - require:
-      - file: nginx_conf
-      - file: nginx_plist
-      - pkg: nginx
-
-nginx_restart_service:
-  cmd.wait:
-    - name: launchctl unload /Library/LaunchDaemons/homebrew.mxcl.nginx.plist && launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
-    - watch:
-      - file: nginx_conf
-      - file: nginx_plist
-      - pkg: nginx

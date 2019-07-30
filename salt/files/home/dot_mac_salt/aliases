@@ -42,6 +42,8 @@ alias sys="cd $HOME/dev/systems"
 alias t="cd $HOME/dev/task_scheduling_service"
 alias u="cd $HOME/dev/utilities"
 alias e="cd $HOME/Dropbox/Sandbox/ECMCS-Tickets"
+alias ocna_ip="ifconfig | grep '\-->' | awk '{print \$2}'"
+alias stop_oas="sudo /usr/local/McAfee/AntiMalware/VSControl stopoas"
 {% endif %}
 
 {% if pillar.get("gg") %}
@@ -103,8 +105,6 @@ alias fix_pf_rules="sudo /sbin/pfctl -evf /etc/pf.anchors/dev"
 alias fpf="fix_pf_rules"
 alias drive_list="diskutil list"
 alias internal_ip="ifconfig | awk '/inet/ {print \$2}' | grep '192\|10\|172' | grep -v ':'"
-alias ocna_ip="ifconfig | grep '\-->' | awk '{print \$2}'"
-alias stop_oas="sudo /usr/local/McAfee/AntiMalware/VSControl stopoas"
 
 # rm to trash
 alias rm=rmtrash
@@ -116,26 +116,38 @@ alias edit='atom'
 alias tidy='/usr/local/bin/tidy'
 
 # Service Helpers
+alias nginx_enable="sudo cp /usr/local/opt/nginx/homebrew.mxcl.nginx.plist /Library/LaunchDaemons/"
+alias nginx_disable="sudo rm /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
 alias nginx_stop="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
 alias nginx_start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist"
 alias nginx_restart="nginx_stop && nginx_start"
 
+alias h2o_enable="sudo cp /usr/local/opt/h2o/homebrew.mxcl.h2o.plist /Library/LaunchDaemons/"
+alias h2o_disable="sudo rm /Library/LaunchDaemons/homebrew.mxcl.h2o.plist"
 alias h2o_stop="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.h2o.plist"
 alias h2o_start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.h2o.plist"
 alias h2o_restart="h2o_stop && h2o_start"
 
+alias dnsmasq_enable="sudo cp /usr/local/opt/dnsmasq/homebrew.mxcl.dnsmasq.plist /Library/LaunchDaemons/"
+alias dnsmasq_disable="sudo rm /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist"
 alias dnsmasq_stop="sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist"
 alias dnsmasq_start="sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist"
 alias dnsmasq_restart="dnsmasq_stop && dnsmasq_start"
 
+alias mysql_enable="sudo cp /usr/local/opt/mysql/homebrew.mxcl.mysql.plist $HOME/Library/LaunchAgents/"
+alias mysql_disable="sudo rm $HOME/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
 alias mysql_stop="launchctl unload $HOME/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
 alias mysql_start="launchctl load -w $HOME/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
 alias mysql_restart="mysql_stop && mysql_start"
 
+alias postgres_enable="sudo cp /usr/local/opt/postgresql/homebrew.mxcl.postgresql.plist $HOME/Library/LaunchAgents/"
+alias postgres_disable="sudo rm $HOME/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias postgres_stop="launchctl unload $HOME/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias postgres_start="launchctl load -w $HOME/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias postgres_restart="postgres_stop && postgres_start"
 
+alias mongodb_enable="sudo cp /usr/local/opt/mongodb/homebrew.mxcl.mongodb.plist $HOME/Library/LaunchAgents/"
+alias mongodb_disable="sudo rm $HOME/Library/LaunchAgents/homebrew.mxcl.mongodb.plist"
 alias mongodb_stop="launchctl unload $HOME/Library/LaunchAgents/homebrew.mxcl.mongodb.plist"
 alias mongodb_start="launchctl load -w $HOME/Library/LaunchAgents/homebrew.mxcl.mongodb.plist"
 alias mongodb_restart="mongodb_stop && mongodb_start"
