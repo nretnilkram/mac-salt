@@ -66,6 +66,7 @@ start-repo() { (cd $SERVER_DIR/RepoSvc && java "${COMMON_OPTIONS[@]}" -Dderby.st
 start-history() { (cd $SERVER_DIR/ActivityHistory && \cp -vf logback.xml target/ && java "${COMMON_OPTIONS[@]}" com.greenlight.camel.CamelMain); }
 start-auth() { (cd $SERVER_DIR/AuthZ && java "${COMMON_OPTIONS[@]}" com.greenlight.idm.CamelMain); }
 start-client() { (cd $CLIENT_DIR && npm start); }
+start-s3() { (cd $CLIENT_DIR && npm run startLocalstack && npm run buildServerlessComponents && npm run listServerlessComponents); }
 
 start-server() { start-history & start-auth & start-repo & }
 stop-server() { jobs -p | xargs -n1 pkill -SIGINT -g; }
@@ -75,6 +76,8 @@ alias bats='ssh ci-bastion'
 alias proxy-on='ssh -fN bats'
 alias proxy-check='ssh -O check bats'
 alias proxy-off='ssh -O exit bats'
+
+alias clear_sockets='rm ~/.ssh/sockets/* && killall ssh'
 {% endif %}
 
 # csshX Shortcuts
