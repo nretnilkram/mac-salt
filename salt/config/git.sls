@@ -42,6 +42,13 @@ git_checkout_alias:
     - value: checkout
     - user: {{grains['user']}}
 
+git_amend_alias:
+  git.config_set:
+    - global: True
+    - name: alias.amend
+    - value: !git add -A && git commit --amend --no-edit
+    - user: {{grains['user']}}
+
 git_pop_alias:
   git.config_set:
     - global: True
@@ -131,4 +138,11 @@ git_unstage_alias:
     - global: True
     - name: alias.unstage
     - value: reset HEAD
+    - user: {{grains['user']}}
+
+git_sha_alias:
+  git.config_set:
+    - global: True
+    - name: alias.sha
+    - value: "!git rev-parse HEAD"
     - user: {{grains['user']}}
