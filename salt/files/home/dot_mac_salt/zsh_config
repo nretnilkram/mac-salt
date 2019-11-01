@@ -7,15 +7,7 @@ alias macsalt=$MACSALTPATH
 alias ms=$MACSALTPATH
 alias salt-local=$MACSALTPATH
 
-CONFIGDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
-if [ -f $CONFIGDIR/bash/git-completion.bash ]; then
-	source $CONFIGDIR/bash/git-completion.bash
-fi
-
-if [ -f $CONFIGDIR/bash/git-prompt.sh ]; then
-	source $CONFIGDIR/bash/git-prompt.sh
-fi
+CONFIGDIR=${0:a:h}
 
 if [ -f $CONFIGDIR/common/aliases ]; then
 	source $CONFIGDIR/common/aliases
@@ -29,23 +21,9 @@ if [ -f $CONFIGDIR/common/git_functions ]; then
 	source $CONFIGDIR/common/git_functions
 fi
 
-if [ -f $CONFIGDIR/bash/history ]; then
-	source $CONFIGDIR/bash/history
+if [ -f $CONFIGDIR/zsh/zprofile ]; then
+	source $CONFIGDIR/zsh/zprofile
 fi
-
-if [ -f $CONFIGDIR/bash/profile ]; then
-	source $CONFIGDIR/bash/profile
-fi
-
-if [ -f $CONFIGDIR/bash/command_prompt ]; then
-	source $CONFIGDIR/bash/command_prompt
-fi
-
-{% if pillar.get("oracle") %}
-if [ -f $CONFIGDIR/oracle ]; then
-	source $CONFIGDIR/oracle
-fi
-{% endif %}
 
 # Initialize RBENV
 if [[ -d "$HOME/.rbenv" ]]; then

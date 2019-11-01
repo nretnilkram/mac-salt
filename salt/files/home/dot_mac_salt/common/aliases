@@ -1,23 +1,5 @@
-# Mac Salt Short Cuts
-MACSALTHOME="{{grains['mac_salt_home']}}"
-MACSALTPATH="{{grains['mac_salt_home']}}/bin/mac_salt"
-alias mac_salt=$MACSALTPATH
-alias mac-salt=$MACSALTPATH
-alias macsalt=$MACSALTPATH
-alias ms=$MACSALTPATH
-alias salt-local=$MACSALTPATH
-
 # Sudo keep environment
 alias sudo="sudo -E"
-
-{% if pillar.get("oracle") %}
-# Proxy Shortcuts
-alias lpe=local_proxy_enable
-alias rmdc=rmdc_proxy_enable
-alias adc=adc_proxy_enable
-alias dp=disable_proxy
-alias wpe=www_proxy_enable
-{% endif %}
 
 # Directory Shortcuts
 alias sand="cd $HOME/Dropbox/Sandbox"
@@ -27,26 +9,6 @@ alias m="cd $MACSALTHOME"
 alias dev="cd $HOME/dev"
 alias d="dev"
 
-{% if pillar.get("oracle") %}
-alias app="cd $HOME/dev_mlintern/padrino_app"
-alias a="app"
-alias b="cd $HOME/dev/blog/application/trunk"
-alias c="cd $HOME/dev/content_router"
-alias i="cd $HOME/dev/image_manager"
-alias n="cd $HOME/dev/network_clone"
-alias p="cd $HOME/dev/padrino_api"
-alias s="cd $HOME/dev/shared"
-alias o="cd $HOME/AMS/omcd"
-alias sel="cd $HOME/dev/selenium-ruby"
-alias sys="cd $HOME/dev/systems"
-alias t="cd $HOME/dev/task_scheduling_service"
-alias u="cd $HOME/dev/utilities"
-alias e="cd $HOME/Dropbox/Sandbox/ECMCS-Tickets"
-alias ocna_ip="ifconfig | grep '\-->' | awk '{print \$2}'"
-alias stop_oas="sudo /usr/local/McAfee/AntiMalware/VSControl stopoas"
-{% endif %}
-
-{% if pillar.get("gg") %}
 REPO_DIR="$HOME/dev"
 GG_DIR="$REPO_DIR/gg"
 CLIENT_DIR="$REPO_DIR/gg_client"
@@ -79,7 +41,6 @@ alias proxy-check='ssh -O check bats'
 alias proxy-off='ssh -O exit bats'
 
 alias clear_sockets='rm ~/.ssh/sockets/* && killall ssh'
-{% endif %}
 
 # csshX Shortcuts
 alias csshx="csshX"

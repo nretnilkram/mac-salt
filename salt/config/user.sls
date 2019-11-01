@@ -22,79 +22,46 @@ create_mac_salt_dir:
     - mode: 755
     - makedirs: True
 
-bash_aliases:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/aliases
-    - source: salt://files/home/dot_mac_salt/aliases
+create_mac_salt_common_dir:
+  file.recurse:
+    - name: {{grains['homedir']}}/.mac_salt/common
+    - source: salt://files/home/dot_mac_salt/common
     - user: {{grains['user']}}
     - group: staff
-    - mode: 644
-    - template: jinja
+    - file_mode: 755
+    - makedirs: True
 
-bash_profile:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/profile
-    - source: salt://files/home/dot_mac_salt/profile
+create_mac_salt_bash_dir:
+  file.recurse:
+    - name: {{grains['homedir']}}/.mac_salt/bash
+    - source: salt://files/home/dot_mac_salt/bash
     - user: {{grains['user']}}
     - group: staff
-    - mode: 644
-    - template: jinja
+    - file_mode: 755
+    - makedirs: True
 
-bash_bash_sessions_disable:
-  file.managed:
-    - name: {{grains['homedir']}}/.bash_sessions_disable
-    - source: salt://files/home/.bash_sessions_disable
+create_mac_salt_zsh_dir:
+  file.recurse:
+    - name: {{grains['homedir']}}/.mac_salt/zsh
+    - source: salt://files/home/dot_mac_salt/zsh
     - user: {{grains['user']}}
     - group: staff
-    - mode: 644
-
-bash_git_completion:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/git-completion.bash
-    - source: salt://files/home/dot_mac_salt/git-completion.bash
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
-
-bash_functions:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/functions
-    - source: salt://files/home/dot_mac_salt/functions
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
-    - template: jinja
-
-bash_history:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/history
-    - source: salt://files/home/dot_mac_salt/history
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
-
-command_prompt:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/command_prompt
-    - source: salt://files/home/dot_mac_salt/command_prompt
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
-
-{% if pillar.get("oracle") %}
-bash_oracle:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/oracle
-    - source: salt://files/home/dot_mac_salt/oracle
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
-{% endif %}
+    - file_mode: 755
+    - makedirs: True
 
 bash_config:
   file.managed:
     - name: {{grains['homedir']}}/.mac_salt/bash_config
     - source: salt://files/home/dot_mac_salt/bash_config
+    - user: {{grains['user']}}
+    - group: staff
+    - mode: 644
+    - template: jinja
+
+zsh_config:
+  file.managed:
+    - name: {{grains['homedir']}}/.mac_salt/zsh_config
+    - source: salt://files/home/dot_mac_salt/zsh_config
     - user: {{grains['user']}}
     - group: staff
     - mode: 644
