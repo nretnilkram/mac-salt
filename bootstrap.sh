@@ -1,17 +1,15 @@
-#!/bin/bash
+#!/bin/zsh
 
 #####
 # Figure out if homebrew is installed
 #####
-if [ "$(uname)" == "Darwin" ]; then
-	which brew > /dev/null
+which brew > /dev/null
 
-	if  [ $? -ne 0 ]
-		then
-			echo "Install Homebrew first"
-			echo "http://brew.sh"
-			exit 1
-	fi
+if  [ $? -ne 0 ]
+	then
+		echo "Install Homebrew first"
+		echo "http://brew.sh"
+		exit 1
 fi
 
 if [ ! -d "/var/log/salt" ]; then
@@ -53,7 +51,6 @@ HAS_SALT=$?
 if [ $HAS_SALT -eq 0 ] && [[ $@ != "silent" ]]; then
 	echo ""
 	echo "Salt already installed"
-	echo ""
 fi
 
 #####
@@ -81,6 +78,24 @@ if [ $HAS_SALT -ne 0 ]; then
 	fi
 
 	brew install saltstack
+fi
+
+#####
+# Check for oh-my-zsh
+#####
+stat ~/.oh-my-zsh/oh-my-zsh.sh > /dev/null
+HAS_OMZ=$?
+
+if [ $HAS_OMZ -eq 0 ]; then
+	echo ""
+	echo "Oh-My-Zsh already installed"
+fi
+
+if [ $HAS_SALT -ne 0 ]; then
+	echo ""
+	echo "Installing Oh-My-Zsh"
+
+	sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
 if [[ $@ != "silent" ]]; then
