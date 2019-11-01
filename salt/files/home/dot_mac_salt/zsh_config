@@ -21,8 +21,8 @@ if [ -f $CONFIGDIR/common/git_functions ]; then
 	source $CONFIGDIR/common/git_functions
 fi
 
-if [ -f $CONFIGDIR/zsh/zprofile ]; then
-	source $CONFIGDIR/zsh/zprofile
+if [ -f $CONFIGDIR/zsh/lintern.zsh-theme ]; then
+	source $CONFIGDIR/zsh/lintern.zsh-theme
 fi
 
 # Initialize RBENV
