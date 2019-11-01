@@ -124,8 +124,8 @@ prompt_git() {
     ZSH_THEME_GIT_PROMPT_STAGED="%{●%G%}"
     ZSH_THEME_GIT_PROMPT_CONFLICTS="%{✖ %G%}"
     ZSH_THEME_GIT_PROMPT_CHANGED="%{✚ %G%}"
-    ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
-    ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
+    ZSH_THEME_GIT_PROMPT_BEHIND=" %{↓%G%}"
+    ZSH_THEME_GIT_PROMPT_AHEAD=" %{↑%G%}"
     ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{…%G%}"
     ZSH_THEME_GIT_PROMPT_CLEAN="%{✔%G%}"
 
@@ -136,7 +136,7 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue white '%(4~|%-1~/…/%2~|%3~)'
+  prompt_segment green white '%(4~|%-1~/…/%2~|%3~)'
 }
 
 # Virtualenv: current working virtualenv
