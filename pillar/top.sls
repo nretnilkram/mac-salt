@@ -8,8 +8,5 @@ base:
   '*personal*':
     - personal
 
-  '*oracle*':
-    - oracle
-
   '*gg*':
     - gg
