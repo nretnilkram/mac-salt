@@ -1,3 +1,18 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/mlintern/.oh-my-zsh"
+
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME=""
+
+plugins=(git-prompt)
+
+source $ZSH/oh-my-zsh.sh
+
+# ^ zsh - v my additions
+
 # Mac Salt Short Cuts
 MACSALTHOME="{{grains['mac_salt_home']}}"
 MACSALTPATH="{{grains['mac_salt_home']}}/bin/mac_salt"

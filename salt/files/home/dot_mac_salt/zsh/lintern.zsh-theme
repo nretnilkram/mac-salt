@@ -130,13 +130,13 @@ prompt_git() {
     ZSH_THEME_GIT_PROMPT_CLEAN="%{✔%G%}"
 
     # echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
-    prompt_segment yellow black "${PL_BRANCH_CHAR} $(git_super_status)${mode}"
+    prompt_segment magenta white "${PL_BRANCH_CHAR} $(git_super_status)${mode}"
   fi
 }
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment green white '%(4~|%-1~/…/%2~|%3~)'
+  prompt_segment green black '%(4~|%-1~/…/%2~|%3~)'
 }
 
 # Virtualenv: current working virtualenv
