@@ -46,7 +46,7 @@ git_amend_alias:
   git.config_set:
     - global: True
     - name: alias.amend
-    - value: !git add -A && git commit --amend --no-edit
+    - value: "!git add -A && git commit --amend --no-edit"
     - user: {{grains['user']}}
 
 git_pop_alias:

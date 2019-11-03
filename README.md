@@ -64,6 +64,21 @@ if [ -f ~/.mac_salt/bash_config ]; then
 fi
 ```
 
+### Update Zsh Profile
+
+MAC SALT will add the files to your home directory, but you will need to tell your zsh_profile to source .mac_salt, which sources all the others.
+
+```
+if [ -f ~/.mac_salt/zsh_config ]; then
+	source ~/.mac_salt/zsh_config
+fi
+```
+
+#### You will need to install powerline fonts in order to get the fancyness
+
+```
+git clone https://github.com/powerline/fonts.git --depth=1 && cd fonts && ./install.sh && cd .. && rm fonts
+```
 
 ### Aliased commands for running the MAC SALT stack (all added in .aliases):
 

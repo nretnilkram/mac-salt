@@ -91,7 +91,7 @@ if [ $HAS_OMZ -eq 0 ]; then
 	echo "Oh-My-Zsh already installed"
 fi
 
-if [ $HAS_SALT -ne 0 ]; then
+if [ $HAS_OMZ -ne 0 ]; then
 	echo ""
 	echo "Installing Oh-My-Zsh"
 
