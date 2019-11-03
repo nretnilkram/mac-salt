@@ -11,6 +11,8 @@ plugins=(git-prompt)
 
 source $ZSH/oh-my-zsh.sh
 
+RPROMPT=''
+
 # ^ zsh - v my additions
 
 # Mac Salt Short Cuts
