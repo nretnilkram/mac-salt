@@ -7,11 +7,9 @@ export ZSH="/Users/mlintern/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME=""
 
-plugins=(git-prompt)
+plugins=(git-prompt battery)
 
 source $ZSH/oh-my-zsh.sh
-
-RPROMPT=''
 
 # ^ zsh - v my additions
 

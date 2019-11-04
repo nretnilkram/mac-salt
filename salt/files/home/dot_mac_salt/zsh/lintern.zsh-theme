@@ -15,7 +15,8 @@
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
-CURRENT_BG='NONE'
+CURRENT_PROMPT_BG='NONE'
+CURRENT_RPROMPT_BG='NONE'
 
 case ${SOLARIZED_THEME:-dark} in
     light) CURRENT_FG='white';;
@@ -36,7 +37,8 @@ esac
   # what font the user is viewing this source code in. Do not replace the
   # escape sequence with a single literal character.
   # Do not change this! Do not make it '\u2b80'; that is the old, wrong code point.
-  SEGMENT_SEPARATOR=$'\ue0b0'
+  PROMPT_SEGMENT_SEPARATOR=$'\ue0b0'
+  RPROMPT_SEGMENT_SEPARATOR=$'\ue0b2'
 }
 
 # Begin a segment
@@ -46,24 +48,33 @@ prompt_segment() {
   local bg fg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-    echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
+  if [[ $CURRENT_PROMPT_BG != 'NONE' && $1 != $CURRENT_PROMPT_BG ]]; then
+    echo -n " %{$bg%F{$CURRENT_PROMPT_BG}%}$PROMPT_SEGMENT_SEPARATOR%{$fg%} "
   else
     echo -n "%{$bg%}%{$fg%} "
   fi
-  CURRENT_BG=$1
+  CURRENT_PROMPT_BG=$1
+  [[ -n $3 ]] && echo -n $3
+}
+
+rprompt_segment() {
+  local bg fg
+  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
+  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
+  [[ -n $2 ]] && sfg="%F{$1}" || fg="%f"
+  echo -n " %{$sfg%}$RPROMPT_SEGMENT_SEPARATOR%{$fg%}%{$bg%} "
   [[ -n $3 ]] && echo -n $3
 }
 
 # End the prompt, closing any open segments
 prompt_end() {
-  if [[ -n $CURRENT_BG ]]; then
-    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+  if [[ -n $CURRENT_PROMPT_BG ]]; then
+    echo -n " %{%k%F{$CURRENT_PROMPT_BG}%}$PROMPT_SEGMENT_SEPARATOR"
   else
     echo -n "%{%k%}"
   fi
   echo -n "%{%f%}"
-  CURRENT_BG=''
+  CURRENT_PROMPT_BG=''
 }
 
 ### Prompt components
@@ -129,8 +140,8 @@ prompt_git() {
     ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{…%G%}"
     ZSH_THEME_GIT_PROMPT_CLEAN="%{✔%G%}"
 
-    # echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
-    prompt_segment magenta white "${PL_BRANCH_CHAR} $(git_super_status)${mode}"
+    # Orange White
+    prompt_segment 172 white "${PL_BRANCH_CHAR} $(git_super_status)${mode}"
   fi
 }
 
@@ -175,6 +186,14 @@ prompt_aws() {
   esac
 }
 
+timestamp () {
+  rprompt_segment blue white "[%D{%c}]"
+}
+
+battery () {
+  rprompt_segment black green "$(battery_pct_prompt)"
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
@@ -187,4 +206,10 @@ build_prompt() {
   prompt_end
 }
 
+build_rprompt() {
+  timestamp
+  battery
+}
+
 PROMPT='$(build_prompt) '
+RPROMPT='$(build_rprompt) '
