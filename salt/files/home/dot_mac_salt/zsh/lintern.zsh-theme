@@ -194,6 +194,10 @@ battery () {
   rprompt_segment black green "$(battery_pct_prompt)"
 }
 
+status_code() {
+  [[ $RETVAL -ne 0 ]] && rprompt_segment red white "$(echo $RETVAL)"
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
@@ -207,6 +211,8 @@ build_prompt() {
 }
 
 build_rprompt() {
+  RETVAL=$?
+  status_code
   timestamp
   battery
 }
