@@ -187,7 +187,7 @@ prompt_aws() {
 }
 
 timestamp () {
-  rprompt_segment blue white "[%D{%c}]"
+  rprompt_segment blue white "%D{%y/%m/%d %H:%M:%S}"
 }
 
 battery () {
