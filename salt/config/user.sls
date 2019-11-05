@@ -30,6 +30,7 @@ create_mac_salt_common_dir:
     - group: staff
     - file_mode: 755
     - makedirs: True
+    - template: jinja
 
 create_mac_salt_bash_dir:
   file.recurse:
@@ -39,6 +40,7 @@ create_mac_salt_bash_dir:
     - group: staff
     - file_mode: 755
     - makedirs: True
+    - template: jinja
 
 create_mac_salt_zsh_dir:
   file.recurse:
@@ -48,6 +50,7 @@ create_mac_salt_zsh_dir:
     - group: staff
     - file_mode: 755
     - makedirs: True
+    - template: jinja
 
 bash_config:
   file.managed:

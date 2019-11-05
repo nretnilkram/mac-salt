@@ -1,4 +1,4 @@
-# vim:ft=zsh ts=2 sw=2 sts=2
+{% raw %}# vim:ft=zsh ts=2 sw=2 sts=2
 #
 # agnoster's Theme - https://gist.github.com/3712874
 # A Powerline-inspired theme for ZSH
@@ -140,8 +140,12 @@ function prompt_git() {
     ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{…%G%}"
     ZSH_THEME_GIT_PROMPT_CLEAN="%{✔%G%}"
 
-    # Orange White
-    prompt_segment 172 white "${PL_BRANCH_CHAR} $(git_super_status)${mode}"
+    if [ "$GIT_CHANGED" -eq "0" ] && [ "$GIT_CONFLICTS" -eq "0" ] && [ "$GIT_STAGED" -eq "0" ] && [ "$GIT_UNTRACKED" -eq "0" ]; then
+      # Orange White
+      prompt_segment 172 white "${PL_BRANCH_CHAR} $(git_super_status)"
+    else
+      prompt_segment magenta white "${PL_BRANCH_CHAR} $(git_super_status)"
+    fi
   fi
 }
 
@@ -252,3 +256,4 @@ function build_rprompt() {
 
 PROMPT='$(build_prompt) '
 RPROMPT='$(build_rprompt) '
+{% endraw %}
