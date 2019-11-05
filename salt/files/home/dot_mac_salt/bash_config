@@ -29,6 +29,10 @@ if [ -f $CONFIGDIR/common/git_functions ]; then
 	source $CONFIGDIR/common/git_functions
 fi
 
+if [ -f $CONFIGDIR/bash/functions ]; then
+	source $CONFIGDIR/bash/functions
+fi
+
 if [ -f $CONFIGDIR/bash/history ]; then
 	source $CONFIGDIR/bash/history
 fi
