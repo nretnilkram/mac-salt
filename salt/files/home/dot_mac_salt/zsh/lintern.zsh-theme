@@ -44,7 +44,7 @@ esac
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
 # rendering default background/foreground.
-prompt_segment() {
+function prompt_segment() {
   local bg fg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
@@ -57,7 +57,7 @@ prompt_segment() {
   [[ -n $3 ]] && echo -n $3
 }
 
-rprompt_segment() {
+function rprompt_segment() {
   local bg fg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
@@ -67,7 +67,7 @@ rprompt_segment() {
 }
 
 # End the prompt, closing any open segments
-prompt_end() {
+function prompt_end() {
   if [[ -n $CURRENT_PROMPT_BG ]]; then
     echo -n " %{%k%F{$CURRENT_PROMPT_BG}%}$PROMPT_SEGMENT_SEPARATOR"
   else
@@ -81,7 +81,7 @@ prompt_end() {
 # Each component will draw itself, and hide itself if no information needs to be shown
 
 # Context: user@hostname (who am I and where am I)
-prompt_context() {
+function prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment black default "%(!.%{%F{yellow}%}.)%n@%m"
   fi
@@ -89,7 +89,7 @@ prompt_context() {
 
 # Git: branch/detached head, dirty status
 # this requires the oh-my-zsh.plugin git-prompt
-prompt_git() {
+function prompt_git() {
   local PL_BRANCH_CHAR
   () {
     local LC_ALL="" LC_CTYPE="en_US.UTF-8"
@@ -146,12 +146,12 @@ prompt_git() {
 }
 
 # Dir: current working directory
-prompt_dir() {
+function prompt_dir() {
   prompt_segment green black '%(4~|%-1~/…/%2~|%3~)'
 }
 
 # Virtualenv: current working virtualenv
-prompt_virtualenv() {
+function prompt_virtualenv() {
   local virtualenv_path="$VIRTUAL_ENV"
   if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
     prompt_segment blue black "(`basename $virtualenv_path`)"
@@ -162,7 +162,7 @@ prompt_virtualenv() {
 # - was there an error
 # - am I root
 # - are there background jobs?
-prompt_status() {
+function prompt_status() {
   local -a symbols
 
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
@@ -178,7 +178,7 @@ prompt_status() {
 # - displays yellow on red if profile name contains 'production' or
 #   ends in '-prod'
 # - displays black on green otherwise
-prompt_aws() {
+function prompt_aws() {
   [[ -z "$AWS_PROFILE" ]] && return
   case "$AWS_PROFILE" in
     *-prod|*production*) prompt_segment red yellow  "AWS: $AWS_PROFILE" ;;
@@ -186,20 +186,52 @@ prompt_aws() {
   esac
 }
 
-timestamp () {
+function timestamp () {
   rprompt_segment blue white "%D{%y/%m/%d %H:%M:%S}"
 }
 
-battery () {
+function battery () {
   rprompt_segment black green "$(battery_pct_prompt)"
 }
 
-status_code() {
+function status_code() {
   [[ $RETVAL -ne 0 ]] && rprompt_segment red white "$(echo $RETVAL)"
 }
 
+# The next 5 items are for setting and displaying the execution time
+TIMER_FORMAT='%d'
+
+function __timer_display_timer_precmd() {
+  if [ -n "${__timer_cmd_start_time}" ]; then
+    local cmd_end_time=$(__timer_current_time)
+    local tdiff=$((cmd_end_time - __timer_cmd_start_time))
+    unset __timer_cmd_start_time
+    local tdiffstr=$(__timer_format_duration ${tdiff})
+    local cols=$((COLUMNS - ${#tdiffstr} - 1))
+    export HUMANTIME="${tdiffstr}"
+  fi
+}
+
+function preexec() {
+  timer=${timer:-$SECONDS}
+}
+
+function precmd() {
+  if [ $timer ]; then
+    timer_show=$(($SECONDS - $timer))
+    # export HUMANTIME="${timer_show}s"
+    unset timer
+  else
+    export HUMANTIME="0s"
+  fi
+}
+
+function cmd_time() {
+  rprompt_segment yellow black "${HUMANTIME}"
+}
+
 ## Main prompt
-build_prompt() {
+function build_prompt() {
   RETVAL=$?
   prompt_status
   prompt_virtualenv
@@ -210,9 +242,10 @@ build_prompt() {
   prompt_end
 }
 
-build_rprompt() {
+function build_rprompt() {
   RETVAL=$?
   status_code
+  cmd_time
   timestamp
   battery
 }

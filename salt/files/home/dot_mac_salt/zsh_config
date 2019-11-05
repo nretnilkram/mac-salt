@@ -7,7 +7,7 @@ export ZSH="/Users/mlintern/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME=""
 
-plugins=(git-prompt battery)
+plugins=(git-prompt battery timer)
 
 source $ZSH/oh-my-zsh.sh
 
