@@ -202,17 +202,24 @@ function __status_code() {
   [[ $RETVAL -ne 0 ]] && __rprompt_segment red white "$(echo $RETVAL)"
 }
 
-# The next 5 items are for setting and displaying the execution time
+# The next 6 items are for setting and displaying the execution time
 TIMER_FORMAT='%d'
+
+function __human_str_duration() {
+  local hrs=$(printf '%.0f' $(($1 / 3600)))
+  local mins=$(printf '%.0f' $((($1 - 3600 * hrs) / 60)))
+  local secs=$(printf "%.${TIMER_PRECISION:-1}f" $(($1 - (3600 * hrs) - (60 * mins))))
+  local duration_str=$(echo "${hrs}h${mins}m${secs}s")
+  local format="${TIMER_FORMAT:-/%d}"
+  echo "${duration_str//(0h|0m)/}"
+}
 
 function __timer_display_timer_precmd() {
   if [ -n "${__timer_cmd_start_time}" ]; then
     local cmd_end_time=$(__timer_current_time)
     local tdiff=$((cmd_end_time - __timer_cmd_start_time))
     unset __timer_cmd_start_time
-    local tdiffstr=$(__timer_format_duration ${tdiff})
-    local cols=$((COLUMNS - ${#tdiffstr} - 1))
-    export HUMANTIME="${tdiffstr}"
+    export HUMANTIME="$(__human_str_duration ${tdiff})"
   fi
 }
 
