@@ -36,9 +36,12 @@ stop-server() { jobs -p | xargs -n1 pkill -SIGINT -g; }
 
 ## For My Proxy Tunnel
 alias bats='ssh va-bastion'
-alias proxy-on='ssh -fN bats'
-alias proxy-check='ssh -O check bats'
-alias proxy-off='ssh -O exit bats'
+alias proxy-on='ssh -fN vault-tower.greenlight.guru'
+alias po='proxy-on'
+alias proxy-check='ssh -O check vault-tower.greenlight.guru'
+alias pc='proxy-check'
+alias proxy-off='ssh -O exit vault-tower.greenlight.guru'
+alias poff='proxy-off'
 
 alias clear_sockets='rm ~/.ssh/sockets/* && killall ssh'
 
