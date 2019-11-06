@@ -89,3 +89,5 @@ function set_ps1() {
     PS1="{{ pillar.get("base_ps1") }}"
   fi
 }
+
+alias sp="set_ps1"

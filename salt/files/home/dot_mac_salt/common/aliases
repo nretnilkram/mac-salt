@@ -53,7 +53,6 @@ alias tarup="tar -cvzf"
 alias untar="tar -xvf"
 
 # Helpful Shortcuts
-alias sp="set_ps1"
 alias pjt="python -mjson.tool"
 alias unset_proxy="unset http_proxy && unset https_proxy && unset HTTP_PROXY && unset HTTPS_PROXY"
 alias up=unset_proxy
