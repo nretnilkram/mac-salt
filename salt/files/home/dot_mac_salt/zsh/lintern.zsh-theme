@@ -44,7 +44,7 @@ esac
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
 # rendering default background/foreground.
-function prompt_segment() {
+function __prompt_segment() {
   local bg fg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
@@ -57,7 +57,7 @@ function prompt_segment() {
   [[ -n $3 ]] && echo -n $3
 }
 
-function rprompt_segment() {
+function __rprompt_segment() {
   local bg fg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
   [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
@@ -67,7 +67,7 @@ function rprompt_segment() {
 }
 
 # End the prompt, closing any open segments
-function prompt_end() {
+function __prompt_end() {
   if [[ -n $CURRENT_PROMPT_BG ]]; then
     echo -n " %{%k%F{$CURRENT_PROMPT_BG}%}$PROMPT_SEGMENT_SEPARATOR"
   else
@@ -81,22 +81,22 @@ function prompt_end() {
 # Each component will draw itself, and hide itself if no information needs to be shown
 
 # Context: user@hostname (who am I and where am I)
-function prompt_context() {
+function __prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)%n@%m"
+    __prompt_segment black default "%(!.%{%F{yellow}%}.)%n@%m"
   fi
 }
 
 # Git: branch/detached head, dirty status
 # this requires the oh-my-zsh.plugin git-prompt
-function prompt_git() {
+function __prompt_git() {
   local PL_BRANCH_CHAR
   () {
     local LC_ALL="" LC_CTYPE="en_US.UTF-8"
     PL_BRANCH_CHAR=$'\ue0a0'         # 
   }
 
-  git_super_status() {
+  __git_super_status() {
     precmd_update_git_vars
     if [ -n "$__CURRENT_GIT_STATUS" ]; then
       STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH"
@@ -142,23 +142,23 @@ function prompt_git() {
 
     if [ "$GIT_CHANGED" -eq "0" ] && [ "$GIT_CONFLICTS" -eq "0" ] && [ "$GIT_STAGED" -eq "0" ] && [ "$GIT_UNTRACKED" -eq "0" ]; then
       # Orange White
-      prompt_segment 172 white "${PL_BRANCH_CHAR} $(git_super_status)"
+      __prompt_segment 172 white "${PL_BRANCH_CHAR} $(__git_super_status)"
     else
-      prompt_segment magenta white "${PL_BRANCH_CHAR} $(git_super_status)"
+      __prompt_segment magenta white "${PL_BRANCH_CHAR} $(__git_super_status)"
     fi
   fi
 }
 
 # Dir: current working directory
-function prompt_dir() {
-  prompt_segment green black '%(4~|%-1~/…/%2~|%3~)'
+function __prompt_dir() {
+  __prompt_segment green black '%(4~|%-1~/…/%2~|%3~)'
 }
 
 # Virtualenv: current working virtualenv
-function prompt_virtualenv() {
+function __prompt_virtualenv() {
   local virtualenv_path="$VIRTUAL_ENV"
   if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-    prompt_segment blue black "(`basename $virtualenv_path`)"
+    __prompt_segment blue black "(`basename $virtualenv_path`)"
   fi
 }
 
@@ -166,7 +166,7 @@ function prompt_virtualenv() {
 # - was there an error
 # - am I root
 # - are there background jobs?
-function prompt_status() {
+function __prompt_status() {
   local -a symbols
 
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
@@ -174,7 +174,7 @@ function prompt_status() {
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
   [[ $RETVAL -eq 0 ]] && symbols+="%{%F{green}%}✔"
 
-  [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
+  [[ -n "$symbols" ]] && __prompt_segment black default "$symbols"
 }
 
 #AWS Profile:
@@ -182,24 +182,24 @@ function prompt_status() {
 # - displays yellow on red if profile name contains 'production' or
 #   ends in '-prod'
 # - displays black on green otherwise
-function prompt_aws() {
+function __prompt_aws() {
   [[ -z "$AWS_PROFILE" ]] && return
   case "$AWS_PROFILE" in
-    *-prod|*production*) prompt_segment red yellow  "AWS: $AWS_PROFILE" ;;
-    *) prompt_segment green black "AWS: $AWS_PROFILE" ;;
+    *-prod|*production*) __prompt_segment red yellow  "AWS: $AWS_PROFILE" ;;
+    *) __prompt_segment green black "AWS: $AWS_PROFILE" ;;
   esac
 }
 
-function timestamp () {
-  rprompt_segment blue white "%D{%y/%m/%d %H:%M:%S}"
+function __timestamp () {
+  __rprompt_segment blue white "%D{%y/%m/%d %H:%M:%S}"
 }
 
-function battery () {
-  rprompt_segment black green "$(battery_pct_prompt)"
+function __battery () {
+  __rprompt_segment black green "$(battery_pct_prompt)"
 }
 
-function status_code() {
-  [[ $RETVAL -ne 0 ]] && rprompt_segment red white "$(echo $RETVAL)"
+function __status_code() {
+  [[ $RETVAL -ne 0 ]] && __rprompt_segment red white "$(echo $RETVAL)"
 }
 
 # The next 5 items are for setting and displaying the execution time
@@ -230,30 +230,30 @@ function precmd() {
   fi
 }
 
-function cmd_time() {
-  rprompt_segment yellow black "${HUMANTIME}"
+function __cmd_time() {
+  __rprompt_segment yellow black "${HUMANTIME}"
 }
 
 ## Main prompt
-function build_prompt() {
+function __build_prompt() {
   RETVAL=$?
-  prompt_status
-  prompt_virtualenv
-  prompt_aws
-  # prompt_context
-  prompt_dir
-  prompt_git
-  prompt_end
+  __prompt_status
+  __prompt_virtualenv
+  __prompt_aws
+  # __prompt_context
+  __prompt_dir
+  __prompt_git
+  __prompt_end
 }
 
-function build_rprompt() {
+function __build_rprompt() {
   RETVAL=$?
-  status_code
-  cmd_time
-  timestamp
-  battery
+  __status_code
+  __cmd_time
+  __timestamp
+  __battery
 }
 
-PROMPT='$(build_prompt) '
-RPROMPT='$(build_rprompt) '
+PROMPT='$(__build_prompt) '
+RPROMPT='$(__build_rprompt) '
 {% endraw %}
