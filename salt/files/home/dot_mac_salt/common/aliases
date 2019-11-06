@@ -35,7 +35,7 @@ start-server() { start-history & start-auth & start-repo & }
 stop-server() { jobs -p | xargs -n1 pkill -SIGINT -g; }
 
 ## For My Proxy Tunnel
-alias bats='ssh ci-bastion'
+alias bats='ssh va-bastion'
 alias proxy-on='ssh -fN bats'
 alias proxy-check='ssh -O check bats'
 alias proxy-off='ssh -O exit bats'
@@ -65,8 +65,6 @@ alias ducks="du -cks * | sort -rn | head"
 alias dush="sudo du -sh .[!.]* *"
 alias show_hidden="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app"
 alias hide_hidden="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app"
-alias fix_pf_rules="sudo /sbin/pfctl -evf /etc/pf.anchors/dev"
-alias fpf="fix_pf_rules"
 alias drive_list="diskutil list"
 alias internal_ip="ifconfig | awk '/inet/ {print \$2}' | grep '192\|10\|172' | grep -v ':'"
 

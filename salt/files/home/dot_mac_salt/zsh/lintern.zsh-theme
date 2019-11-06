@@ -230,7 +230,6 @@ function preexec() {
 function precmd() {
   if [ $timer ]; then
     timer_show=$(($SECONDS - $timer))
-    # export HUMANTIME="${timer_show}s"
     unset timer
   else
     export HUMANTIME="0s"
