@@ -202,16 +202,20 @@ function __status_code() {
   [[ $RETVAL -ne 0 ]] && __rprompt_segment red white "$(echo $RETVAL)"
 }
 
-# The next 6 items are for setting and displaying the execution time
-TIMER_FORMAT='%d'
-
+# The next 5 items are for setting and displaying the execution time
 function __human_str_duration() {
-  local hrs=$(printf '%.0f' $(($1 / 3600)))
-  local mins=$(printf '%.0f' $((($1 - 3600 * hrs) / 60)))
-  local secs=$(printf "%.${TIMER_PRECISION:-1}f" $(($1 - (3600 * hrs) - (60 * mins))))
-  local duration_str=$(echo "${hrs}h${mins}m${secs}s")
-  local format="${TIMER_FORMAT:-/%d}"
-  echo "${duration_str//(0h|0m)/}"
+  local T=$1
+  local Y=$((T/60/60/24/365))
+  local D=$((T/60/60/24%365))
+  local H=$((T/60/60%24))
+  local M=$((T/60%60))
+  local S=$((T%60))
+  (( $Y >= 1 )) && printf '%d y ' $Y
+  (( $D >= 1 )) && printf '%d d ' $D
+  (( $H >= 1 )) && printf '%d h ' $H
+  (( $M >= 1 )) && printf '%d m ' $M
+  (( $Y >= 1 || $D >= 1 || $H >= 1 || $M >= 1 )) && printf 'and '
+  printf '%d s' $S
 }
 
 function __timer_display_timer_precmd() {
