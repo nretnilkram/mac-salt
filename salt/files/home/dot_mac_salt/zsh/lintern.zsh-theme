@@ -210,12 +210,12 @@ function __human_str_duration() {
   local H=$((T/60/60%24))
   local M=$((T/60%60))
   local S=$((T%60))
-  (( $Y >= 1 )) && printf '%d y ' $Y
-  (( $D >= 1 )) && printf '%d d ' $D
-  (( $H >= 1 )) && printf '%d h ' $H
-  (( $M >= 1 )) && printf '%d m ' $M
-  (( $Y >= 1 || $D >= 1 || $H >= 1 || $M >= 1 )) && printf 'and '
-  printf '%d s' $S
+  (( $Y >= 1 )) && printf '%dy ' $Y
+  (( $D >= 1 )) && printf '%dd ' $D
+  (( $H >= 1 )) && printf '%dh ' $H
+  (( $M >= 1 )) && printf '%dm ' $M
+  # (( $Y >= 1 || $D >= 1 || $H >= 1 || $M >= 1 )) && printf 'and '
+  printf '%ds' $S
 }
 
 function __timer_display_timer_precmd() {
