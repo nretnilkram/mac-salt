@@ -236,7 +236,7 @@ function precmd() {
     timer_show=$(($SECONDS - $timer))
     unset timer
   else
-    export HUMANTIME="0s"
+    export HUMANTIME="0 s"
   fi
 }
 
