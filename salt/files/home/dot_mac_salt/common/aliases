@@ -24,10 +24,11 @@ populate-data() { (cd $CLIENT_DIR && npm run buildOrg); }
 
 COMMON_OPTIONS=(-Dgreenlight.application.properties=conf/application-dev.properties -Dlogback.configurationFile=logback.xml -classpath "target/*:target/lib/*")
 
-start-repo() { (cd $SERVER_DIR/RepoSvc && java "${COMMON_OPTIONS[@]}" -Dderby.stream.error.file=RepositoryRoot/log/derby.log -Dfile.encoding=UTF-8 com.greenlight.camel.CamelMain); }
-start-history() { (cd $SERVER_DIR/ActivityHistory && \cp -vf logback.xml target/ && java "${COMMON_OPTIONS[@]}" com.greenlight.camel.CamelMain); }
-start-auth() { (cd $SERVER_DIR/AuthZ && java "${COMMON_OPTIONS[@]}" com.greenlight.idm.CamelMain); }
-start-impact() { (cd $SERVER_DIR/Impact && java -jar target/greenlight-impact-service.jar); }
+start-repo() { (cd $SERVER_DIR/RepoSvc && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9990" "-Dcom.sun.management.jmxremote.rmi.port=9990" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" -Dderby.stream.error.file=RepositoryRoot/log/derby.log -Dfile.encoding=UTF-8 com.greenlight.camel.CamelMain); }
+start-analytics() { (cd $SERVER_DIR/Analytics/target && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9994" "-Dcom.sun.management.jmxremote.rmi.port=9994" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" -jar greenlight-analytics-service.jar); }
+start-history() { (cd $SERVER_DIR/ActivityHistory && \cp -vf logback.xml target/ && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9991" "-Dcom.sun.management.jmxremote.rmi.port=9991" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.camel.CamelMain); }
+start-auth() { (cd $SERVER_DIR/AuthZ && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9992" "-Dcom.sun.management.jmxremote.rmi.port=9992" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.idm.CamelMain); }
+start-impact() { (cd $SERVER_DIR/Impact && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9993" "-Dcom.sun.management.jmxremote.rmi.port=9993" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" -jar target/greenlight-impact-service.jar); }
 start-client() { (cd $CLIENT_DIR && npm start); }
 start-s3() { (cd $CLIENT_DIR && npm run startLocalstack && npm run buildServerlessComponents && npm run listServerlessComponents); }
 
