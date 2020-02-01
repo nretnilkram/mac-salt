@@ -222,7 +222,7 @@ Usage:
   if [ $? -eq 0 ]; then
     diskutil unmountDisk force $2
     echo "Copying Image to USB"
-    sudo dd if=$1 of=$2 bs=1m
+    sudo dd if=$1 | pv | sudo dd of=$2 bs=1m
   fi
   if [ $? -eq 0 ]; then
     echo "Ejecting Disk"

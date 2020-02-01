@@ -4,6 +4,7 @@ brew_pkgs:
   - wget
   - bash-completion
   - rmtrash
+  - pv
 
 # base_ps1: '\n${Red}\$(exit_status)${Green}--------------------[\${TIMER_SHOW}s]------------------ \n${White}| \d \t \n| ${Red}\u${White}@${Cyan}\h ${Purple}\w ${White} \n| ${Yellow}\$(__git_ps1 "[%s]") ${White}=> ${NC}'
 base_ps1: '\n${Red}\$(exit_status)${Green}--------------------[\${HUMAN_TIME}]------------------ \n${White}| \d \t ${Red}\u${White}@${Cyan}\h ${White}\n| ${Purple}\w ${Yellow}\$(__git_ps1 "[%s]") ${White}\n| => ${NC}'
