@@ -5,27 +5,18 @@ install_git:
   pkg.installed:
     - name: git
 
-bash_git_prompt:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/git-prompt.sh
-    - source: salt://files/home/dot_mac_salt/git-prompt.sh
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
-
-bash_git_functions:
-  file.managed:
-    - name: {{grains['homedir']}}/.mac_salt/git_functions
-    - source: salt://files/home/dot_mac_salt/git_functions
-    - user: {{grains['user']}}
-    - group: staff
-    - mode: 644
-
 git_push:
   git.config_set:
     - global: True
     - name: push.default
     - value: current
+    - user: {{grains['user']}}
+
+git_push_followTags:
+  git.config_set:
+    - global: True
+    - name: push.followTags
+    - value: true
     - user: {{grains['user']}}
 
 git_remote_prune:
