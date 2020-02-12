@@ -69,8 +69,8 @@ case $ARGS in
     help_function
     ;;
   source)
-    echo -e "source ~/.mac_salt/bash_config" | tr -d '\n' | pbcopy
-    echo -e "Copied 'source ~/.mac_salt/bash_config' to clipboard. Paste into terminal."
+    echo -e "source ~/.mac_salt/zsh_config" | tr -d '\n' | pbcopy
+    echo -e "Copied 'source ~/.mac_salt/zsh_config' to clipboard. Paste into terminal."
     ;;
   test)
     echo -e "Opening local webservers for testing \n"
