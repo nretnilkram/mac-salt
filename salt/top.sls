@@ -10,3 +10,6 @@ base:
   '*personal*':
     - tools
     - services
+
+  '*gg*':
+    - tools.vagrant
