@@ -19,7 +19,7 @@ alias ggs="cd $SERVER_DIR"
 alias ggup="(cd $GG_DIR/gg-local-infrastructure && vagrant up)"
 alias ggdown="(cd $GG_DIR/gg-local-infrastructure && vagrant halt)"
 
-build-server() { (cd $SERVER_DIR && mvn clean install -Dmaven.test.skip=true --batch-mode); }
+build-server() { (cd $SERVER_DIR && mvn clean install -Dmaven.test.skip=true); }
 populate-data() { (cd $CLIENT_DIR && npm run buildOrg); }
 
 COMMON_OPTIONS=(-Dgreenlight.application.properties=conf/application-dev.properties -Dlogback.configurationFile=logback.xml -classpath "target/*:target/lib/*")
