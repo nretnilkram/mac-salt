@@ -18,6 +18,7 @@ alias ggc="cd $CLIENT_DIR"
 alias ggs="cd $SERVER_DIR"
 alias ggup="(cd $GG_DIR/gg-local-infrastructure && vagrant up)"
 alias ggdown="(cd $GG_DIR/gg-local-infrastructure && vagrant halt)"
+alias vmssh="(cd $GG_DIR/gg-local-infrastructure && vagrant ssh)"
 
 build-server() { (cd $SERVER_DIR && mvn clean install -Dmaven.test.skip=true); }
 populate-data() { (cd $CLIENT_DIR && npm run buildOrg); }
