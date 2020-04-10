@@ -51,6 +51,10 @@ if [ -f $CONFIGDIR/oracle ]; then
 fi
 {% endif %}
 
+if [ -d "$HOME/Dropbox/local/bin" ] ; then
+  PATH="$PATH:$HOME/Dropbox/local/bin"
+fi
+
 # Initialize RBENV
 if [[ -d "$HOME/.rbenv" ]]; then
 	export PATH="$HOME/.rbenv/bin:$PATH"

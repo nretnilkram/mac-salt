@@ -35,6 +35,12 @@ start-impact() { (cd $SERVER_DIR/Impact && java "-Dcom.sun.management.jmxremote"
 start-client() { (cd $CLIENT_DIR && npm start); }
 start-s3() { (cd $CLIENT_DIR && npm run startLocalstack && npm run buildServerlessComponents && npm run listServerlessComponents); }
 
+ggrmemails () {
+  du -sh /var/tmp/emails
+  ls -1 /var/tmp/emails | wc -l
+  find /var/tmp/emails -type f \( -iname '*.json' -o -iname '*.html' \) -exec rm '{}' +
+}
+
 start-server() { start-history & start-auth & start-repo & }
 stop-server() { jobs -p | xargs -n1 pkill -SIGINT -g; }
 
@@ -74,6 +80,7 @@ alias show_hidden="defaults write com.apple.finder AppleShowAllFiles YES; killal
 alias hide_hidden="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app"
 alias drive_list="diskutil list"
 alias internal_ip="ifconfig | awk '/inet/ {print \$2}' | grep '192\|10\|172' | grep -v ':'"
+alias external_ip="curl https://ip.nretnil.com -4"
 
 # rm to trash
 alias rm=rmtrash
