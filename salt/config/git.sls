@@ -19,6 +19,13 @@ git_push_followTags:
     - value: true
     - user: {{grains['user']}}
 
+git_pull:
+  git.config_set:
+    - global: True
+    - name: pull.rebase
+    - value: false
+    - user: {{grains['user']}}
+
 git_remote_prune:
   git.config_set:
     - global: true
