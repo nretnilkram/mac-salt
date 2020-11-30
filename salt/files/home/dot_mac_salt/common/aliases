@@ -1,5 +1,5 @@
 # Sudo keep environment
-alias sudo="sudo -E"
+alias sudo="sudo -E "
 
 # Directory Shortcuts
 alias sand="cd $HOME/Dropbox/Sandbox"

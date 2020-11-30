@@ -21,5 +21,4 @@ apache_restart_service:
     - name: apachectl restart
     - watch:
       - file: httpd_conf
-      - file: nretnil_local_conf
       - file: localhost_conf
