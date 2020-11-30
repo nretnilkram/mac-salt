@@ -1,6 +1,6 @@
 # MAC SALT
 
-Sets up and configures useful tools and services such as bash, mysql, node, dnsmasq, ruby, vagrant, and git.
+Sets up and configures useful tools and services such as zsh/bash, mysql, node, dnsmasq, ruby and git.
 
 ## Installation
 
@@ -119,18 +119,14 @@ Host *
 
 #### Trouble Shooting
 * If ruby fails due to readline extension make sure you have the correct os version. May need to uninstall and reinstall if upgraded from previous version of osx.
+
 * If you have issues with mysql there could be permission issues with the working dir. I have not found a perfect solution for all environments, but these have worked on some.  Try one at a time.
 ```
 sudo chown -R ${whoami}:admin /usr/local/var/mysql
 sudo chmod -R o+rwx /usr/local/var/mysql
 ```
 
-* if you are running into issue installing php56 for the nginx configuration try:
-```
-xcode-select --install
-```
-
-npm behind a proxy:
+* npm behind a proxy:
 ```
 npm config set proxy <proxy_url_and_port>
 npm config set https-proxy proxy <proxy_url_and_port>
@@ -138,16 +134,19 @@ export npm_config_proxy proxy <proxy_url_and_port>
 export npm_config_https_proxy proxy <proxy_url_and_port>
 ```
 
-Installing heroku-cli does not always work with salt
+* Installing heroku-cli does not always work with salt
 ```
 brew tap heroku/brew && brew install heroku
 ```
 
-### Web Servers Details
+* "AttributeError: _scope_id" error
 
-#### APACHE
-* config: `/etc/apache2/other/localhost.conf`
-* urls: http://localhost (php), http://localhost:8885 (html), http://localhost:8886 (php), http://nretnil.local:8887 (html), http://nretnil.local:8890 (html)
+Add the following line to `/usr/local/Cellar/salt/3002.1/libexec/lib/python3.9/site-packages/salt/_compat.py` below line 164.
+```
+self._scope_id = self.__scope
+```
+
+### Web Servers Details
 
 #### H20
 * config: `/usr/local/etc/h2o/h2o.conf`
@@ -155,4 +154,4 @@ brew tap heroku/brew && brew install heroku
 
 #### NGINX
 * config: `/usr/local/etc/nginx/nginx.conf`
-* urls: http://localhost:8881 (php), http://localhost:8882 (php), http://localhost:8883 (html/php), http://localhost:8884 (html)
+* urls: http://localhost (php), http://localhost:8881 (php), http://localhost:8882 (php), http://localhost:8883 (html/php), http://localhost:8884 (html), http://localhost:8885 (html), http://localhost:8886 (php), http://localhost:8887 (html), http://nretnil.local:8890 (html)

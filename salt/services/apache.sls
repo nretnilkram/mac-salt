@@ -4,13 +4,6 @@ httpd_conf:
     - source: salt://files/etc/apache2/httpd.conf
     - mode: 644
 
-nretnil_local_conf:
-  file.managed:
-    - name: /etc/apache2/other/nretnil.local.conf
-    - source: salt://files/etc/apache2/other/nretnil.local.conf
-    - mode: 644
-    - template: jinja
-
 localhost_conf:
   file.managed:
     - name: /etc/apache2/other/localhost.conf

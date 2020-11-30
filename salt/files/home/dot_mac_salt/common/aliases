@@ -83,9 +83,6 @@ alias drive_list="diskutil list"
 alias internal_ip="ifconfig | awk '/inet/ {print \$2}' | grep '192\|10\|172' | grep -v ':'"
 alias external_ip="curl https://ip.nretnil.com -4"
 
-# rm to trash
-alias rm=rmtrash
-
 # Editor
 alias edit='atom'
 
