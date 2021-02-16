@@ -144,3 +144,24 @@ git_sha_alias:
     - name: alias.sha
     - value: "!git rev-parse HEAD"
     - user: {{grains['user']}}
+
+git_pager_diff:
+  git.config_set:
+    - global: True
+    - name: pager.diff
+    - value: false
+    - user: {{grains['user']}}
+
+git_pager_log:
+  git.config_set:
+    - global: True
+    - name: pager.log
+    - value: false
+    - user: {{grains['user']}}
+
+git_pager_branch:
+  git.config_set:
+    - global: True
+    - name: pager.branch
+    - value: false
+    - user: {{grains['user']}}
