@@ -21,6 +21,8 @@ alias salt-local=$MACSALTPATH
 
 CONFIGDIR=${0:a:h}
 
+alias refresh="source ~/.zshrc"
+
 if [ -f $CONFIGDIR/common/aliases ]; then
 	source $CONFIGDIR/common/aliases
 fi

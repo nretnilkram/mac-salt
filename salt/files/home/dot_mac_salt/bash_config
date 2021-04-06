@@ -9,6 +9,8 @@ alias salt-local=$MACSALTPATH
 
 CONFIGDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+alias refresh="source ~/.bashrc"
+
 if [ -f $CONFIGDIR/bash/git-completion.bash ]; then
 	source $CONFIGDIR/bash/git-completion.bash
 fi

@@ -6,37 +6,64 @@ alias sand="cd $HOME/Dropbox/Sandbox"
 alias notes="cd $HOME/Dropbox/99/notes"
 alias m="cd $MACSALTHOME"
 
-alias dev="cd $HOME/dev"
-alias d="dev"
-
 REPO_DIR="$HOME/dev"
 GG_DIR="$REPO_DIR/gg"
 CLIENT_DIR="$REPO_DIR/gg_client"
-SERVER_DIR="$REPO_DIR/gg_server"
-MICRO_DIR="$REPO_DIR/gg_microservices"
+AUTHZSVC_DIR="$REPO_DIR/gg-authz-service"
+AHSVC_DIR="$REPO_DIR/gg-activityhistory-service"
+REPOSVC_DIR="$REPO_DIR/gg-repo-service"
+ANALYTICSSVC_DIR="$REPO_DIR/gg-analytics-service"
+IMPACTSVC_DIR="$REPO_DIR/gg-impact-service"
+CONVERSIONSVC_DIR="$REPO_DIR/gg-conversion-service"
+
+alias dev="cd $HOME/dev"
+alias d="dev"
+alias da="cd $HOME/dev_alt"
 alias gg="cd $GG_DIR"
 alias u="cd $GG_DIR/gg-aws-infrastructure/utilities"
 alias ggc="cd $CLIENT_DIR"
-alias ggs="cd $SERVER_DIR"
-alias ggm="cd $MICRO_DIR"
 alias ggup="(cd $GG_DIR/local/docker && ./gg.sh start)"
 alias ggdown="(cd $GG_DIR/local/docker && ./gg.sh stop)"
-alias vmssh="(cd $GG_DIR/local/vm && ./gg.sh login)"
 
-build-server() { (cd $SERVER_DIR && mvn clean install -Dmaven.test.skip=true); }
+
+_star-display() {
+  echo -e "\n***********************************"
+  echo -e "* ${1-}"
+  echo -e "***********************************\n"
+}
+
+build-server() { (
+  _star-display "Building AUTHZSVC"
+  cd $AUTHZSVC_DIR && mvn clean install -Dmaven.test.skip=true
+  _star-display "Building ACTIVITYHISTORYSVC"
+  cd $AHSVC_DIR && mvn clean install -Dmaven.test.skip=true
+  _star-display "Building REPOSVC"
+  cd $REPOSVC_DIR && mvn clean install -Dmaven.test.skip=true
+); }
+
+build-all() { (
+  java8
+  build-server
+  _star-display "Building ANALYTICSSVC"
+  cd $ANALYTICSSVC_DIR && mvn clean install -Dmaven.test.skip=true
+  _star-display "Building IMPACTSVC"
+  cd $IMPACTSVC_DIR && mvn clean install -Dmaven.test.skip=true
+  java11
+  _star-display "Building CONVERSIONSVC"
+  cd $CONVERSIONSVC_DIR && mvn clean install -Dmaven.test.skip=true
+); }
+
 populate-data() { (cd $CLIENT_DIR && npm run buildOrg); }
 
 COMMON_OPTIONS=(-Dgreenlight.application.properties=conf/application-dev.properties -Dlogback.configurationFile=logback.xml -classpath "target/*:target/lib/*")
 
-start-repo() { (cd $SERVER_DIR/RepoSvc && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9990" "-Dcom.sun.management.jmxremote.rmi.port=9990" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" -Dderby.stream.error.file=RepositoryRoot/log/derby.log -Dfile.encoding=UTF-8 com.greenlight.camel.CamelMain); }
-start-analytics() { (cd $SERVER_DIR/Analytics/target && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9994" "-Dcom.sun.management.jmxremote.rmi.port=9994" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" -jar greenlight-analytics-service.jar); }
-# start-conversion() { (cd $SERVER_DIR/Conversion/target && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9995" "-Dcom.sun.management.jmxremote.rmi.port=9995" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" -jar greenlight-conversion-service.jar); }
-start-conversion() { (cd $SERVER_DIR/Conversion && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9995" "-Dcom.sun.management.jmxremote.rmi.port=9995" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.convert.ConversionApplication); }
-start-history() { (cd $SERVER_DIR/ActivityHistory && \cp -vf logback.xml target/ && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9991" "-Dcom.sun.management.jmxremote.rmi.port=9991" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.camel.CamelMain); }
-start-auth() { (cd $SERVER_DIR/AuthZ && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9992" "-Dcom.sun.management.jmxremote.rmi.port=9992" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.idm.CamelMain); }
-start-impact() { (cd $SERVER_DIR/Impact && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9993" "-Dcom.sun.management.jmxremote.rmi.port=9993" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" -jar target/greenlight-impact-service.jar); }
+start-repo() { (cd $REPOSVC_DIR && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9990" "-Dcom.sun.management.jmxremote.rmi.port=9990" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" -Dderby.stream.error.file=RepositoryRoot/log/derby.log -Dfile.encoding=UTF-8 com.greenlight.camel.CamelMain); }
+start-analytics() { (cd $ANALYTICSSVC_DIR/target && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9994" "-Dcom.sun.management.jmxremote.rmi.port=9994" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" -jar greenlight-analytics-service.jar); }
+start-conversion() { (cd $CONVERSIONSVC_DIR && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9995" "-Dcom.sun.management.jmxremote.rmi.port=9995" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.convert.ConversionApplication); }
+start-history() { (cd $AHSVC_DIR && \cp -vf logback.xml target/ && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9991" "-Dcom.sun.management.jmxremote.rmi.port=9991" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.camel.CamelMain); }
+start-auth() { (cd $AUTHZSVC_DIR && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9992" "-Dcom.sun.management.jmxremote.rmi.port=9992" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.idm.CamelMain); }
+start-impact() { (cd $IMPACTSVC_DIR && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9993" "-Dcom.sun.management.jmxremote.rmi.port=9993" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" -jar target/greenlight-impact-service.jar); }
 start-client() { (cd $CLIENT_DIR && npm start); }
-start-s3() { (cd $CLIENT_DIR && npm run startLocalstack && npm run buildServerlessComponents && npm run listServerlessComponents); }
 
 ggrmemails () {
   du -sh /var/tmp/emails
@@ -58,12 +85,6 @@ alias proxy-off='ssh -o ControlPath=~/.ssh/sockets/%C -O exit vault-tower.greenl
 alias poff='proxy-off'
 
 alias clear_sockets='rm ~/.ssh/sockets/* && killall ssh'
-
-# csshX Shortcuts
-alias csshx="csshX"
-alias csshx1="csshX -screen 1"
-alias csshx2="csshX -screen 2"
-alias csshx3="csshX -screen 3"
 
 # Tar Shortcuts
 alias tarup="tar -cvzf"
