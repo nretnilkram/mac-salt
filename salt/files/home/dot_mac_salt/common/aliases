@@ -15,6 +15,8 @@ REPOSVC_DIR="$REPO_DIR/gg-repo-service"
 ANALYTICSSVC_DIR="$REPO_DIR/gg-analytics-service"
 IMPACTSVC_DIR="$REPO_DIR/gg-impact-service"
 CONVERSIONSVC_DIR="$REPO_DIR/gg-conversion-service"
+AUTHNSVC_DIR="$REPO_DIR/gg-authentication-service"
+ORGSVC_DIR="$REPO_DIR/gg-organization-service"
 
 alias dev="cd $HOME/dev"
 alias d="dev"
@@ -51,18 +53,22 @@ build-all() { (
   java11
   _star-display "Building CONVERSIONSVC"
   cd $CONVERSIONSVC_DIR && mvn clean install -Dmaven.test.skip=true
+  _star-display "Building AUTHNSVC"
+  cd $AUTHNSVC_DIR && mvn clean install -Dmaven.test.skip=true
+  _star-display "Building ORGSVC"
+  cd $ORGSVC_DIR && mvn clean install -Dmaven.test.skip=true
 ); }
 
 populate-data() { (cd $CLIENT_DIR && npm run buildOrg); }
 
-COMMON_OPTIONS=(-Dgreenlight.application.properties=conf/application-dev.properties -Dlogback.configurationFile=logback.xml -classpath "target/*:target/lib/*")
+COMMON_OPTIONS=(-Dgreenlight.application.properties=conf/application-dev.properties -Dlogging.config=../logback.xml -classpath "target/*:target/lib/*")
 
 start-repo() { (cd $REPOSVC_DIR && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9990" "-Dcom.sun.management.jmxremote.rmi.port=9990" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" -Dderby.stream.error.file=RepositoryRoot/log/derby.log -Dfile.encoding=UTF-8 com.greenlight.camel.CamelMain); }
-start-analytics() { (cd $ANALYTICSSVC_DIR/target && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9994" "-Dcom.sun.management.jmxremote.rmi.port=9994" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" -jar greenlight-analytics-service.jar); }
-start-conversion() { (cd $CONVERSIONSVC_DIR && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9995" "-Dcom.sun.management.jmxremote.rmi.port=9995" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.convert.ConversionApplication); }
-start-history() { (cd $AHSVC_DIR && \cp -vf logback.xml target/ && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9991" "-Dcom.sun.management.jmxremote.rmi.port=9991" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.camel.CamelMain); }
-start-auth() { (cd $AUTHZSVC_DIR && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9992" "-Dcom.sun.management.jmxremote.rmi.port=9992" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" "${COMMON_OPTIONS[@]}" com.greenlight.idm.CamelMain); }
-start-impact() { (cd $IMPACTSVC_DIR && java "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.port=9993" "-Dcom.sun.management.jmxremote.rmi.port=9993" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.ssl=false" -jar target/greenlight-impact-service.jar); }
+start-analytics() { (cd $ANALYTICSSVC_DIR/target && java  -jar greenlight-analytics-service.jar); }
+start-conversion() { (cd $CONVERSIONSVC_DIR && java  "${COMMON_OPTIONS[@]}" com.greenlight.convert.ConversionApplication); }
+start-history() { (cd $AHSVC_DIR && \cp -vf ../logback.xml target/ && java "${COMMON_OPTIONS[@]}" com.greenlight.camel.CamelMain); }
+start-auth() { (cd $AUTHZSVC_DIR && java "${COMMON_OPTIONS[@]}" com.greenlight.camel.CamelMain); }
+start-impact() { (cd $IMPACTSVC_DIR && java "${COMMON_OPTIONS[@]}" -jar target/greenlight-impact-service.jar); }
 start-client() { (cd $CLIENT_DIR && npm start); }
 
 ggrmemails () {
