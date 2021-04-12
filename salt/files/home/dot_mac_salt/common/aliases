@@ -18,6 +18,8 @@ CONVERSIONSVC_DIR="$REPO_DIR/gg-conversion-service"
 AUTHNSVC_DIR="$REPO_DIR/gg-authentication-service"
 ORGSVC_DIR="$REPO_DIR/gg-organization-service"
 
+
+alias b="cd $HOME/Dropbox/local/bin"
 alias dev="cd $HOME/dev"
 alias d="dev"
 alias da="cd $HOME/dev_alt"
