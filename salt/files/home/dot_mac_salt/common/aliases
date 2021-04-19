@@ -71,6 +71,7 @@ start-conversion() { (cd $CONVERSIONSVC_DIR && java  "${COMMON_OPTIONS[@]}" com.
 start-history() { (cd $AHSVC_DIR && \cp -vf ../logback.xml target/ && java "${COMMON_OPTIONS[@]}" com.greenlight.camel.CamelMain); }
 start-auth() { (cd $AUTHZSVC_DIR && java "${COMMON_OPTIONS[@]}" com.greenlight.camel.CamelMain); }
 start-impact() { (cd $IMPACTSVC_DIR && java "${COMMON_OPTIONS[@]}" -jar target/greenlight-impact-service.jar); }
+start-org() { (cd $ORGSVC_DIR && java "${COMMON_OPTIONS[@]}" -jar target/organization-management-runner.jar); }
 start-client() { (cd $CLIENT_DIR && npm start); }
 
 ggrmemails () {
