@@ -2,7 +2,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME=""
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(git-prompt battery timer)
 
@@ -35,9 +35,9 @@ if [ -f $CONFIGDIR/common/git_functions ]; then
 	source $CONFIGDIR/common/git_functions
 fi
 
-if [ -f $CONFIGDIR/zsh/lintern.zsh-theme ]; then
-	source $CONFIGDIR/zsh/lintern.zsh-theme
-fi
+# if [ -f $CONFIGDIR/zsh/lintern.zsh-theme ]; then
+# 	source $CONFIGDIR/zsh/lintern.zsh-theme
+# fi
 
 if [ -d "$HOME/Dropbox/local/bin" ] ; then
   PATH="$PATH:$HOME/Dropbox/local/bin"
